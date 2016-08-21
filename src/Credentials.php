@@ -22,7 +22,7 @@ class Credentials
     protected $accessToken;
 
     /**
-     * @var string
+     * @var bool
      */
     protected $refreshToken;
 
