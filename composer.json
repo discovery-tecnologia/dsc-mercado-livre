@@ -1,0 +1,34 @@
+{
+  "name": "dsc/mercado-livre",
+  "description": "Client para integração com API do Mercado Livre",
+  "type": "library",
+  "authors": [
+    {
+      "name": "Diego Wagner",
+      "email": "diegowagner4@gmail.com"
+    },
+    {
+      "name": "André Luiz Haag",
+      "email": "andreluizhaag@gmail.com"
+    }
+  ],
+  "keywords": [
+    "API",
+    "Mercadolivre",
+    "Mercadolibre",
+    "Integração"
+  ],
+  "require": {
+    "php": ">=5.5",
+    "guzzlehttp/guzzle": "~6.0",
+    "doctrine/collections": "~1.2@dev"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "5.5.*"
+  },
+  "autoload": {
+    "psr-4": {
+      "Dsc\\MercadoLivre\\": ["src", "test"]
+    }
+  }
+}
