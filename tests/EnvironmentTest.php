@@ -2,6 +2,7 @@
 namespace Dsc\MercadoLivre;
 
 use Dsc\MercadoLivre\Environments\Production;
+use Dsc\MercadoLivre\Environments\Test;
 
 /**
  * @author Diego Wagner <diegowagner4@gmail.com>
@@ -21,7 +22,7 @@ class EnvironmentTest extends \PHPUnit_Framework_TestCase
         $this->environment = $this->getMockForAbstractClass(Environment::class);
 
         $this->environment->expects($this->any())
-             ->method('getHost')
+             ->method('getWsAuth')
              ->willReturn('test.com');
 
         $this->environment->expects($this->any())
@@ -34,6 +35,30 @@ class EnvironmentTest extends \PHPUnit_Framework_TestCase
      */
     public function isValidShouldReturnTrueWhenHostIsProduction()
     {
-        $this->assertTrue(Environment::isValid(Production::WS_HOST));
+        $this->assertTrue(Environment::isWsHostValid(Production::WS_HOST));
+    }
+
+    /**
+     * @test
+     */
+    public function isValidShouldReturnTrueWhenHostIsTest()
+    {
+        $this->assertTrue(Environment::isWsHostValid(Test::WS_HOST));
+    }
+
+    /**
+     * @test
+     */
+    public function isValidShouldReturnTrueWhenRegionExistsInEnvironments()
+    {
+        $this->assertTrue(Environment::isWsAuthValid("MLB"));
+    }
+
+    /**
+     * @test
+     */
+    public function isValidShouldReturnFalseWhenRegionNotExistsInEnvironments()
+    {
+        $this->assertFalse(Environment::isWsAuthValid("AAA"));
     }
 }

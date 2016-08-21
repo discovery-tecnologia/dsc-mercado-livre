@@ -6,7 +6,7 @@ use Dsc\MercadoLivre\Environment;
 /**
  * @author Diego Wagner <diegowagner4@gmail.com>
  */
-class Production extends Environment
+class Test extends Environment
 {
     const WS_HOST   = 'https://api.mercadolibre.com';
     //const WS_AUTH   = 'http://auth.mercadolivre.com.br/authorization';

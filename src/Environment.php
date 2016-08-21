@@ -2,6 +2,7 @@
 namespace Dsc\MercadoLivre;
 
 use Dsc\MercadoLivre\Environments\Production;
+use Dsc\MercadoLivre\Environments\Test;
 
 /**
  * @author Diego Wagner <diegowagner4@gmail.com>
@@ -13,19 +14,18 @@ abstract class Environment
      *
      * @return boolean
      */
-    public static function isValid($host)
+    public static function isWsHostValid($host)
     {
-        return in_array($host, [Production::WS_HOST]);
+        return in_array($host, [Production::WS_HOST, Test::WS_HOST]);
     }
 
     /**
-     * @param string $host
-     *
-     * @return boolean
+     * @param $region
+     * @return bool
      */
-    public static function isValidAuth($host)
+    public static function isWsAuthValid($region)
     {
-        return in_array($host, [Production::WS_HOST]);
+        return (array_key_exists($region, Production::$WS_AUTH) && array_key_exists($region, Test::$WS_AUTH));
     }
 
     /**
@@ -39,13 +39,13 @@ abstract class Environment
     }
 
     /**
-     * @param string $resource
-     *
+     * @param $region
+     * @param $resource
      * @return string
      */
-    public function getAuthUrl($resource)
+    public function getAuthUrl($region, $resource)
     {
-        return $this->getWsAuth() . $resource;
+        return $this->getWsAuth($region) . $resource;
     }
 
     /**
