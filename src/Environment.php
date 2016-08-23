@@ -43,7 +43,7 @@ abstract class Environment
      * @param $resource
      * @return string
      */
-    public function getAuthUrl($region, $resource)
+    public function getAuthUrl($region, $resource = null)
     {
         return $this->getWsAuth($region) . $resource;
     }

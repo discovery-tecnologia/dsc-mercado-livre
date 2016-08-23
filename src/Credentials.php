@@ -1,5 +1,6 @@
 <?php
 namespace Dsc\MercadoLivre;
+use Dsc\MercadoLivre\Environments\Production;
 
 /**
  * @author Diego Wagner <diegowagner4@gmail.com>
@@ -9,28 +10,37 @@ class Credentials
     /**
      * @var string
      */
-    protected $clientId;
+    protected $meli;
 
     /**
-     * @var string
+     * @var Production
      */
-    protected $clientSecret;
+    protected $environment;
 
     /**
-     * @var string
+     * Credentials constructor.
+     * @param MeliInterface $meli
+     * @param Environment|null $environment
      */
-    protected $accessToken;
-
-    /**
-     * @var bool
-     */
-    protected $refreshToken;
-
-    public function __construct($clientId, $clientSecret, $accessToken = null, $refreshToken = null)
+    public function __construct(MeliInterface $meli, Environment $environment = null)
     {
-        $this->clientId     = $clientId;
-        $this->clientSecret = $clientSecret;
-        $this->accessToken  = $accessToken;
-        $this->refreshToken = $refreshToken;
+        $this->meli = $meli;
+        $this->environment = $environment ?: new Production();
+    }
+
+    /**
+     * @return MeliInterface|string
+     */
+    public function getCredential()
+    {
+        return $this->meli;
+    }
+
+    /**
+     * @return Environment
+     */
+    public function getEnvironment()
+    {
+        return $this->environment;
     }
 }

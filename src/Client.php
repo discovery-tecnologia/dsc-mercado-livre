@@ -9,6 +9,17 @@ use GuzzleHttp\Client as HttpClient;
 class Client
 {
     /**
+     * Configuration for CURL
+     */
+    public static $CURL_OPTS = [
+        CURLOPT_USERAGENT      => "MELI-PHP-SDK-1.1.0",
+        CURLOPT_SSL_VERIFYPEER => true,
+        CURLOPT_CONNECTTIMEOUT => 10,
+        CURLOPT_RETURNTRANSFER => 1,
+        CURLOPT_TIMEOUT        => 60
+    ];
+
+    /**
      * @var HttpClient
      */
     private $client;
@@ -30,8 +41,8 @@ class Client
             $url,
             [
                 'headers' => ['Content-Type' => 'application/xml; charset=UTF-8'],
-                'body' => $body->asXML(),
-                'verify' => false
+                'body'    => $body->asXML(),
+                'verify'  => false
             ]
         );
         return $response->xml();
