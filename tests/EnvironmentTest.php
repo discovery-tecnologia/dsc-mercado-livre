@@ -23,11 +23,29 @@ class EnvironmentTest extends \PHPUnit_Framework_TestCase
 
         $this->environment->expects($this->any())
              ->method('getWsAuth')
-             ->willReturn('test.com');
+             ->willReturn('ws.auth.test.com');
 
         $this->environment->expects($this->any())
              ->method('getWsHost')
              ->willReturn('ws.test.com');
+    }
+
+    /**
+     * @test
+     */
+    public function returnCorrectWSUrlWhenHostIsProduction()
+    {
+        $url = $this->environment->getWsUrl('/resource');
+        $this->assertEquals('ws.test.com/resource', $url);
+    }
+
+    /**
+     * @test
+     */
+    public function returnCorrectAuthUrlWhenHostIsProduction()
+    {
+        $url = $this->environment->getAuthUrl('MLB', '/auth');
+        $this->assertEquals('ws.auth.test.com/auth', $url);
     }
 
     /**

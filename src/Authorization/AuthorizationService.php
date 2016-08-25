@@ -14,10 +14,11 @@ class AuthorizationService extends Service
     private $redirectUri;
 
     /**
-     * @param $redirectUri
+     * @param string $resource
+     * @param string $redirectUri
      * @return string
      */
-    public function getAuthUrl($redirectUri)
+    public function getAuthUrl($resource, $redirectUri)
     {
         $this->redirectUri = $redirectUri;
         $credential = $this->credentials->getCredential();
@@ -26,6 +27,6 @@ class AuthorizationService extends Service
             "response_type" => "code",
             "redirect_uri"  => $redirectUri
         ];
-        return $this->credentials->getEnvironment()->getAuthUrl('MLB') . "?" . http_build_query($params);
+        return $this->credentials->getEnvironment()->getAuthUrl('MLB', $resource) . "?" . http_build_query($params);
     }
 }

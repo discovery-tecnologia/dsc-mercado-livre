@@ -10,6 +10,8 @@ use Dsc\MercadoLivre\MeliInterface;
  */
 class AuthorizationServiceTest extends \PHPUnit_Framework_TestCase
 {
+    private $credentials;
+    private $client;
     /**
      * @var AuthorizationService
      */
@@ -34,35 +36,32 @@ class AuthorizationServiceTest extends \PHPUnit_Framework_TestCase
              ->method('getRefreshToken')
              ->willReturn('refreshtoken');
 
-        $environment = $this->getMockForAbstractClass(Environment::class);
-        $environment->expects($this->any())
-                    ->method('getWsAuth')
-                    ->willReturn('ws.auth.test.com');
+        $environment = $this->createMock(Environment::class);
         $environment->expects($this->any())
                     ->method('getAuthUrl')
-                    ->willReturn('ws.auth.test.com');
+                    ->willReturn('ws.auth.test.com/authorize');
 
-        $client = $this->createMock(Client::class);
-        $credentials = new Credentials($meli, $environment);
+        $this->client = $this->createMock(Client::class);
+        $this->credentials = new Credentials($meli, $environment);
 
-        $this->service = new AuthorizationService($credentials, $client);
+        $this->service = new AuthorizationService($this->credentials, $this->client);
     }
 
-//    /**
-//     * @test
-//     */
-//    public function constructShouldConfigureTheAttributes()
-//    {
-//        $this->assertAttributeEquals(Credentials::class, 'credentials', $this->service);
-//        $this->assertAttributeEquals(Client::class, 'client', $this->service);
-//    }
+    /**
+     * @test
+     */
+    public function constructShouldConfigureTheAttributes()
+    {
+        $this->assertAttributeSame($this->credentials, 'credentials', $this->service);
+        $this->assertAttributeSame($this->client, 'client', $this->service);
+    }
 
     /**
      * @test
      */
     public function getAuthUrlShouldReturnTheCorrectUrl()
     {
-        $url = $this->service->getAuthUrl('http://example.org');
-        $this->assertEquals('ws.auth.test.com/authorize?client_id=clientid&response_type=code&redirect_uri=http://example.org', $url);
+        $url = $this->service->getAuthUrl('/authorize', 'example.org');
+        $this->assertEquals('ws.auth.test.com/authorize?client_id=clientid&response_type=code&redirect_uri=example.org', $url);
     }
 }
