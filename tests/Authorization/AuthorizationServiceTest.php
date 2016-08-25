@@ -1,5 +1,6 @@
 <?php
 namespace Dsc\MercadoLivre\Authorization;
+
 use Dsc\MercadoLivre\Client;
 use Dsc\MercadoLivre\Credentials;
 use Dsc\MercadoLivre\Environment;
@@ -10,8 +11,16 @@ use Dsc\MercadoLivre\MeliInterface;
  */
 class AuthorizationServiceTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @var Credentials
+     */
     private $credentials;
+
+    /**
+     * @var Client
+     */
     private $client;
+
     /**
      * @var AuthorizationService
      */

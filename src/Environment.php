@@ -54,6 +54,11 @@ abstract class Environment
     abstract public function getWsHost();
 
     /**
+     * @return string
+     */
+    abstract public function getOAuthUri();
+
+    /**
      * @param $region
      * @return mixed
      */

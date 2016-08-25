@@ -24,28 +24,29 @@ class Client
      */
     private $client;
 
+    /**
+     * Client constructor.
+     * @param HttpClient|null $client
+     */
     public function __construct(HttpClient $client = null)
     {
         $this->client = $client ?: new HttpClient();
     }
 
     /**
-     * @param string $url
-     * @param \SimpleXMLElement $body
-     *
-     * @return \SimpleXMLElement
+     * @param $url
+     * @param array $body
+     * @return \Psr\Http\Message\ResponseInterface
      */
-    public function post($url, \SimpleXMLElement $body)
+    public function post($url, array $body)
     {
-        $response = $this->client->post(
-            $url,
-            [
-                'headers' => ['Content-Type' => 'application/xml; charset=UTF-8'],
-                'body'    => $body->asXML(),
+        return $this->client->post(
+            $url, [
+                'headers' => ['Content-Type' => 'application/json; charset=UTF-8'],
+                'body'    => $body,
                 'verify'  => false
             ]
         );
-        return $response->xml();
     }
     /**
      * @param string $url
@@ -55,6 +56,6 @@ class Client
     public function get($url)
     {
         $response = $this->client->get($url, ['verify' => false]);
-        return $response->xml();
+        return $response->json();
     }
 }

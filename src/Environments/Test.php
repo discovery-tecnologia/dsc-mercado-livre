@@ -38,6 +38,14 @@ class Test extends Environment
     /**
      * {@inheritdoc}
      */
+    public function getOAuthUri()
+    {
+        return static::OAUTH_URI;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function getWsAuth($region)
     {
         if(! static::isWsAuthValid($region)) {

@@ -28,6 +28,10 @@ class EnvironmentTest extends \PHPUnit_Framework_TestCase
         $this->environment->expects($this->any())
              ->method('getWsHost')
              ->willReturn('ws.test.com');
+
+        $this->environment->expects($this->any())
+             ->method('getOAuthUri')
+             ->willReturn('/oauth');
     }
 
     /**
@@ -46,6 +50,24 @@ class EnvironmentTest extends \PHPUnit_Framework_TestCase
     {
         $url = $this->environment->getAuthUrl('MLB', '/auth');
         $this->assertEquals('ws.auth.test.com/auth', $url);
+    }
+
+    /**
+     * @test
+     */
+    public function returnCorrectOAuthUrlWhenHostIsProduction()
+    {
+        $url = $this->environment->getOAuthUri();
+        $this->assertEquals('/oauth', $url);
+    }
+
+    /**
+     * @test
+     */
+    public function returnCorrectOAuthUrlWhenHostIsTest()
+    {
+        $url = $this->environment->getOAuthUri();
+        $this->assertEquals('/oauth', $url);
     }
 
     /**
