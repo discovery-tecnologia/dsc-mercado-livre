@@ -64,19 +64,19 @@ class AuthorizationService extends Service
     {
         $credential = $this->credentials->getCredential();
         if(! $credential->getRefreshToken()) {
-            $result = array(
+            $result = [
                 'error'    => 'Offline-Access is not allowed.',
                 'httpCode' => null
-            );
+            ];
             return $result;
         }
 
-        $body = array(
+        $body = [
             "grant_type"    => "refresh_token",
             "client_id"     => $credential->getClientId(),
             "client_secret" => $credential->getClientSecret(),
             "refresh_token" => $credential->getRefreshToken()
-        );
+        ];
 
         return $this->send($body);
     }

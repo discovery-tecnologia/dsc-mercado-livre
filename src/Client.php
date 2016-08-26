@@ -40,7 +40,8 @@ class Client
      */
     public function post($url, array $body)
     {
-        return $this->client->post(
+        return $this->client->request(
+            'POST',
             $url, [
                 'headers' => ['Content-Type' => 'application/json; charset=UTF-8'],
                 'body'    => $body,
