@@ -49,14 +49,13 @@ class Client
             ]
         );
     }
+
     /**
      * @param string $url
-     *
-     * @return \SimpleXMLElement
+     * @return \Psr\Http\Message\ResponseInterface
      */
     public function get($url)
     {
-        $response = $this->client->get($url, ['verify' => false]);
-        return $response->json();
+        return $this->client->request('GET', $url, ['verify' => false]);
     }
 }

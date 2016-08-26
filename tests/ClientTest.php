@@ -32,7 +32,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $this->response   = $this->createMock(Response::class);
         $this->response->expects($this->any())
              ->method('getBody')
-             ->willReturn([]);
+             ->willReturn(['result' => true]);
     }
 
     /**
@@ -47,7 +47,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function postShouldSendTheBodyAsXml()
+    public function postShouldSendTheBodyAsArray()
     {
         $client = new Client($this->httpClient);
         $body = [
@@ -66,8 +66,23 @@ class ClientTest extends \PHPUnit_Framework_TestCase
                     'verify' => false
                 ]
              )->willReturn($this->response);
-        //$this->assertInstanceOf('SimpleXMLElement', $client->post('/test', $xml));
+
         $response = $client->post('/test', $body);
-        $this->assertEquals([], $response->getBody());
+        $this->assertEquals(['result' => true], $response->getBody());
+    }
+
+    /**
+     * @test
+     */
+    public function getShouldConfigureHeaders()
+    {
+        $client = new Client($this->httpClient);
+        $this->httpClient->expects($this->once())
+             ->method('request')
+             ->with('GET', '/test?name=Test', ['verify' => false])
+             ->willReturn($this->response);
+
+        $response = $client->get('/test?name=Test');
+        $this->assertEquals(['result' => true], $response->getBody());
     }
 }
