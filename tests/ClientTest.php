@@ -38,7 +38,16 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function constructShouldAppendANewErrorListener()
+    public function constructShouldInstatiateHttpClient()
+    {
+        $client = new Client();
+        $this->assertAttributeEquals(new HttpClient(), 'client', $client);
+    }
+
+    /**
+     * @test
+     */
+    public function constructShouldReceiveHttpClient()
     {
         $client = new Client($this->httpClient);
         $this->assertAttributeSame($this->httpClient, 'client', $client);
