@@ -5,6 +5,7 @@ use Dsc\MercadoLivre\Client;
 use Dsc\MercadoLivre\Credentials;
 use Dsc\MercadoLivre\Environment;
 use Dsc\MercadoLivre\MeliInterface;
+use GuzzleHttp\Psr7\Response;
 
 /**
  * @author Diego Wagner <diegowagner4@gmail.com>
@@ -12,17 +13,17 @@ use Dsc\MercadoLivre\MeliInterface;
 class AuthorizationServiceTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var Credentials
+     * @var Credentials|\PHPUnit_Framework_MockObject_MockObject
      */
     private $credentials;
 
     /**
-     * @var Client
+     * @var Client|\PHPUnit_Framework_MockObject_MockObject
      */
     private $client;
 
     /**
-     * @var AuthorizationService
+     * @var AuthorizationService|\PHPUnit_Framework_MockObject_MockObject
      */
     private $service;
 
@@ -40,10 +41,6 @@ class AuthorizationServiceTest extends \PHPUnit_Framework_TestCase
         $meli->expects($this->any())
              ->method('getAccessToken')
              ->willReturn('accesstoken');
-
-        $meli->expects($this->any())
-             ->method('getRefreshToken')
-             ->willReturn('refreshtoken');
 
         $environment = $this->createMock(Environment::class);
         $environment->expects($this->any())
@@ -72,5 +69,38 @@ class AuthorizationServiceTest extends \PHPUnit_Framework_TestCase
     {
         $url = $this->service->getAuthUrl('/authorize', 'example.org');
         $this->assertEquals('ws.auth.test.com/authorize?client_id=clientid&response_type=code&redirect_uri=example.org', $url);
+    }
+
+    /**
+     * @test
+     */
+    public function authorizeMethodShouldReturnTrue()
+    {
+        $response = $this->createMock(Response::class);
+        $response->expects($this->any())
+                 ->method('getStatusCode')
+                 ->willReturn(200);
+        $response->expects($this->any())
+                 ->method('getBody')
+                 ->willReturn(['result' => true]);
+
+        $this->client->expects($this->any())
+             ->method('post')
+             ->willReturn($response);
+
+        $result = $this->service->authorize('/authorize', 'example.org');
+        $this->assertEquals(['result' => true], $result);
+    }
+
+    /**
+     * @test
+     */
+    public function refreshTokenMethodShouldReturnIsNotAllowedCaseRefreshTokenIsNull()
+    {
+        $result = $this->service->refreshAccessToken();
+        $this->assertEquals([
+            'error'    => 'Offline-Access is not allowed.',
+            'httpCode' => null
+        ], $result);
     }
 }
