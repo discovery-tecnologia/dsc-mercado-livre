@@ -45,7 +45,7 @@ class AuthorizationService extends Service
         }
 
         $credential = $this->credentials->getCredential();
-        $body = [
+        $params = [
             "grant_type"    => "authorization_code",
             "client_id"     => $credential->getClientId(),
             "client_secret" => $credential->getClientSecret(),
@@ -54,7 +54,7 @@ class AuthorizationService extends Service
         ];
 
         $oAuthUri = $this->credentials->getEnvironment()->getOAuthUri();
-        return $this->post($oAuthUri, $body);
+        return $this->post($oAuthUri, $params);
     }
 
     /**
@@ -72,7 +72,7 @@ class AuthorizationService extends Service
             return $result;
         }
 
-        $body = [
+        $params = [
             "grant_type"    => "refresh_token",
             "client_id"     => $credential->getClientId(),
             "client_secret" => $credential->getClientSecret(),
@@ -80,8 +80,6 @@ class AuthorizationService extends Service
         ];
 
         $oAuthUri = $this->credentials->getEnvironment()->getOAuthUri();
-        return $this->post($oAuthUri, $body);
+        return $this->post($oAuthUri, $params);
     }
-
-
 }

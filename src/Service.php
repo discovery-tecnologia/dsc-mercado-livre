@@ -27,12 +27,12 @@ class Service
 
     /**
      * @param string $url
-     * @param array $body
+     * @param array $params
      * @return StreamInterface
      */
-    protected function post($url, array $body)
+    protected function post($url, array $params)
     {
-        $response = $this->client->post($url, $body);
+        $response = $this->client->post($url, $params);
         if($response->getStatusCode() == 200) {
             return $response->getBody();
         }
