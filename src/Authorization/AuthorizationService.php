@@ -53,7 +53,8 @@ class AuthorizationService extends Service
             "redirect_uri"  => $redirectUri
         ];
 
-        return $this->send($body);
+        $oAuthUri = $this->credentials->getEnvironment()->getOAuthUri();
+        return $this->post($oAuthUri, $body);
     }
 
     /**
@@ -78,20 +79,9 @@ class AuthorizationService extends Service
             "refresh_token" => $credential->getRefreshToken()
         ];
 
-        return $this->send($body);
-    }
-
-    /**
-     * @param array $body
-     * @return StreamInterface
-     */
-    public function send(array $body)
-    {
         $oAuthUri = $this->credentials->getEnvironment()->getOAuthUri();
-        $response = $this->client->post($oAuthUri, $body);
-
-        if($response->getStatusCode() == 200) {
-            return $response->getBody();
-        }
+        return $this->post($oAuthUri, $body);
     }
+
+
 }

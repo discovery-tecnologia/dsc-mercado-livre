@@ -1,6 +1,8 @@
 <?php
 namespace Dsc\MercadoLivre;
 
+use Psr\Http\Message\StreamInterface;
+
 class Service
 {
     /**
@@ -21,5 +23,18 @@ class Service
     {
         $this->credentials = $credentials;
         $this->client      = $client ?: new Client();
+    }
+
+    /**
+     * @param string $url
+     * @param array $body
+     * @return StreamInterface
+     */
+    protected function post($url, array $body)
+    {
+        $response = $this->client->post($url, $body);
+        if($response->getStatusCode() == 200) {
+            return $response->getBody();
+        }
     }
 }
