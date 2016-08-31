@@ -103,4 +103,13 @@ class AuthorizationServiceTest extends \PHPUnit_Framework_TestCase
             'httpCode' => null
         ], $result);
     }
+
+    /**
+     * @expectedException \Dsc\MercadoLivre\Authorization\AuthorizationException;
+     * @expectedExceptionMessage User not authenticate.
+     */
+    public function accessTokenShouldReturnUserNotAuthenticateCaseNotExistsCodeOrAccessToken()
+    {
+        $this->service->getAccessToken();
+    }
 }
