@@ -112,4 +112,32 @@ class AuthorizationServiceTest extends \PHPUnit_Framework_TestCase
     {
         $this->service->getAccessToken();
     }
+
+//    /**
+//     * @test
+//     */
+//    public function getAccessTokenShouldSaveDataInCache()
+//    {
+//        $response = $this->createMock(Response::class);
+//        $response->expects($this->any())
+//            ->method('getStatusCode')
+//            ->willReturn(200);
+//
+//        $std = new \stdClass();
+//        $std->access_token  = 'token';
+//        $std->refresh_token = 'refresh';
+//        $std->expires_in = 0;
+//
+//        $this->credentials->getCredential()->setRefreshToken('refresh');
+//        $response->expects($this->any())
+//            ->method('getBody')
+//            ->willReturn(['httpCode' => 200, 'body' => $std]);
+//
+//        $this->client->expects($this->any())
+//             ->method('post')
+//             ->willReturn($response);
+//
+//        $result = $this->service->getAccessToken('codetest');
+//        $this->assertEquals(['result' => true], $result);
+//    }
 }

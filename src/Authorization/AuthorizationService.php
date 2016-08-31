@@ -113,31 +113,24 @@ class AuthorizationService extends Service
             throw new AuthorizationException('User not authenticate.');
         }
 
-        // Se existe o parametro code e a sessao esta vazia
-        if($code && !($accessToken))  {
-
-            // faz um pedido de autorizacao a API
-            $response = $this->authorize($code, '/mercado-livre/autorize/');
-            $this->processResponseAndCached($response);
-            $credential->setAccessToken($response['body']->access_token);
-            $credential->setRefreshToken($response['body']->refresh_token);
-
-        } else {
-
-            // se o token de acesso expirou
-            if($this->cache->fetch('expires_in') < time()) {
-                try {
-                    // Make the refresh proccess
-                    $response = $this->refreshAccessToken();
-                    $this->processResponseAndCached($response);
-                    $credential->setAccessToken($response['body']->access_token);
-                    $credential->setRefreshToken($response['body']->refresh_token);
-
-                } catch (\Exception $e) {
-                    throw new AuthorizationException($e->getMessage());
-                }
+        if($this->cache->contains('expires_in')) {
+            if($this->cache->fetch('expires_in') >= time()) {
+                return true;
             }
         }
+
+        // Se existe o parametro code e o cache está vazio
+        if($code && !($accessToken))  {
+            // faz um pedido de autorizacao a API
+            $response = $this->authorize($code, '/mercado-livre/autorize/');
+        } else {
+            // Make the refresh proccess
+            $response = $this->refreshAccessToken();
+        }
+
+        $this->processResponseAndCached($response);
+        $credential->setAccessToken($response['body']->access_token);
+        $credential->setRefreshToken($response['body']->refresh_token);
 
         return $this->cache->fetch('access_token');
     }
