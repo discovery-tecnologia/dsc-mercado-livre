@@ -19,5 +19,4 @@ class Site
     const PERU       = 'MPE';
     const PORTUGAL   = 'MPT';
     const DOMINICANA = 'MRD';
-
 }

@@ -51,7 +51,7 @@ class AuthorizationService extends Service
      * @param null $redirectUri
      * @return StreamInterface
      */
-    public function getAuthorizationCode($region, $redirectUri = null)
+    public function getAuthorizationCode($redirectUri = null)
     {
         if($redirectUri) {
             $this->getCredential()->setRefreshToken($redirectUri);
@@ -64,7 +64,7 @@ class AuthorizationService extends Service
             "redirect_uri"  => $redirectUri
         ];
 
-        $wsUrl = sprintf('%s/%s', $this->getEnvironment()->getWsAuth($region), 'authorization');
+        $wsUrl = sprintf('%s/%s', $this->getEnvironment()->getWsAuth($credential->getSiteId()), 'authorization');
         return $this->get($wsUrl, $params);
     }
 

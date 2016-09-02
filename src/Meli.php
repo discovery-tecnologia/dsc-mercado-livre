@@ -19,6 +19,11 @@ class Meli implements MeliInterface
     /**
      * @var string
      */
+    protected $siteId;
+
+    /**
+     * @var string
+     */
     protected $accessToken;
 
     /**
@@ -26,10 +31,11 @@ class Meli implements MeliInterface
      */
     protected $refreshToken;
 
-    public function __construct($clientId, $clientSecret, $accessToken = null, $refreshToken = null)
+    public function __construct($clientId, $clientSecret, $siteId, $accessToken = null, $refreshToken = null)
     {
         $this->clientId     = $clientId;
         $this->clientSecret = $clientSecret;
+        $this->siteId       = $siteId;
         $this->accessToken  = $accessToken;
         $this->refreshToken = $refreshToken;
     }
@@ -64,6 +70,22 @@ class Meli implements MeliInterface
     public function setClientSecret($clientSecret)
     {
         $this->clientSecret = $clientSecret;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSiteId()
+    {
+        return $this->siteId;
+    }
+
+    /**
+     * @param string $siteId
+     */
+    public function setSiteId($siteId)
+    {
+        $this->siteId = $siteId;
     }
 
     /**
