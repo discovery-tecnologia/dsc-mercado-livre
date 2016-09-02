@@ -11,12 +11,12 @@ class Service implements ServiceInterface
     /**
      * @var Credentials
      */
-    protected $credentials;
+    private $credentials;
 
     /**
      * @var Client
      */
-    protected $client;
+    private $client;
 
     /**
      * @param Credentials $credentials
@@ -26,6 +26,22 @@ class Service implements ServiceInterface
     {
         $this->credentials = $credentials;
         $this->client      = $client ?: new Client();
+    }
+
+    /**
+     * @return MeliInterface|string
+     */
+    public function getCredential()
+    {
+        return $this->credentials->getCredential();
+    }
+
+    /**
+     * @return Environment
+     */
+    public function getEnvironment()
+    {
+        return $this->credentials->getEnvironment();
     }
 
     /**

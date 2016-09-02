@@ -37,13 +37,13 @@ class AuthorizationService extends Service
     public function getAuthUrl($resource, $redirectUri)
     {
         $this->redirectUri = $redirectUri;
-        $credential = $this->credentials->getCredential();
+        $credential = $this->getCredential();
         $params = [
             "client_id"     => $credential->getClientId(),
             "response_type" => "code",
             "redirect_uri"  => $redirectUri
         ];
-        return $this->credentials->getEnvironment()->getAuthUrl('MLB', $resource) . "?" . http_build_query($params);
+        return $this->getEnvironment()->getAuthUrl('MLB', $resource) . "?" . http_build_query($params);
     }
 
     /**
@@ -56,10 +56,10 @@ class AuthorizationService extends Service
     public function authorize($code, $redirectUri = null)
     {
         if($redirectUri) {
-            $this->credentials->getCredential()->setRefreshToken($redirectUri);
+            $this->getCredential()->setRefreshToken($redirectUri);
         }
 
-        $credential = $this->credentials->getCredential();
+        $credential = $this->getCredential();
         $params = [
             "grant_type"    => "authorization_code",
             "client_id"     => $credential->getClientId(),
@@ -68,7 +68,7 @@ class AuthorizationService extends Service
             "redirect_uri"  => $redirectUri
         ];
 
-        $oAuthUri = $this->credentials->getEnvironment()->getOAuthUri();
+        $oAuthUri = $this->getEnvironment()->getOAuthUri();
         return $this->post($oAuthUri, $params);
     }
 
@@ -78,7 +78,7 @@ class AuthorizationService extends Service
      */
     public function refreshAccessToken()
     {
-        $credential = $this->credentials->getCredential();
+        $credential = $this->getCredential();
         if(! $credential->getRefreshToken()) {
             $result = [
                 'error'    => 'Offline-Access is not allowed.',
@@ -94,7 +94,7 @@ class AuthorizationService extends Service
             "refresh_token" => $credential->getRefreshToken()
         ];
 
-        $oAuthUri = $this->credentials->getEnvironment()->getOAuthUri();
+        $oAuthUri = $this->getEnvironment()->getOAuthUri();
         return $this->post($oAuthUri, $params);
     }
 
@@ -106,7 +106,7 @@ class AuthorizationService extends Service
     public function getAccessToken($code = null)
     {
         $accessToken = $this->cache->fetch('access_token');
-        $credential  = $this->credentials->getCredential();
+        $credential  = $this->getCredential();
         //$accessToken = $credential->getAccessToken();
         // se existir o parametro code ou um token de acesso na sessao
         if(!$code && !$accessToken) {
@@ -148,5 +148,18 @@ class AuthorizationService extends Service
         $this->cache->save('access_token', $response['body']->access_token);
         $this->cache->save('expires_in', time() + $response['body']->expires_in);
         $this->cache->save('refresh_token', $response['body']->refresh_token);
+    }
+
+    /**
+     * @return mixed
+     * @throws \Exception
+     */
+    public function isAuthorized()
+    {
+        try {
+            return $this->getAccessToken();
+        } catch (\Exception $e){
+            throw $e;
+        }
     }
 }
