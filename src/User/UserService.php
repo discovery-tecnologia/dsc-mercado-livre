@@ -12,8 +12,8 @@ class UserService extends Service
     {
         try{
 
-            $oAuthUri = $this->getEnvironment()->getWsHost();
-            //$this->get('/users');
+            $url = $this->getEnvironment()->getWsHost();
+            $this->get($url . '/users');
 
         }catch (\Exception $e){
             return false;

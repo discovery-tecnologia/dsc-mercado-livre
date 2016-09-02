@@ -12,19 +12,19 @@ class Test extends Environment
     //const WS_AUTH   = 'http://auth.mercadolivre.com.br/authorization';
     const OAUTH_URI = '/oauth/token';
     public static $WS_AUTH = [
-        "MLA" => "https://auth.mercadolibre.com.ar", // Argentina
-        "MLB" => "https://auth.mercadolivre.com.br", // Brasil
-        "MCO" => "https://auth.mercadolibre.com.co", // Colombia
-        "MCR" => "https://auth.mercadolibre.com.cr", // Costa Rica
-        "MEC" => "https://auth.mercadolibre.com.ec", // Ecuador
-        "MLC" => "https://auth.mercadolibre.cl",     // Chile
-        "MLM" => "https://auth.mercadolibre.com.mx", // Mexico
-        "MLU" => "https://auth.mercadolibre.com.uy", // Uruguay
-        "MLV" => "https://auth.mercadolibre.com.ve", // Venezuela
-        "MPA" => "https://auth.mercadolibre.com.pa", // Panama
-        "MPE" => "https://auth.mercadolibre.com.pe", // Peru
-        "MPT" => "https://auth.mercadolibre.com.pt", // Portugal
-        "MRD" => "https://auth.mercadolibre.com.do"  // Dominicana
+        Site::ARGENTINA => "https://auth.mercadolibre.com.ar", // Argentina
+        Site::BRASIL    => "https://auth.mercadolivre.com.br", // Brasil
+        Site::COLOMBIA  => "https://auth.mercadolibre.com.co", // Colombia
+        Site::COSTA_RICA=> "https://auth.mercadolibre.com.cr", // Costa Rica
+        Site::EQUADOR   => "https://auth.mercadolibre.com.ec", // Ecuador
+        Site::CHILE     => "https://auth.mercadolibre.cl",     // Chile
+        Site::MEXICO    => "https://auth.mercadolibre.com.mx", // Mexico
+        Site::URUGUAI   => "https://auth.mercadolibre.com.uy", // Uruguay
+        Site::VENEZUELA => "https://auth.mercadolibre.com.ve", // Venezuela
+        Site::PANAMA    => "https://auth.mercadolibre.com.pa", // Panama
+        Site::PERU      => "https://auth.mercadolibre.com.pe", // Peru
+        Site::PORTUGAL  => "https://auth.mercadolibre.com.pt", // Portugal
+        Site::DOMINICANA=> "https://auth.mercadolibre.com.do"  // Dominicana
     ];
 
     /**

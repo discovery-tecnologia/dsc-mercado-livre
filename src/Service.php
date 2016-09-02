@@ -50,7 +50,10 @@ class Service implements ServiceInterface
      */
     public function get($url, array $params)
     {
-        // TODO: Implement get() method.
+        $response = $this->client->get($url, $params);
+        if($response->getStatusCode() == 200) {
+            return $response->getBody();
+        }
     }
 
     /**

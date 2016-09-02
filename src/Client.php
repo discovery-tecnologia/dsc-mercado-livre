@@ -52,10 +52,21 @@ class Client
 
     /**
      * @param string $url
+     * @param array $params
      * @return \Psr\Http\Message\ResponseInterface
      */
-    public function get($url)
+    public function get($url, array $params)
     {
-        return $this->client->request('GET', $url, ['verify' => false]);
+        if(!empty($params)) {
+            $url = $url.'?'.http_build_query($params, '', '&');
+        }
+
+        return $this->client->request(
+            'GET',
+            $url, [
+                'headers' => ['Content-Type' => 'application/json; charset=UTF-8'],
+                'verify'  => false
+            ]
+        );
     }
 }

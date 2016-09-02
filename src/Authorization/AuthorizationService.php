@@ -23,7 +23,7 @@ class AuthorizationService extends Service
      */
     private $redirectUri;
 
-    public function __construct(Credentials $credentials, Client $client, Cache $cache = null)
+    public function __construct(Credentials $credentials, Client $client = null, Cache $cache = null)
     {
         parent::__construct($credentials, $client);
         $this->cache = $cache ?: new FilesystemCache(sys_get_temp_dir());
@@ -44,6 +44,28 @@ class AuthorizationService extends Service
             "redirect_uri"  => $redirectUri
         ];
         return $this->getEnvironment()->getAuthUrl('MLB', $resource) . "?" . http_build_query($params);
+    }
+
+    /**
+     * @param $region
+     * @param null $redirectUri
+     * @return StreamInterface
+     */
+    public function getAuthorizationCode($region, $redirectUri = null)
+    {
+        if($redirectUri) {
+            $this->getCredential()->setRefreshToken($redirectUri);
+        }
+
+        $credential = $this->getCredential();
+        $params = [
+            "response_type" => "code",
+            "client_id"     => $credential->getClientId(),
+            "redirect_uri"  => $redirectUri
+        ];
+
+        $wsUrl = sprintf('%s/%s', $this->getEnvironment()->getWsAuth($region), 'authorization');
+        return $this->get($wsUrl, $params);
     }
 
     /**
