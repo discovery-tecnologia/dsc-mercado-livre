@@ -11,10 +11,11 @@ class MeliTest extends \PHPUnit_Framework_TestCase
      */
     public function constructShouldConfigureTheAttributes()
     {
-        $credentials = new Meli('clientid', 'clientsecret', 'accesstoken', 'refreshtoken');
-        $this->assertAttributeEquals('clientid', 'clientId', $credentials);
-        $this->assertAttributeEquals('clientsecret', 'clientSecret', $credentials);
-        $this->assertAttributeEquals('accesstoken', 'accessToken', $credentials);
-        $this->assertAttributeEquals('refreshtoken', 'refreshToken', $credentials);
+        $environment = $this->getMockForAbstractClass(Environment::class);
+
+        $meli = new Meli('client-id', 'client-secret', $environment);
+        $this->assertAttributeEquals('client-id', 'clientId', $meli);
+        $this->assertAttributeEquals('client-secret', 'clientSecret', $meli);
+        $this->assertInstanceOf(Environment::class, $meli->getEnvironment());
     }
 }

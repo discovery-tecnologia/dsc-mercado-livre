@@ -39,7 +39,7 @@ class AuthorizationService extends Service
         $this->redirectUri = $redirectUri;
         $credential = $this->getCredential();
         $params = [
-            "client_id"     => $credential->getClientId(),
+            "client_id"     => $credential->getMeli()->getClientId(),
             "response_type" => "code",
             "redirect_uri"  => $redirectUri
         ];
@@ -60,7 +60,7 @@ class AuthorizationService extends Service
         $credential = $this->getCredential();
         $params = [
             "response_type" => "code",
-            "client_id"     => $credential->getClientId(),
+            "client_id"     => $credential->getMeli()->getClientId(),
             "redirect_uri"  => $redirectUri
         ];
 
@@ -82,10 +82,12 @@ class AuthorizationService extends Service
         }
 
         $credential = $this->getCredential();
+        $meli       = $credential->getMeli();
+
         $params = [
             "grant_type"    => "authorization_code",
-            "client_id"     => $credential->getClientId(),
-            "client_secret" => $credential->getClientSecret(),
+            "client_id"     => $meli->getClientId(),
+            "client_secret" => $meli->getClientSecret(),
             "code"          => $code,
             "redirect_uri"  => $redirectUri
         ];
@@ -109,10 +111,11 @@ class AuthorizationService extends Service
             return $result;
         }
 
+        $meli = $credential->getMeli();
         $params = [
             "grant_type"    => "refresh_token",
-            "client_id"     => $credential->getClientId(),
-            "client_secret" => $credential->getClientSecret(),
+            "client_id"     => $meli->getClientId(),
+            "client_secret" => $meli->getClientSecret(),
             "refresh_token" => $credential->getRefreshToken()
         ];
 

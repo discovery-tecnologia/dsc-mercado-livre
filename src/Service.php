@@ -29,11 +29,11 @@ class Service implements ServiceInterface
     }
 
     /**
-     * @return MeliInterface|string
+     * @return Credentials
      */
     public function getCredential()
     {
-        return $this->credentials->getCredential();
+        return $this->credentials;
     }
 
     /**

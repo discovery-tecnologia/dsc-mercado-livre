@@ -4,6 +4,7 @@ namespace Dsc\MercadoLivre\Authorization;
 use Dsc\MercadoLivre\Client;
 use Dsc\MercadoLivre\Credentials;
 use Dsc\MercadoLivre\Environment;
+use Dsc\MercadoLivre\Environments\Site;
 use Dsc\MercadoLivre\MeliInterface;
 use GuzzleHttp\Psr7\Response;
 
@@ -38,17 +39,17 @@ class AuthorizationServiceTest extends \PHPUnit_Framework_TestCase
              ->method('getClientSecret')
              ->willReturn('clientsecret');
 
-        $meli->expects($this->any())
-             ->method('getAccessToken')
-             ->willReturn('accesstoken');
-
         $environment = $this->createMock(Environment::class);
         $environment->expects($this->any())
                     ->method('getAuthUrl')
                     ->willReturn('ws.auth.test.com/authorize');
 
+        $meli->expects($this->any())
+             ->method('getEnvironment')
+             ->willReturn($environment);
+
         $this->client = $this->createMock(Client::class);
-        $this->credentials = new Credentials($meli, $environment);
+        $this->credentials = new Credentials($meli, Site::BRASIL, 'access-token', 'refresh-token');
 
         $this->service = new AuthorizationService($this->credentials, $this->client);
     }
@@ -97,6 +98,7 @@ class AuthorizationServiceTest extends \PHPUnit_Framework_TestCase
      */
     public function refreshTokenMethodShouldReturnIsNotAllowedCaseRefreshTokenIsNull()
     {
+        $this->credentials->setRefreshToken(null);
         $result = $this->service->refreshAccessToken();
         $this->assertEquals([
             'error'    => 'Offline-Access is not allowed.',

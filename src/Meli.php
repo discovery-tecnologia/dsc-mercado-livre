@@ -1,5 +1,6 @@
 <?php
 namespace Dsc\MercadoLivre;
+use Dsc\MercadoLivre\Environments\Production;
 
 /**
  * @author Diego Wagner <diegowagner4@gmail.com>
@@ -17,27 +18,16 @@ class Meli implements MeliInterface
     protected $clientSecret;
 
     /**
-     * @var string
+     * @var Environment
      */
-    protected $siteId;
+    protected $environment;
 
-    /**
-     * @var string
-     */
-    protected $accessToken;
-
-    /**
-     * @var string
-     */
-    protected $refreshToken;
-
-    public function __construct($clientId, $clientSecret, $siteId, $accessToken = null, $refreshToken = null)
+    public function __construct($clientId, $clientSecret, Environment $environment = null)
     {
         $this->clientId     = $clientId;
         $this->clientSecret = $clientSecret;
-        $this->siteId       = $siteId;
-        $this->accessToken  = $accessToken;
-        $this->refreshToken = $refreshToken;
+        $this->environment  = $environment ?: new Production();
+
     }
 
     /**
@@ -73,50 +63,18 @@ class Meli implements MeliInterface
     }
 
     /**
-     * @return string
+     * @return Environment
      */
-    public function getSiteId()
+    public function getEnvironment()
     {
-        return $this->siteId;
+        return $this->environment;
     }
 
     /**
-     * @param string $siteId
+     * @param Environment $environment
      */
-    public function setSiteId($siteId)
+    public function setEnvironment(Environment $environment)
     {
-        $this->siteId = $siteId;
-    }
-
-    /**
-     * @return string
-     */
-    public function getAccessToken()
-    {
-        return $this->accessToken;
-    }
-
-    /**
-     * @param string $accessToken
-     */
-    public function setAccessToken($accessToken)
-    {
-        $this->accessToken = $accessToken;
-    }
-
-    /**
-     * @return string
-     */
-    public function getRefreshToken()
-    {
-        return $this->refreshToken;
-    }
-
-    /**
-     * @param string $refreshToken
-     */
-    public function setRefreshToken($refreshToken)
-    {
-        $this->refreshToken = $refreshToken;
+        $this->environment = $environment;
     }
 }

@@ -1,6 +1,5 @@
 <?php
 namespace Dsc\MercadoLivre;
-use Dsc\MercadoLivre\Environments\Production;
 
 /**
  * @author Diego Wagner <diegowagner4@gmail.com>
@@ -13,25 +12,39 @@ class Credentials
     protected $meli;
 
     /**
-     * @var Production
+     * @var string
      */
-    protected $environment;
+    protected $siteId;
+
+    /**
+     * @var string
+     */
+    protected $accessToken;
+
+    /**
+     * @var string
+     */
+    protected $refreshToken;
 
     /**
      * Credentials constructor.
      * @param MeliInterface $meli
-     * @param Environment|null $environment
+     * @param string $siteId
+     * @param string|null $accessToken
+     * @param string|null $refreshToken
      */
-    public function __construct(MeliInterface $meli, Environment $environment = null)
+    public function __construct(MeliInterface $meli, $siteId, $accessToken = null, $refreshToken = null)
     {
-        $this->meli = $meli;
-        $this->environment = $environment ?: new Production();
+        $this->meli         = $meli;
+        $this->siteId       = $siteId;
+        $this->accessToken  = $accessToken;
+        $this->refreshToken = $refreshToken;
     }
 
     /**
      * @return MeliInterface|string
      */
-    public function getCredential()
+    public function getMeli()
     {
         return $this->meli;
     }
@@ -41,6 +54,54 @@ class Credentials
      */
     public function getEnvironment()
     {
-        return $this->environment;
+        return $this->meli->getEnvironment();
+    }
+
+    /**
+     * @return string
+     */
+    public function getSiteId()
+    {
+        return $this->siteId;
+    }
+
+    /**
+     * @param string $siteId
+     */
+    public function setSiteId($siteId)
+    {
+        $this->siteId = $siteId;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAccessToken()
+    {
+        return $this->accessToken;
+    }
+
+    /**
+     * @param string $accessToken
+     */
+    public function setAccessToken($accessToken)
+    {
+        $this->accessToken = $accessToken;
+    }
+
+    /**
+     * @return string
+     */
+    public function getRefreshToken()
+    {
+        return $this->refreshToken;
+    }
+
+    /**
+     * @param string $refreshToken
+     */
+    public function setRefreshToken($refreshToken)
+    {
+        $this->refreshToken = $refreshToken;
     }
 }

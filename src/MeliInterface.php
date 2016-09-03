@@ -27,32 +27,12 @@ interface MeliInterface
     public function setClientSecret($clientSecret);
 
     /**
-     * @return string
+     * @return Environment
      */
-    public function getSiteId();
+    public function getEnvironment();
 
     /**
-     * @param string $siteId
+     * @param Environment $siteId
      */
-    public function setSiteId($siteId);
-
-    /**
-     * @return string
-     */
-    public function getAccessToken();
-
-    /**
-     * @param string $accessToken
-     */
-    public function setAccessToken($accessToken);
-
-    /**
-     * @return string
-     */
-    public function getRefreshToken();
-
-    /**
-     * @param string $refreshToken
-     */
-    public function setRefreshToken($refreshToken);
+    public function setEnvironment(Environment $environment);
 }

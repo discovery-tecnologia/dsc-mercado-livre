@@ -88,10 +88,13 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $client = new Client($this->httpClient);
         $this->httpClient->expects($this->once())
              ->method('request')
-             ->with('GET', '/test?name=Test', ['verify' => false])
+             ->with('GET', '/test?name=Test',[
+                     'headers' => ['Content-Type' => 'application/json; charset=UTF-8'],
+                     'verify' => false
+                 ])
              ->willReturn($this->response);
 
-        $response = $client->get('/test?name=Test');
+        $response = $client->get('/test?name=Test', []);
         $this->assertEquals(['result' => true], $response->getBody());
     }
 }
