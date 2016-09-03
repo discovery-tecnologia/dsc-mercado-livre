@@ -10,6 +10,8 @@ class Production extends Environment
 {
     const WS_HOST   = 'https://api.mercadolibre.com';
     //const WS_AUTH   = 'http://auth.mercadolivre.com.br/authorization';
+
+    // mais informações - GET https://api.mercadolibre.com/sites
     const OAUTH_URI = '/oauth/token';
     public static $WS_AUTH = [
         Site::ARGENTINA => "https://auth.mercadolibre.com.ar", // Argentina
