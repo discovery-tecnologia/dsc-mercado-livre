@@ -7,12 +7,18 @@ namespace Dsc\MercadoLivre\Environments;
 class Site
 {
     const ARGENTINA  = 'MLA';
+    const BOLIVIA    = 'MBO';
     const BRASIL     = 'MLB';
     const COLOMBIA   = 'MCO';
     const COSTA_RICA = 'MCR';
     const EQUADOR    = 'MEC';
+    const HONDURAS   = 'MHN';
+    const GUATEMALA  = 'MGT';
     const CHILE      = 'MLC';
     const MEXICO     = 'MLM';
+    const NICARAGUA  = 'MNI';
+    const PARAGUAI   = 'MPY';
+    const SALVADOR   = 'MSV';
     const URUGUAI    = 'MLU';
     const VENEZUELA  = 'MLV';
     const PANAMA     = 'MPA';
