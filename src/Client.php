@@ -31,6 +31,17 @@ class Client
     public function __construct(HttpClient $client = null)
     {
         $this->client = $client ?: new HttpClient();
+        //$this->client->()->on('error', [$this, 'handleError']);
+    }
+
+    /**
+     * @param Event $event
+     *
+     * @throws PagSeguroException
+     */
+    public function handleError(Event $event)
+    {
+        throw \Exception::create($event->getResponse());
     }
 
     /**
@@ -55,9 +66,9 @@ class Client
      * @param array $params
      * @return \Psr\Http\Message\ResponseInterface
      */
-    public function get($url, array $params)
+    public function get($url, array $params = [])
     {
-        if(!empty($params)) {
+        if(! empty($params)) {
             $url = $url.'?'.http_build_query($params, '', '&');
         }
 

@@ -6,7 +6,7 @@ use Psr\Http\Message\StreamInterface;
 /**
  * @author Diego Wagner <diegowagner4@gmail.com>
  */
-class Service implements ServiceInterface
+abstract class Service
 {
     /**
      * @var Credentials
@@ -31,7 +31,7 @@ class Service implements ServiceInterface
     /**
      * @return Credentials
      */
-    public function getCredential()
+    protected function getCredential()
     {
         return $this->credentials;
     }
@@ -39,7 +39,7 @@ class Service implements ServiceInterface
     /**
      * @return Environment
      */
-    public function getEnvironment()
+    protected function getEnvironment()
     {
         return $this->credentials->getEnvironment();
     }
@@ -48,7 +48,7 @@ class Service implements ServiceInterface
      * @param $url
      * @param array $params
      */
-    public function get($url, array $params)
+    protected function get($url, array $params = [])
     {
         $response = $this->client->get($url, $params);
         if($response->getStatusCode() == 200) {
@@ -61,7 +61,7 @@ class Service implements ServiceInterface
      * @param array $params
      * @return StreamInterface
      */
-    public function post($url, array $params)
+    protected function post($url, array $params)
     {
         $response = $this->client->post($url, $params);
         if($response->getStatusCode() == 200) {
@@ -73,7 +73,7 @@ class Service implements ServiceInterface
      * @param $url
      * @param array $params
      */
-    public function put($url, array $params)
+    protected function put($url, array $params)
     {
         // TODO: Implement put() method.
     }
@@ -82,7 +82,7 @@ class Service implements ServiceInterface
      * @param $url
      * @param array $params
      */
-    public function delete($url, array $params)
+    protected function delete($url, array $params)
     {
         // TODO: Implement delete() method.
     }
