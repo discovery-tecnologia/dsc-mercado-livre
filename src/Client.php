@@ -31,7 +31,7 @@ class Client
     public function __construct(HttpClient $client = null)
     {
         $this->client = $client ?: new HttpClient();
-        //$this->client->()->on('error', [$this, 'handleError']);
+        //$this->client->on('error', [$this, 'handleError']);
     }
 
     /**
@@ -68,16 +68,14 @@ class Client
      */
     public function get($url, array $params = [])
     {
-        if(! empty($params)) {
-            $url = $url.'?'.http_build_query($params, '', '&');
-        }
+        $options = [
+            'headers' => ['Content-Type' => 'application/json; charset=UTF-8'],
+            'verify'  => false
+        ];
 
-        return $this->client->request(
-            'GET',
-            $url, [
-                'headers' => ['Content-Type' => 'application/json; charset=UTF-8'],
-                'verify'  => false
-            ]
-        );
+        if(! empty($params)) {
+            $options = array_merge(['query' => $params], $options);
+        }
+        return $this->client->request('GET', $url, $options);
     }
 }
