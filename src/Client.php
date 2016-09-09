@@ -2,6 +2,7 @@
 namespace Dsc\MercadoLivre;
 
 use GuzzleHttp\Client as HttpClient;
+use GuzzleHttp\Exception\RequestException;
 
 /**
  * @author Diego Wagner <diegowagner4@gmail.com>
@@ -31,17 +32,15 @@ class Client
     public function __construct(HttpClient $client = null)
     {
         $this->client = $client ?: new HttpClient();
-        //$this->client->on('error', [$this, 'handleError']);
     }
 
     /**
-     * @param Event $event
-     *
-     * @throws PagSeguroException
+     * @param RequestException $exception
+     * @throws MeliException
      */
-    public function handleError(Event $event)
+    public function handleError(RequestException $exception)
     {
-        throw \Exception::create($event->getResponse());
+        throw MeliException::create($exception->getResponse());
     }
 
     /**
@@ -51,14 +50,18 @@ class Client
      */
     public function post($url, array $body)
     {
-        return $this->client->request(
-            'POST',
-            $url, [
-                'headers' => ['Content-Type' => 'application/json; charset=UTF-8'],
-                'body'    => $body,
-                'verify'  => false
-            ]
-        );
+        try {
+            return $this->client->request(
+                'POST',
+                $url, [
+                    'headers' => ['Content-Type' => 'application/json; charset=UTF-8'],
+                    'body' => $body,
+                    'verify' => false
+                ]
+            );
+        } catch(RequestException $re) {
+            $this->handleError($re);
+        }
     }
 
     /**
@@ -68,14 +71,19 @@ class Client
      */
     public function get($url, array $params = [])
     {
-        $options = [
-            'headers' => ['Content-Type' => 'application/json; charset=UTF-8'],
-            'verify'  => false
-        ];
+        try {
+            $options = [
+                'headers' => ['Content-Type' => 'application/json; charset=UTF-8'],
+                'verify'  => false
+            ];
 
-        if(! empty($params)) {
-            $options = array_merge(['query' => $params], $options);
+            if(! empty($params)) {
+                $options = array_merge(['query' => $params], $options);
+            }
+            return $this->client->request('GET', $url, $options);
+
+        } catch(RequestException $re) {
+            $this->handleError($re);
         }
-        return $this->client->request('GET', $url, $options);
     }
 }
