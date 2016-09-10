@@ -75,7 +75,7 @@ class AuthorizationService extends Service
      *
      * @param $code
      * @param $redirectUri
-     * @return Access
+     * @return Authorization
      */
     public function authorize($code, $redirectUri = null)
     {
@@ -93,46 +93,47 @@ class AuthorizationService extends Service
         $oAuthUri = $this->getEnvironment()->getOAuthUri();
         $response = $this->post($oAuthUri, $params);
 
-        return $this->serializer->deserialize($response->getContents(), Access::class);
+        return $this->serializer->deserialize($response->getContents(), Authorization::class);
     }
 
     /**
      * Execute a POST Request to create a new AccessToken from a existent refresh_token
-     * @return Access
+     * @return Authorization
      * @throws MeliException
      */
     public function refreshAccessToken()
     {
+        $refreshToken = $this->cache->fetch('refresh_token');
         $credential = $this->getCredential();
-        if(! $credential->getRefreshToken()) {
+        if(! $credential->getRefreshToken() && ! $refreshToken) {
             throw MeliException::create(new Response(403, [], '{"message":"Offline-Access is not allowed.", "status":403}'));
         }
+
+        $token = $refreshToken ? $refreshToken : $credential->getRefreshToken();
 
         $meli = $credential->getMeli();
         $params = [
             "grant_type"    => "refresh_token",
             "client_id"     => $meli->getClientId(),
             "client_secret" => $meli->getClientSecret(),
-            "refresh_token" => $credential->getRefreshToken()
+            "refresh_token" => $token
         ];
 
         $oAuthUri = $this->getEnvironment()->getOAuthUri();
         $response = $this->post($oAuthUri, $params);
 
-        return $this->serializer->deserialize($response->getContents(), Access::class);
+        return $this->serializer->deserialize($response->getContents(), Authorization::class);
     }
 
     /**
      * @param null $code
      * @param null $redirectUrl
-     * @return mixed
+     * @return string
      * @throws MeliException
      */
     public function getAccessToken($code = null, $redirectUrl = null)
     {
         $accessToken = $this->cache->fetch('access_token');
-        $credential  = $this->getCredential();
-        //$accessToken = $credential->getAccessToken();
         // se existir o parametro code ou um token de acesso na sessao
         if(!$code && !$accessToken) {
             throw MeliException::create(new Response(403, [], '{"message":"User not authenticate - unathorized", "status":403}'));
@@ -140,35 +141,24 @@ class AuthorizationService extends Service
 
         if($this->cache->contains('expires_in')) {
             if($this->cache->fetch('expires_in') >= time()) {
-                return true;
+                return $accessToken;
             }
         }
 
         // Se existe o parametro code e o cache está vazio
         if($code && !($accessToken))  {
             // faz um pedido de autorizacao a API
-            $access = $this->authorize($code, $redirectUrl);
+            $authorization = $this->authorize($code, $redirectUrl);
         } else {
-            // Make the refresh proccess
-            $access = $this->refreshAccessToken();
+            // Refresh token
+            $authorization = $this->refreshAccessToken();
         }
-
-        $this->processResponseAndCached($access);
-        $credential->setAccessToken($access->getAccessToken());
-        $credential->setRefreshToken($access->getRefreshToken());
+        // save data in cache
+        $this->cache->save('access_token', $authorization->getAccessToken());
+        $this->cache->save('expires_in', time() + $authorization->getExpiresIn());
+        $this->cache->save('refresh_token', $authorization->getRefreshToken());
 
         return $this->cache->fetch('access_token');
-    }
-
-    /**
-     * @param $response
-     */
-    private function processResponseAndCached(Access $access)
-    {
-        // save data in cache
-        $this->cache->save('access_token', $access->getAccessToken());
-        $this->cache->save('expires_in', time() + $access->getExpiresIn());
-        $this->cache->save('refresh_token', $access->getRefreshToken());
     }
 
     /**

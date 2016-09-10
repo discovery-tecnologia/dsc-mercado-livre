@@ -1,6 +1,6 @@
 <?php
 /**
- * Class Access
+ * Class Authorization
  *
  * @author Diego Wagner <diegowagner4@gmail.com>
  * http://www.discoverytecnologia.com.br
@@ -9,7 +9,7 @@ namespace Dsc\MercadoLivre\Authorization;
 
 use JMS\Serializer\Annotation as JMS;
 
-class Access
+class Authorization
 {
     /**
      * @var string
