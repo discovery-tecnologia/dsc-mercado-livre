@@ -27,7 +27,6 @@ class Meli implements MeliInterface
         $this->clientId     = $clientId;
         $this->clientSecret = $clientSecret;
         $this->environment  = $environment ?: new Production();
-
     }
 
     /**

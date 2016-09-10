@@ -1,6 +1,7 @@
 <?php
 namespace Dsc\MercadoLivre;
 
+use Dsc\MercadoLivre\Codec\SerializerInterface;
 use Dsc\MercadoLivre\Environments\Site;
 
 /**
@@ -18,11 +19,17 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
      */
     protected $client;
 
+    /**
+     * @var SerializerInterface
+     */
+    protected $serializer;
+
     protected function setUp()
     {
         $meli = new Meli('client-id', 'client-secret');
         $this->credentials = new Credentials($meli, Site::BRASIL);
         $this->client      = $this->createMock(Client::class);
+        $this->serializer  = $this->getMockBuilder(SerializerInterface::class)->getMock();
     }
 
     /**
@@ -32,10 +39,11 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
     {
         $service = $this->getMockForAbstractClass(
             Service::class,
-            [$this->credentials, $this->client]
+            [$this->credentials, $this->client, $this->serializer]
         );
         $this->assertAttributeSame($this->credentials, 'credentials', $service);
         $this->assertAttributeSame($this->client, 'client', $service);
+        $this->assertAttributeSame($this->serializer, 'serializer', $service);
     }
 
     /**
@@ -48,5 +56,17 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
             [$this->credentials]
         );
         $this->assertAttributeInstanceOf(Client::class, 'client', $service);
+    }
+
+    /**
+     * @test
+     */
+    public function constructorShouldCreateASerializerWhenItWasntInformed()
+    {
+        $service = $this->getMockForAbstractClass(
+            Service::class,
+            [$this->credentials, $this->client]
+        );
+        $this->assertAttributeInstanceOf(SerializerInterface::class, 'serializer', $service);
     }
 }

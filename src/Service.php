@@ -1,6 +1,8 @@
 <?php
 namespace Dsc\MercadoLivre;
 
+use Dsc\MercadoLivre\Codec\ParserSerializer;
+use Dsc\MercadoLivre\Codec\SerializerInterface;
 use Psr\Http\Message\StreamInterface;
 
 /**
@@ -19,13 +21,19 @@ abstract class Service
     private $client;
 
     /**
+     * @var SerializerInterface
+     */
+    protected $serializer;
+
+    /**
      * @param Credentials $credentials
      * @param Client $client
      */
-    public function __construct(Credentials $credentials, Client $client = null)
+    public function __construct(Credentials $credentials, Client $client = null, SerializerInterface $serializer = null)
     {
         $this->credentials = $credentials;
         $this->client      = $client ?: new Client();
+        $this->serializer  = $serializer ?: new ParserSerializer();
     }
 
     /**
