@@ -22,7 +22,6 @@
     "php"                      : ">=5.5",
     "guzzlehttp/guzzle"        : "~6.0",
     "jms/serializer"           : "0.16.0",
-    "sp/jms-serializer-module" : "0.1.*@dev",
     "doctrine/collections"     : "v1.3.0",
     "doctrine/cache"           : "v1.6.0"
   },
