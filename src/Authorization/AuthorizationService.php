@@ -5,7 +5,9 @@ use Doctrine\Common\Cache\Cache;
 use Doctrine\Common\Cache\FilesystemCache;
 use Dsc\MercadoLivre\Client;
 use Dsc\MercadoLivre\Credentials;
+use Dsc\MercadoLivre\MeliException;
 use Dsc\MercadoLivre\Service;
+use GuzzleHttp\Psr7\Response;
 use Psr\Http\Message\StreamInterface;
 
 /**
@@ -131,7 +133,7 @@ class AuthorizationService extends Service
         //$accessToken = $credential->getAccessToken();
         // se existir o parametro code ou um token de acesso na sessao
         if(!$code && !$accessToken) {
-            throw new AuthorizationException('User not authenticate.');
+            throw MeliException::create(new Response(403, 'User not authenticate.'));
         }
 
         if($this->cache->contains('expires_in')) {
