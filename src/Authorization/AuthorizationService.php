@@ -136,7 +136,7 @@ class AuthorizationService extends Service
         $accessToken = $this->cache->fetch('access_token');
         // se existir o parametro code ou um token de acesso na sessao
         if(!$code && !$accessToken) {
-            throw MeliException::create(new Response(403, [], '{"message":"User not authenticate - unathorized", "status":403}'));
+            throw MeliException::create(new Response(403, [], '{"message":"User not authenticate - unauthorized", "status":403}'));
         }
 
         if($this->cache->contains('expires_in')) {
