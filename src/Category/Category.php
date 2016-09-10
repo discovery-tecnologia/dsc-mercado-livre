@@ -67,6 +67,18 @@ class Category
     private $settings;
 
     /**
+     * @var string
+     * @JMS\Type("string")
+     */
+    private $metaCategId;
+
+    /**
+     * @var boolean
+     * @JMS\Type("boolean")
+     */
+    private $attributable;
+
+    /**
      * @return int
      */
     public function getId()
@@ -208,5 +220,37 @@ class Category
     public function setSettings($settings)
     {
         $this->settings = $settings;
+    }
+
+    /**
+     * @return string
+     */
+    public function getMetaCategId()
+    {
+        return $this->metaCategId;
+    }
+
+    /**
+     * @param string $metaCategId
+     */
+    public function setMetaCategId($metaCategId)
+    {
+        $this->metaCategId = $metaCategId;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isAttributable()
+    {
+        return $this->attributable;
+    }
+
+    /**
+     * @param boolean $attributable
+     */
+    public function setAttributable($attributable)
+    {
+        $this->attributable = $attributable;
     }
 }
