@@ -70,9 +70,9 @@ class ClientTest extends \PHPUnit_Framework_TestCase
              ->with(
                 'POST',
                 '/test',[
-                    'headers' => ['Content-Type' => 'application/json; charset=UTF-8'],
-                    'body' => $body,
-                    'verify' => false
+                    'headers' => ['Content-Type' => 'application/x-www-form-urlencoded; charset=UTF-8'],
+                    'form_params' => $body,
+                    'verify'  => true
                 ]
              )->willReturn($this->response);
 
@@ -90,7 +90,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
              ->method('request')
              ->with('GET', '/test?name=Test',[
                      'headers' => ['Content-Type' => 'application/json; charset=UTF-8'],
-                     'verify' => false
+                     'verify' => true
                  ])
              ->willReturn($this->response);
 

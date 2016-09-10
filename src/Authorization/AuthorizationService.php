@@ -4,6 +4,7 @@ namespace Dsc\MercadoLivre\Authorization;
 use Doctrine\Common\Cache\Cache;
 use Doctrine\Common\Cache\FilesystemCache;
 use Dsc\MercadoLivre\Client;
+use Dsc\MercadoLivre\Codec\SerializerInterface;
 use Dsc\MercadoLivre\Credentials;
 use Dsc\MercadoLivre\MeliException;
 use Dsc\MercadoLivre\Service;
@@ -25,9 +26,9 @@ class AuthorizationService extends Service
      */
     private $redirectUri;
 
-    public function __construct(Credentials $credentials, Client $client = null, Cache $cache = null)
+    public function __construct(Credentials $credentials, Client $client = null, SerializerInterface $serializer = null, Cache $cache = null)
     {
-        parent::__construct($credentials, $client);
+        parent::__construct($credentials, $client, $serializer);
         $this->cache = $cache ?: new FilesystemCache(sys_get_temp_dir());
     }
 

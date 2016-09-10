@@ -2,11 +2,13 @@
 namespace Dsc\MercadoLivre\Authorization;
 
 use Dsc\MercadoLivre\Client;
+use Dsc\MercadoLivre\Codec\SerializerInterface;
 use Dsc\MercadoLivre\Credentials;
 use Dsc\MercadoLivre\Environment;
 use Dsc\MercadoLivre\Environments\Site;
 use Dsc\MercadoLivre\MeliInterface;
 use GuzzleHttp\Psr7\Response;
+use GuzzleHttp\Psr7\Stream;
 
 /**
  * @author Diego Wagner <diegowagner4@gmail.com>
@@ -48,10 +50,15 @@ class AuthorizationServiceTest extends \PHPUnit_Framework_TestCase
              ->method('getEnvironment')
              ->willReturn($environment);
 
+        $serializer = $this->getMockBuilder(SerializerInterface::class)->getMock();
+        $serializer->expects($this->any())
+                   ->method('deserialize')
+                   ->willReturn(new Authorization());
+
         $this->client = $this->createMock(Client::class);
         $this->credentials = new Credentials($meli, Site::BRASIL, 'access-token', 'refresh-token');
 
-        $this->service = new AuthorizationService($this->credentials, $this->client);
+        $this->service = new AuthorizationService($this->credentials, $this->client, $serializer);
     }
 
     /**
@@ -81,34 +88,33 @@ class AuthorizationServiceTest extends \PHPUnit_Framework_TestCase
         $response->expects($this->any())
                  ->method('getStatusCode')
                  ->willReturn(200);
+
+        $stream = \GuzzleHttp\Psr7\stream_for('string data');
         $response->expects($this->any())
                  ->method('getBody')
-                 ->willReturn(['result' => true]);
+                 ->willReturn($stream);
 
         $this->client->expects($this->any())
              ->method('post')
              ->willReturn($response);
 
         $result = $this->service->authorize('/authorize', 'example.org');
-        $this->assertEquals(['result' => true], $result);
+        $this->assertInstanceOf(Authorization::class, $result);
     }
 
     /**
-     * @test
+     * @expectedException \Dsc\MercadoLivre\MeliException;
+     * @expectedExceptionMessage [403] A HTTP error has occurred: {"message":"Offline-Access is not allowed.", "status":403}
      */
     public function refreshTokenMethodShouldReturnIsNotAllowedCaseRefreshTokenIsNull()
     {
         $this->credentials->setRefreshToken(null);
-        $result = $this->service->refreshAccessToken();
-        $this->assertEquals([
-            'error'    => 'Offline-Access is not allowed.',
-            'httpCode' => null
-        ], $result);
+        $this->service->refreshAccessToken();
     }
 
     /**
-     * @expectedException \Dsc\MercadoLivre\Authorization\AuthorizationException;
-     * @expectedExceptionMessage User not authenticate.
+     * @expectedException \Dsc\MercadoLivre\MeliException;
+     * @expectedExceptionMessage [403] A HTTP error has occurred: {"message":"User not authenticate - unauthorized", "status":403}
      */
     public function accessTokenShouldReturnUserNotAuthenticateCaseNotExistsCodeOrAccessToken()
     {
