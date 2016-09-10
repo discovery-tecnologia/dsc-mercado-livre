@@ -145,7 +145,7 @@ class AuthorizationService extends Service
         // Se existe o parametro code e o cache está vazio
         if($code && !($accessToken))  {
             // faz um pedido de autorizacao a API
-            $response = $this->authorize($code, '/mercado-livre/autorize/');
+            $response = $this->authorize($code, '/');
         } else {
             // Make the refresh proccess
             $response = $this->refreshAccessToken();
