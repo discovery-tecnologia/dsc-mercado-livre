@@ -28,7 +28,6 @@ class MeliException extends \RuntimeException
             return '[' . $response->getStatusCode() . '] A HTTP error has occurred: ' . $response->getBody();
         }
 
-        $message = 'Some errors occurred:';
-        return $message;
+        return '[' . $response->getStatusCode() . '] Some errors occurred: ' . $response->getBody();
     }
 }

@@ -43,7 +43,7 @@ class AuthorizationService extends Service
             "response_type" => "code",
             "redirect_uri"  => $redirectUri
         ];
-        return $this->getEnvironment()->getAuthUrl('MLB', $resource) . "?" . http_build_query($params);
+        return $this->getEnvironment()->getAuthUrl($credential->getSiteId(), $resource) . "?" . http_build_query($params);
     }
 
     /**
@@ -77,10 +77,6 @@ class AuthorizationService extends Service
      */
     public function authorize($code, $redirectUri = null)
     {
-        if($redirectUri) {
-            $this->getCredential()->setRefreshToken($redirectUri);
-        }
-
         $credential = $this->getCredential();
         $meli       = $credential->getMeli();
 

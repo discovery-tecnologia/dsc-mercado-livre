@@ -54,9 +54,11 @@ class Client
             return $this->client->request(
                 'POST',
                 $url, [
-                    'headers' => ['Content-Type' => 'application/json; charset=UTF-8'],
-                    'body' => $body,
-                    'verify' => false
+                    'headers' => [
+                        'Content-Type' => 'application/x-www-form-urlencoded; charset=UTF-8'
+                    ],
+                    'form_params' => $body,
+                    'verify'      => true
                 ]
             );
         } catch(RequestException $re) {
@@ -73,8 +75,10 @@ class Client
     {
         try {
             $options = [
-                'headers' => ['Content-Type' => 'application/json; charset=UTF-8'],
-                'verify'  => false
+                'headers' => [
+                    'Content-Type' => 'application/json; charset=UTF-8'
+                ],
+                'verify'  => true
             ];
 
             if(! empty($params)) {

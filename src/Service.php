@@ -60,10 +60,10 @@ abstract class Service
     protected function get($url, array $params = [])
     {
         try {
+
             $response = $this->client->get($url, $params);
-            if ($response->getStatusCode() == 200) {
-                return $response->getBody();
-            }
+            return $response->getBody();
+
         } catch(MeliException $me) {
             throw $me;
         }
@@ -78,10 +78,10 @@ abstract class Service
     protected function post($url, array $params)
     {
         try {
+
             $response = $this->client->post($url, $params);
-            if($response->getStatusCode() == 200) {
-                return $response->getBody();
-            }
+            return $response->getBody();
+
         } catch(MeliException $me) {
             throw $me;
         }

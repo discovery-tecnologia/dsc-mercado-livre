@@ -10,6 +10,10 @@ class UserService extends Service
      */
     public function getAccountInformation($id, $accessToken)
     {
+        $credential = $this->getCredential();
+        $wsResourceCategory = sprintf('%s/sites/%s/categories', $this->getEnvironment()->getWsHost(), $credential->getSiteId());
+        return $this->get($wsResourceCategory);
+
         try{
 
             $url = $this->getEnvironment()->getWsHost();

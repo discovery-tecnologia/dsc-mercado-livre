@@ -23,7 +23,7 @@ class CategoryService extends Service
     {
         $wsResourceCategory = sprintf('%s/categories/%s', $this->getEnvironment()->getWsHost(), $code);
         $data = $this->get($wsResourceCategory);
-//var_dump($data->getContents());die;
+
         return $this->serializer->deserialize($data->getContents(), Category::class);
     }
 }
