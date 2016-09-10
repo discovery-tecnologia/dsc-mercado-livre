@@ -47,12 +47,17 @@ abstract class Service
     /**
      * @param $url
      * @param array $params
+     * @throws MeliException
      */
     protected function get($url, array $params = [])
     {
-        $response = $this->client->get($url, $params);
-        if($response->getStatusCode() == 200) {
-            return $response->getBody();
+        try {
+            $response = $this->client->get($url, $params);
+            if ($response->getStatusCode() == 200) {
+                return $response->getBody();
+            }
+        } catch(MeliException $me) {
+            throw $me;
         }
     }
 
@@ -60,12 +65,17 @@ abstract class Service
      * @param string $url
      * @param array $params
      * @return StreamInterface
+     * @throws MeliException
      */
     protected function post($url, array $params)
     {
-        $response = $this->client->post($url, $params);
-        if($response->getStatusCode() == 200) {
-            return $response->getBody();
+        try {
+            $response = $this->client->post($url, $params);
+            if($response->getStatusCode() == 200) {
+                return $response->getBody();
+            }
+        } catch(MeliException $me) {
+            throw $me;
         }
     }
 
