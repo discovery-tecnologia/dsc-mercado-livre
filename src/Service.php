@@ -3,6 +3,7 @@ namespace Dsc\MercadoLivre;
 
 use Dsc\MercadoLivre\Codec\ParserSerializer;
 use Dsc\MercadoLivre\Codec\SerializerInterface;
+use Dsc\MercadoLivre\Http\RequestInterface;
 use Psr\Http\Message\StreamInterface;
 
 /**
@@ -53,16 +54,14 @@ abstract class Service
     }
 
     /**
-     * @param $url
-     * @param array $params
+     * @param RequestInterface $request
      * @throws MeliException
      */
-    protected function get($url, array $params = [])
+    protected function get(RequestInterface $request)
     {
         try {
 
-            $response = $this->client->get($url, $params);
-            return $response->getBody();
+            return $this->client->get($request)->getBody();
 
         } catch(MeliException $me) {
             throw $me;
@@ -70,17 +69,15 @@ abstract class Service
     }
 
     /**
-     * @param string $url
-     * @param array $params
+     * @param RequestInterface $request
      * @return StreamInterface
      * @throws MeliException
      */
-    protected function post($url, array $params)
+    protected function post(RequestInterface $request)
     {
         try {
 
-            $response = $this->client->post($url, $params);
-            return $response->getBody();
+            return $this->client->post($request)->getBody();
 
         } catch(MeliException $me) {
             throw $me;
@@ -88,19 +85,17 @@ abstract class Service
     }
 
     /**
-     * @param $url
-     * @param array $params
+     * @param RequestInterface $request
      */
-    protected function put($url, array $params)
+    protected function put(RequestInterface $request)
     {
         // TODO: Implement put() method.
     }
 
     /**
-     * @param $url
-     * @param array $params
+     * @param RequestInterface $request
      */
-    protected function delete($url, array $params)
+    protected function delete(RequestInterface $request)
     {
         // TODO: Implement delete() method.
     }

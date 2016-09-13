@@ -1,6 +1,7 @@
 <?php
 namespace Dsc\MercadoLivre;
 
+use Doctrine\Common\Annotations\AnnotationRegistry;
 use Doctrine\Common\Cache\Cache;
 use Doctrine\Common\Cache\FilesystemCache;
 
@@ -17,6 +18,7 @@ class Configuration
      */
     public function __construct(Cache $cache = null)
     {
+        AnnotationRegistry::registerLoader('class_exists');
         $this->cache = $cache ?: new FilesystemCache(sys_get_temp_dir());
     }
 

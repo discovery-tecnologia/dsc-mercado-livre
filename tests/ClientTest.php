@@ -1,6 +1,7 @@
 <?php
 namespace Dsc\MercadoLivre;
 
+use Dsc\MercadoLivre\Http\RequestInterface;
 use GuzzleHttp\Client as HttpClient;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
@@ -65,6 +66,14 @@ class ClientTest extends \PHPUnit_Framework_TestCase
             "client_secret" => 'clientsecret',
             "refresh_token" => 'refreshtoken'
         ];
+        $request = $this->createMock(RequestInterface::class);
+        $request->expects($this->any())
+                ->method('getParams')
+                ->willReturn($body);
+        $request->expects($this->any())
+                ->method('getUrl')
+                ->willReturn('/test');
+
         $this->httpClient->expects($this->once())
              ->method('request')
              ->with(
@@ -76,7 +85,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
                 ]
              )->willReturn($this->response);
 
-        $response = $client->post('/test', $body);
+        $response = $client->post($request);
         $this->assertEquals(['result' => true], $response->getBody());
     }
 
@@ -86,6 +95,14 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     public function getShouldConfigureHeaders()
     {
         $client = new Client($this->httpClient);
+        $request = $this->createMock(RequestInterface::class);
+        $request->expects($this->any())
+                ->method('getParams')
+                ->willReturn([]);
+        $request->expects($this->any())
+            ->method('getUrl')
+            ->willReturn('/test?name=Test');
+
         $this->httpClient->expects($this->once())
              ->method('request')
              ->with('GET', '/test?name=Test',[
@@ -94,7 +111,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
                  ])
              ->willReturn($this->response);
 
-        $response = $client->get('/test?name=Test', []);
+        $response = $client->get($request);
         $this->assertEquals(['result' => true], $response->getBody());
     }
 }

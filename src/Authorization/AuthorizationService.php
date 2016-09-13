@@ -7,11 +7,6 @@
  */
 namespace Dsc\MercadoLivre\Authorization;
 
-use Doctrine\Common\Cache\Cache;
-use Doctrine\Common\Cache\FilesystemCache;
-use Dsc\MercadoLivre\Client;
-use Dsc\MercadoLivre\Codec\SerializerInterface;
-use Dsc\MercadoLivre\Credentials;
 use Dsc\MercadoLivre\MeliException;
 use Dsc\MercadoLivre\Service;
 use GuzzleHttp\Psr7\Response;
@@ -50,14 +45,14 @@ class AuthorizationService extends Service
         }
 
         $credential = $this->getCredential();
-        $params = [
-            "response_type" => "code",
-            "client_id"     => $credential->getMeli()->getClientId(),
-            "redirect_uri"  => $redirectUri
-        ];
-
         $wsUrl = sprintf('%s/%s', $this->getEnvironment()->getWsAuth($credential->getSiteId()), 'authorization');
-        return $this->get($wsUrl, $params);
+
+        $request = new AuthorizationRequest($wsUrl);
+        $request->setGrantType('code')
+                ->setClientId($credential->getMeli()->getClientId())
+                ->setRedirectUri($redirectUri);
+
+        return $this->get($request);
     }
 
     /**
@@ -71,17 +66,16 @@ class AuthorizationService extends Service
     {
         $credential = $this->getCredential();
         $meli       = $credential->getMeli();
+        $oAuthUri   = $this->getEnvironment()->getOAuthUri();
 
-        $params = [
-            "grant_type"    => "authorization_code",
-            "client_id"     => $meli->getClientId(),
-            "client_secret" => $meli->getClientSecret(),
-            "code"          => $code,
-            "redirect_uri"  => $redirectUri
-        ];
+        $request = new AuthorizationRequest($oAuthUri);
+        $request->setGrantType('authorization_code')
+                ->setClientId($meli->getClientId())
+                ->setClientSecret($meli->getClientSecret())
+                ->setCode($code)
+                ->setRedirectUri($redirectUri);
 
-        $oAuthUri = $this->getEnvironment()->getOAuthUri();
-        $response = $this->post($oAuthUri, $params);
+        $response = $this->post($request);
 
         return $this->serializer->deserialize($response->getContents(), Authorization::class);
     }
@@ -102,17 +96,17 @@ class AuthorizationService extends Service
         }
 
         $token = $refreshToken ? $refreshToken : $credential->getRefreshToken();
-
         $meli = $credential->getMeli();
-        $params = [
-            "grant_type"    => "refresh_token",
-            "client_id"     => $meli->getClientId(),
-            "client_secret" => $meli->getClientSecret(),
-            "refresh_token" => $token
-        ];
 
         $oAuthUri = $this->getEnvironment()->getOAuthUri();
-        $response = $this->post($oAuthUri, $params);
+
+        $request = new AuthorizationRequest($oAuthUri);
+        $request->setGrantType('refresh_token')
+                ->setClientId($meli->getClientId())
+                ->setClientSecret($meli->getClientSecret())
+                ->setRefreshToken($token);
+
+        $response = $this->post($request);
 
         return $this->serializer->deserialize($response->getContents(), Authorization::class);
     }
@@ -133,8 +127,8 @@ class AuthorizationService extends Service
             throw MeliException::create(new Response(403, [], '{"message":"User not authenticate - unauthorized", "status":403}'));
         }
 
-        if($this->cache->contains('expires_in')) {
-            if($this->cache->fetch('expires_in') >= time()) {
+        if($cache->contains('expires_in')) {
+            if($cache->fetch('expires_in') >= time()) {
                 return $accessToken;
             }
         }

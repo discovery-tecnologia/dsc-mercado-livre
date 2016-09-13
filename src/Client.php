@@ -1,6 +1,7 @@
 <?php
 namespace Dsc\MercadoLivre;
 
+use Dsc\MercadoLivre\Http\RequestInterface;
 use GuzzleHttp\Client as HttpClient;
 use GuzzleHttp\Exception\RequestException;
 
@@ -44,20 +45,19 @@ class Client
     }
 
     /**
-     * @param $url
-     * @param array $body
-     * @return \Psr\Http\Message\ResponseInterface
+     * @param RequestInterface $request
+     * @return mixed|\Psr\Http\Message\ResponseInterface
      */
-    public function post($url, array $body)
+    public function post(RequestInterface $request)
     {
         try {
             return $this->client->request(
                 'POST',
-                $url, [
+                $request->getUrl(), [
                     'headers' => [
                         'Content-Type' => 'application/x-www-form-urlencoded; charset=UTF-8'
                     ],
-                    'form_params' => $body,
+                    'form_params' => $request->getParams(),
                     'verify'      => true
                 ]
             );
@@ -67,12 +67,12 @@ class Client
     }
 
     /**
-     * @param string $url
-     * @param array $params
-     * @return \Psr\Http\Message\ResponseInterface
+     * @param RequestInterface $request
+     * @return mixed|\Psr\Http\Message\ResponseInterface
      */
-    public function get($url, array $params = [])
+    public function get(RequestInterface $request)
     {
+        $params = $request->getParams();
         try {
             $options = [
                 'headers' => [
@@ -84,7 +84,7 @@ class Client
             if(! empty($params)) {
                 $options = array_merge(['query' => $params], $options);
             }
-            return $this->client->request('GET', $url, $options);
+            return $this->client->request('GET', $request->getUrl(), $options);
 
         } catch(RequestException $re) {
             $this->handleError($re);
