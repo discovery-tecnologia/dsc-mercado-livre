@@ -1,4 +1,10 @@
 <?php
+/**
+ * Class AuthorizationService
+ *
+ * @author Diego Wagner <diegowagner4@gmail.com>
+ * http://www.discoverytecnologia.com.br
+ */
 namespace Dsc\MercadoLivre\Authorization;
 
 use Doctrine\Common\Cache\Cache;
@@ -17,29 +23,12 @@ use Psr\Http\Message\StreamInterface;
 class AuthorizationService extends Service
 {
     /**
-     * @var Cache
-     */
-    private $cache;
-
-    /**
-     * @var string
-     */
-    private $redirectUri;
-
-    public function __construct(Credentials $credentials, Client $client = null, SerializerInterface $serializer = null, Cache $cache = null)
-    {
-        parent::__construct($credentials, $client, $serializer);
-        $this->cache = $cache ?: new FilesystemCache(sys_get_temp_dir());
-    }
-
-    /**
      * @param string $resource
      * @param string $redirectUri
      * @return string
      */
     public function getAuthUrl($resource, $redirectUri)
     {
-        $this->redirectUri = $redirectUri;
         $credential = $this->getCredential();
         $params = [
             "client_id"     => $credential->getMeli()->getClientId(),
@@ -104,7 +93,9 @@ class AuthorizationService extends Service
      */
     public function refreshAccessToken()
     {
-        $refreshToken = $this->cache->fetch('refresh_token');
+        $cache = $this->getEnvironment()->getConfiguration()->getCache();
+
+        $refreshToken = $cache->fetch('refresh_token');
         $credential = $this->getCredential();
         if(! $credential->getRefreshToken() && ! $refreshToken) {
             throw MeliException::create(new Response(403, [], '{"message":"Offline-Access is not allowed.", "status":403}'));
@@ -134,7 +125,9 @@ class AuthorizationService extends Service
      */
     public function getAccessToken($code = null, $redirectUrl = null)
     {
-        $accessToken = $this->cache->fetch('access_token');
+        $cache = $this->getEnvironment()->getConfiguration()->getCache();
+
+        $accessToken = $cache->fetch('access_token');
         // se existir o parametro code ou um token de acesso na sessao
         if(!$code && !$accessToken) {
             throw MeliException::create(new Response(403, [], '{"message":"User not authenticate - unauthorized", "status":403}'));
@@ -155,11 +148,11 @@ class AuthorizationService extends Service
             $authorization = $this->refreshAccessToken();
         }
         // save data in cache
-        $this->cache->save('access_token', $authorization->getAccessToken());
-        $this->cache->save('expires_in', time() + $authorization->getExpiresIn());
-        $this->cache->save('refresh_token', $authorization->getRefreshToken());
+        $cache->save('access_token', $authorization->getAccessToken());
+        $cache->save('expires_in', time() + $authorization->getExpiresIn());
+        $cache->save('refresh_token', $authorization->getRefreshToken());
 
-        return $this->cache->fetch('access_token');
+        return $cache->fetch('access_token');
     }
 
     /**

@@ -10,6 +10,28 @@ use Dsc\MercadoLivre\Environments\Test;
 abstract class Environment
 {
     /**
+     * @var Configuration
+     */
+    protected $configuration;
+
+    /**
+     * Environment constructor.
+     * @param Configuration|null $configuration
+     */
+    public function __construct(Configuration $configuration = null)
+    {
+        $this->configuration = $configuration ?: new Configuration();
+    }
+
+    /**
+     * @return Configuration
+     */
+    public function getConfiguration()
+    {
+        return $this->configuration;
+    }
+
+    /**
      * @param string $host
      *
      * @return boolean

@@ -37,6 +37,15 @@ class EnvironmentTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
+    public function returnCorrectConfiguration()
+    {
+        $configuration = $this->environment->getConfiguration();
+        $this->assertInstanceOf(Configuration::class, $configuration);
+    }
+
+    /**
+     * @test
+     */
     public function returnCorrectWSUrlWhenHostIsProduction()
     {
         $url = $this->environment->getWsUrl('/resource');
