@@ -13,8 +13,15 @@ Biblioteca de integração com a API do Mercado Livre.
 - PHP 5.4+
 - Autoloader compatível com a PSR-4
 
+### Dependencies
+
+- Guzzle
+- JMS Serializer
+- Doctrine Collections
+- Doctrine Cache
+
 **OBS:** Esta biblioteca está em fase de desenvolvimento
 
-### Licença de uso
+### Licence
 
 Esta biblioteca segue os termos de uso da [Apache-2.0](https://github.com/discovery-tecnologia/dsc-mercado-livre/blob/master/LICENSE)
