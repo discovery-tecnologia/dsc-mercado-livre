@@ -3,7 +3,7 @@ namespace Dsc\MercadoLivre;
 
 use Dsc\MercadoLivre\Codec\ParserSerializer;
 use Dsc\MercadoLivre\Codec\SerializerInterface;
-use Dsc\MercadoLivre\Http\RequestInterface;
+use Dsc\MercadoLivre\Http\ResourceInterface;
 use Psr\Http\Message\StreamInterface;
 
 /**
@@ -27,8 +27,10 @@ abstract class Service
     protected $serializer;
 
     /**
-     * @param Credentials $credentials
-     * @param Client $client
+     * Service constructor.
+     * @param MeliInterface $meli
+     * @param Client|null $client
+     * @param SerializerInterface|null $serializer
      */
     public function __construct(MeliInterface $meli, Client $client = null, SerializerInterface $serializer = null)
     {
@@ -46,14 +48,15 @@ abstract class Service
     }
 
     /**
-     * @param RequestInterface $request
+     * @param Resource $request
      * @throws MeliException
      */
-    protected function get(RequestInterface $request)
+    protected function get(ResourceInterface $request)
     {
         try {
 
-            return $this->client->get($request)->getBody();
+            return $this->client->get($request)
+                                ->getBody();
 
         } catch(MeliException $me) {
             throw $me;
@@ -61,15 +64,16 @@ abstract class Service
     }
 
     /**
-     * @param RequestInterface $request
+     * @param Resource $request
      * @return StreamInterface
      * @throws MeliException
      */
-    protected function post(RequestInterface $request)
+    protected function post(ResourceInterface $request)
     {
         try {
 
-            return $this->client->post($request)->getBody();
+            return $this->client->post($request)
+                                ->getBody();
 
         } catch(MeliException $me) {
             throw $me;
@@ -77,17 +81,17 @@ abstract class Service
     }
 
     /**
-     * @param RequestInterface $request
+     * @param Resource $request
      */
-    protected function put(RequestInterface $request)
+    protected function put(ResourceInterface $request)
     {
         // TODO: Implement put() method.
     }
 
     /**
-     * @param RequestInterface $request
+     * @param Resource $request
      */
-    protected function delete(RequestInterface $request)
+    protected function delete(ResourceInterface $request)
     {
         // TODO: Implement delete() method.
     }

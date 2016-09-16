@@ -1,7 +1,7 @@
 <?php
 namespace Dsc\MercadoLivre;
 
-use Dsc\MercadoLivre\Http\RequestInterface;
+use Dsc\MercadoLivre\Http\ResourceInterface;
 use GuzzleHttp\Client as HttpClient;
 use GuzzleHttp\Exception\RequestException;
 
@@ -45,10 +45,10 @@ class Client
     }
 
     /**
-     * @param RequestInterface $request
+     * @param Resource $request
      * @return mixed|\Psr\Http\Message\ResponseInterface
      */
-    public function post(RequestInterface $request)
+    public function post(ResourceInterface $request)
     {
         try {
             return $this->client->request(
@@ -67,10 +67,10 @@ class Client
     }
 
     /**
-     * @param RequestInterface $request
+     * @param Resource $request
      * @return mixed|\Psr\Http\Message\ResponseInterface
      */
-    public function get(RequestInterface $request)
+    public function get(ResourceInterface $request)
     {
         $params = $request->getParams();
         try {

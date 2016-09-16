@@ -1,7 +1,7 @@
 <?php
 namespace Dsc\MercadoLivre;
 
-use Dsc\MercadoLivre\Http\RequestInterface;
+use Dsc\MercadoLivre\Http\ResourceInterface;
 use GuzzleHttp\Client as HttpClient;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
@@ -66,7 +66,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
             "client_secret" => 'clientsecret',
             "refresh_token" => 'refreshtoken'
         ];
-        $request = $this->createMock(RequestInterface::class);
+        $request = $this->createMock(ResourceInterface::class);
         $request->expects($this->any())
                 ->method('getParams')
                 ->willReturn($body);
@@ -95,7 +95,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     public function getShouldConfigureHeaders()
     {
         $client = new Client($this->httpClient);
-        $request = $this->createMock(RequestInterface::class);
+        $request = $this->createMock(ResourceInterface::class);
         $request->expects($this->any())
                 ->method('getParams')
                 ->willReturn([]);
