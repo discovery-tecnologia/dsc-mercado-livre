@@ -2,6 +2,7 @@
 namespace Dsc\MercadoLivre;
 
 use Dsc\MercadoLivre\Environments\Production;
+use Dsc\MercadoLivre\Environments\Site;
 use Dsc\MercadoLivre\Environments\Test;
 
 /**
@@ -10,17 +11,32 @@ use Dsc\MercadoLivre\Environments\Test;
 abstract class Environment
 {
     /**
+     * @var string
+     */
+    private $site;
+
+    /**
      * @var Configuration
      */
-    protected $configuration;
+    private $configuration;
 
     /**
      * Environment constructor.
+     * @param string $siteId
      * @param Configuration|null $configuration
      */
-    public function __construct(Configuration $configuration = null)
+    public function __construct($siteId = Site::BRASIL, Configuration $configuration = null)
     {
+        $this->site = $siteId;
         $this->configuration = $configuration ?: new Configuration();
+    }
+
+    /**
+     * @return string
+     */
+    public function getSite()
+    {
+        return $this->site;
     }
 
     /**
@@ -42,12 +58,12 @@ abstract class Environment
     }
 
     /**
-     * @param $region
+     * @param $site
      * @return bool
      */
-    public static function isWsAuthValid($region)
+    public static function isWsAuthValid($site)
     {
-        return (array_key_exists($region, Production::$WS_AUTH) && array_key_exists($region, Test::$WS_AUTH));
+        return (array_key_exists($site, Production::$WS_AUTH) && array_key_exists($site, Test::$WS_AUTH));
     }
 
     /**
@@ -61,13 +77,12 @@ abstract class Environment
     }
 
     /**
-     * @param $region
      * @param $resource
      * @return string
      */
-    public function getAuthUrl($region, $resource = null)
+    public function getAuthUrl($resource = null)
     {
-        return $this->getWsAuth($region) . $resource;
+        return $this->getWsAuth() . $resource;
     }
 
     /**
@@ -84,5 +99,5 @@ abstract class Environment
      * @param $region
      * @return mixed
      */
-    abstract public function getWsAuth($region);
+    abstract public function getWsAuth();
 }

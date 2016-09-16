@@ -54,11 +54,12 @@ class Production extends Environment
     /**
      * {@inheritdoc}
      */
-    public function getWsAuth($region)
+    public function getWsAuth()
     {
-        if(! static::isWsAuthValid($region)) {
-            throw new \InvalidArgumentException(sprintf("Region [%s] invalid.", $region));
+        $site = $this->getSite();
+        if(! static::isWsAuthValid($site)) {
+            throw new \InvalidArgumentException(sprintf("Region [%s] invalid.", $site));
         }
-        return static::$WS_AUTH[$region];
+        return static::$WS_AUTH[$site];
     }
 }

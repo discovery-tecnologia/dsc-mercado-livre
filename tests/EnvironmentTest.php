@@ -57,7 +57,7 @@ class EnvironmentTest extends \PHPUnit_Framework_TestCase
      */
     public function returnCorrectAuthUrlWhenHostIsProduction()
     {
-        $url = $this->environment->getAuthUrl('MLB', '/auth');
+        $url = $this->environment->getAuthUrl('/auth');
         $this->assertEquals('ws.auth.test.com/auth', $url);
     }
 
