@@ -2,6 +2,7 @@
 namespace Dsc\MercadoLivre;
 
 use Dsc\MercadoLivre\Environments\Production;
+use Dsc\MercadoLivre\Environments\Site;
 use Dsc\MercadoLivre\Environments\Test;
 
 /**
@@ -32,6 +33,14 @@ class EnvironmentTest extends \PHPUnit_Framework_TestCase
         $this->environment->expects($this->any())
              ->method('getOAuthUri')
              ->willReturn('/oauth');
+    }
+
+    /**
+     * @test
+     */
+    public function returnCorrectSite()
+    {
+        $this->assertAttributeEquals(Site::BRASIL, 'site', $this->environment);
     }
 
     /**

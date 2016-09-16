@@ -16,8 +16,9 @@ class CategoryService extends Service
      */
     public function findCategories()
     {
-        $credential = $this->getCredential();
-        $wsResourceCategory = sprintf('%s/sites/%s/categories', $this->getEnvironment()->getWsHost(), $credential->getSiteId());
+        $meli = $this->getMeli();
+        $environment = $meli->getEnvironment();
+        $wsResourceCategory = sprintf('%s/sites/%s/categories', $environment->getWsHost(), $environment->getSite());
         return $this->get($wsResourceCategory);
     }
 
@@ -27,7 +28,7 @@ class CategoryService extends Service
      */
     public function findCategoryById($code)
     {
-        $wsResourceCategory = sprintf('%s/categories/%s', $this->getEnvironment()->getWsHost(), $code);
+        $wsResourceCategory = sprintf('%s/categories/%s', $this->getMeli()->getEnvironment()->getWsHost(), $code);
         $data = $this->get($wsResourceCategory);
 
         return $this->serializer->deserialize($data->getContents(), Category::class);

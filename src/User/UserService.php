@@ -14,21 +14,21 @@ use GuzzleHttp\Psr7\Response;
 class UserService extends Service
 {
     /**
-     * @return bool
+     * @param $accessToken
+     * @return mixed
      */
-    public function getInformationAuthenticatedUser($accessToken = null)
+    public function getInformationAuthenticatedUser($accessToken)
     {
-        $credential = $this->getCredential();
-        if(! $credential->getAccessToken() && ! $accessToken) {
+        $meli = $this->getMeli();
+        if(! $accessToken) {
             throw MeliException::create(new Response(403, [], '{"message":"Access token not found - unauthorized.", "status":403}'));
         }
 
-        $token = $accessToken ? $accessToken : $credential->getAccessToken();
         $params = [
-            'access_token' => $token
+            'access_token' => $accessToken
         ];
 
-        $wsResource = sprintf('%s/users/me', $this->getEnvironment()->getWsHost());
+        $wsResource = sprintf('%s/users/me', $meli->getEnvironment()->getWsHost());
         $response = $this->get($wsResource, $params);
 
         return $this->serializer->deserialize($response->getContents(), User::class);

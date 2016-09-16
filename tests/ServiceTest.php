@@ -2,7 +2,6 @@
 namespace Dsc\MercadoLivre;
 
 use Dsc\MercadoLivre\Codec\SerializerInterface;
-use Dsc\MercadoLivre\Environments\Site;
 
 /**
  * @author Diego Wagner <diegowagner4@gmail.com>
@@ -10,9 +9,9 @@ use Dsc\MercadoLivre\Environments\Site;
 class ServiceTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var Credentials
+     * @var MeliInterface
      */
-    protected $credentials;
+    protected $meli;
 
     /**
      * @var Client|\PHPUnit_Framework_MockObject_MockObject
@@ -26,8 +25,7 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $meli = new Meli('client-id', 'client-secret');
-        $this->credentials = new Credentials($meli, Site::BRASIL);
+        $this->meli        = new Meli('client-id', 'client-secret');
         $this->client      = $this->createMock(Client::class);
         $this->serializer  = $this->getMockBuilder(SerializerInterface::class)->getMock();
     }
@@ -39,9 +37,9 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
     {
         $service = $this->getMockForAbstractClass(
             Service::class,
-            [$this->credentials, $this->client, $this->serializer]
+            [$this->meli, $this->client, $this->serializer]
         );
-        $this->assertAttributeSame($this->credentials, 'credentials', $service);
+        $this->assertAttributeSame($this->meli, 'meli', $service);
         $this->assertAttributeSame($this->client, 'client', $service);
         $this->assertAttributeSame($this->serializer, 'serializer', $service);
     }
@@ -53,7 +51,7 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
     {
         $service = $this->getMockForAbstractClass(
             Service::class,
-            [$this->credentials]
+            [$this->meli]
         );
         $this->assertAttributeInstanceOf(Client::class, 'client', $service);
     }
@@ -65,7 +63,7 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
     {
         $service = $this->getMockForAbstractClass(
             Service::class,
-            [$this->credentials, $this->client]
+            [$this->meli, $this->client]
         );
         $this->assertAttributeInstanceOf(SerializerInterface::class, 'serializer', $service);
     }

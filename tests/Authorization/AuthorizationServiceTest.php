@@ -16,9 +16,9 @@ use GuzzleHttp\Psr7\Stream;
 class AuthorizationServiceTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var Credentials|\PHPUnit_Framework_MockObject_MockObject
+     * @var MeliInterface|\PHPUnit_Framework_MockObject_MockObject
      */
-    private $credentials;
+    private $meli;
 
     /**
      * @var Client|\PHPUnit_Framework_MockObject_MockObject
@@ -32,12 +32,12 @@ class AuthorizationServiceTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $meli = $this->createMock(MeliInterface::class);
-        $meli->expects($this->any())
+        $this->meli = $this->createMock(MeliInterface::class);
+        $this->meli->expects($this->any())
              ->method('getClientId')
              ->willReturn('clientid');
 
-        $meli->expects($this->any())
+        $this->meli->expects($this->any())
              ->method('getClientSecret')
              ->willReturn('clientsecret');
 
@@ -46,7 +46,7 @@ class AuthorizationServiceTest extends \PHPUnit_Framework_TestCase
                     ->method('getAuthUrl')
                     ->willReturn('ws.auth.test.com/authorize');
 
-        $meli->expects($this->any())
+        $this->meli->expects($this->any())
              ->method('getEnvironment')
              ->willReturn($environment);
 
@@ -56,9 +56,7 @@ class AuthorizationServiceTest extends \PHPUnit_Framework_TestCase
                    ->willReturn(new Authorization());
 
         $this->client = $this->createMock(Client::class);
-        $this->credentials = new Credentials($meli, Site::BRASIL, 'access-token', 'refresh-token');
-
-        $this->service = new AuthorizationService($this->credentials, $this->client, $serializer);
+        $this->service = new AuthorizationService($this->meli, $this->client, $serializer);
     }
 
     /**
@@ -66,7 +64,7 @@ class AuthorizationServiceTest extends \PHPUnit_Framework_TestCase
      */
     public function constructShouldConfigureTheAttributes()
     {
-        $this->assertAttributeSame($this->credentials, 'credentials', $this->service);
+        $this->assertAttributeSame($this->meli, 'meli', $this->service);
         $this->assertAttributeSame($this->client, 'client', $this->service);
     }
 
@@ -108,8 +106,7 @@ class AuthorizationServiceTest extends \PHPUnit_Framework_TestCase
      */
     public function refreshTokenMethodShouldReturnIsNotAllowedCaseRefreshTokenIsNull()
     {
-        $this->credentials->setRefreshToken(null);
-        $this->service->refreshAccessToken();
+        $this->service->refreshAccessToken(null);
     }
 
     /**

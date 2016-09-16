@@ -12,9 +12,9 @@ use Psr\Http\Message\StreamInterface;
 abstract class Service
 {
     /**
-     * @var Credentials
+     * @var MeliInterface
      */
-    private $credentials;
+    private $meli;
 
     /**
      * @var Client
@@ -30,27 +30,19 @@ abstract class Service
      * @param Credentials $credentials
      * @param Client $client
      */
-    public function __construct(Credentials $credentials, Client $client = null, SerializerInterface $serializer = null)
+    public function __construct(MeliInterface $meli, Client $client = null, SerializerInterface $serializer = null)
     {
-        $this->credentials = $credentials;
+        $this->meli        = $meli;
         $this->client      = $client ?: new Client();
         $this->serializer  = $serializer ?: new ParserSerializer();
     }
 
     /**
-     * @return Credentials
+     * @return MeliInterface
      */
-    protected function getCredential()
+    protected function getMeli()
     {
-        return $this->credentials;
-    }
-
-    /**
-     * @return Environment
-     */
-    protected function getEnvironment()
-    {
-        return $this->credentials->getEnvironment();
+        return $this->meli;
     }
 
     /**

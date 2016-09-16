@@ -24,13 +24,15 @@ class AuthorizationService extends Service
      */
     public function getAuthUrl($resource, $redirectUri)
     {
-        $credential = $this->getCredential();
+        $meli = $this->getMeli();
+        $environment = $meli->getEnvironment();
+
         $params = [
-            "client_id"     => $credential->getMeli()->getClientId(),
+            "client_id"     => $meli->getClientId(),
             "response_type" => "code",
             "redirect_uri"  => $redirectUri
         ];
-        return $this->getEnvironment()->getAuthUrl($credential->getSiteId(), $resource) . "?" . http_build_query($params);
+        return $environment->getAuthUrl($resource) . "?" . http_build_query($params);
     }
 
     /**
@@ -40,16 +42,12 @@ class AuthorizationService extends Service
      */
     public function getAuthorizationCode($redirectUri = null)
     {
-        if($redirectUri) {
-            $this->getCredential()->setRefreshToken($redirectUri);
-        }
-
-        $credential = $this->getCredential();
-        $wsUrl = sprintf('%s/%s', $this->getEnvironment()->getWsAuth($credential->getSiteId()), 'authorization');
+        $meli  = $this->getMeli();
+        $wsUrl = sprintf('%s/%s', $meli->getEnvironment()->getWsAuth(), 'authorization');
 
         $request = new AuthorizationRequest($wsUrl);
         $request->setGrantType('code')
-                ->setClientId($credential->getMeli()->getClientId())
+                ->setClientId($meli->getClientId())
                 ->setRedirectUri($redirectUri);
 
         return $this->get($request);
@@ -64,9 +62,8 @@ class AuthorizationService extends Service
      */
     public function authorize($code, $redirectUri = null)
     {
-        $credential = $this->getCredential();
-        $meli       = $credential->getMeli();
-        $oAuthUri   = $this->getEnvironment()->getOAuthUri();
+        $meli       = $this->getMeli();
+        $oAuthUri   = $meli->getEnvironment()->getOAuthUri();
 
         $request = new AuthorizationRequest($oAuthUri);
         $request->setGrantType('authorization_code')
@@ -82,23 +79,28 @@ class AuthorizationService extends Service
 
     /**
      * Execute a POST Request to create a new AccessToken from a existent refresh_token
+     *
+     * @param string $tokenParam = null
      * @return Authorization
      * @throws MeliException
      */
-    public function refreshAccessToken()
+    public function refreshAccessToken($tokenParam = null)
     {
-        $cache = $this->getEnvironment()->getConfiguration()->getCache();
+        $cache = $this->getMeli()
+                      ->getEnvironment()
+                      ->getConfiguration()
+                      ->getCache();
 
         $refreshToken = $cache->fetch('refresh_token');
-        $credential = $this->getCredential();
-        if(! $credential->getRefreshToken() && ! $refreshToken) {
+
+        if(! $tokenParam && ! $refreshToken) {
             throw MeliException::create(new Response(403, [], '{"message":"Offline-Access is not allowed.", "status":403}'));
         }
 
-        $token = $refreshToken ? $refreshToken : $credential->getRefreshToken();
-        $meli = $credential->getMeli();
+        $token = $refreshToken ? $refreshToken : $tokenParam;
+        $meli  = $this->getMeli();
 
-        $oAuthUri = $this->getEnvironment()->getOAuthUri();
+        $oAuthUri = $meli->getEnvironment()->getOAuthUri();
 
         $request = new AuthorizationRequest($oAuthUri);
         $request->setGrantType('refresh_token')
@@ -119,11 +121,14 @@ class AuthorizationService extends Service
      */
     public function getAccessToken($code = null, $redirectUrl = null)
     {
-        $cache = $this->getEnvironment()->getConfiguration()->getCache();
+        $cache = $this->getMeli()
+                      ->getEnvironment()
+                      ->getConfiguration()
+                      ->getCache();
 
         $accessToken = $cache->fetch('access_token');
         // se existir o parametro code ou um token de acesso na sessao
-        if(!$code && !$accessToken) {
+        if(! $code && ! $accessToken) {
             throw MeliException::create(new Response(403, [], '{"message":"User not authenticate - unauthorized", "status":403}'));
         }
 
