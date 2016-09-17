@@ -51,7 +51,7 @@ class AuthorizationService extends Service
                  ->add('client_id', $meli->getClientId())
                  ->add('redirect_url', $redirectUri);
 
-        return $this->get($resource);
+        return $this->get($resource, new AuthorizationResponse());
     }
 
     /**
@@ -74,9 +74,7 @@ class AuthorizationService extends Service
                  ->add('code', $code)
                  ->add('redirect_url', $redirectUri);
 
-        $response = $this->post($resource);
-
-        return $this->serializer->deserialize($response->getContents(), Authorization::class);
+        return $this->post($resource, new AuthorizationResponse());
     }
 
     /**
@@ -111,9 +109,7 @@ class AuthorizationService extends Service
                  ->add('client_secret', $meli->getClientSecret())
                  ->add('refresh_token', $token);
 
-        $response = $this->post($resource);
-
-        return $this->serializer->deserialize($response->getContents(), Authorization::class);
+        return $this->post($resource, new AuthorizationResponse());
     }
 
     /**

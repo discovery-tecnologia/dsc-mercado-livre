@@ -49,15 +49,16 @@ abstract class Service
     }
 
     /**
-     * @param Resource $request
-     * @throws MeliException
+     * @param MeliResourceInterface $request
+     * @param MeliResponseInterface $response
+     * @return mixed
      */
-    protected function get(MeliResourceInterface $request)
+    protected function get(MeliResourceInterface $request, MeliResponseInterface $response)
     {
         try {
 
-            return $this->client->get($request)
-                                ->getBody();
+            $stream = $this->client->get($request)->getBody();
+            return $this->handleResponse($stream, $response);
 
         } catch(MeliException $me) {
             throw $me;
@@ -65,16 +66,16 @@ abstract class Service
     }
 
     /**
-     * @param Resource $request
-     * @return StreamInterface
-     * @throws MeliException
+     * @param MeliResourceInterface $request
+     * @param MeliResponseInterface $response
+     * @return mixed
      */
-    protected function post(MeliResourceInterface $request)
+    protected function post(MeliResourceInterface $request, MeliResponseInterface $response)
     {
         try {
 
-            return $this->client->post($request)
-                                ->getBody();
+            $stream = $this->client->post($request)->getBody();
+            return $this->handleResponse($stream, $response);
 
         } catch(MeliException $me) {
             throw $me;

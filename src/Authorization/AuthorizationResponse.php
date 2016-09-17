@@ -1,15 +1,15 @@
 <?php
-namespace Dsc\MercadoLivre\Category;
+namespace Dsc\MercadoLivre\Authorization;
 
 use Dsc\MercadoLivre\Http\MeliResponseInterface;
 
-class CategoryResponse implements MeliResponseInterface
+class AuthorizationResponse implements MeliResponseInterface
 {
     /**
      * @return string
      */
     public function getEntityTarget()
     {
-        return Category::class;
+        return Authorization::class;
     }
 }
