@@ -7,7 +7,9 @@
  */
 namespace Dsc\MercadoLivre\Http;
 
-interface MeliResourceInterface
+use Dsc\MercadoLivre\Codec\TargetSerializerInterface;
+
+interface MeliResourceInterface extends TargetSerializerInterface
 {
     /**
      * @param string $url

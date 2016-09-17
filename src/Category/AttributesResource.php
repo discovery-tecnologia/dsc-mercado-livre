@@ -9,13 +9,13 @@ namespace Dsc\MercadoLivre\Category;
 
 use Dsc\MercadoLivre\Http\AbstractMeliResource;
 
-class CategoryResource extends AbstractMeliResource
+class AttributesResource extends AbstractMeliResource
 {
     /**
      * @return string
      */
     public function getTargetEntity()
     {
-        return Category::class;
+        return Attributes::class;
     }
 }

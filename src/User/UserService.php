@@ -28,6 +28,6 @@ class UserService extends Service
         $resource->setUrl($urlResource)
                  ->add('access_token', $accessToken);
 
-        return $this->get($resource, new UserResponse());
+        return $this->get($resource);
     }
 }

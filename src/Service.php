@@ -2,7 +2,7 @@
 namespace Dsc\MercadoLivre;
 
 use Dsc\MercadoLivre\Codec\SerializerInterface;
-use Dsc\MercadoLivre\Http\MeliResponseInterface;
+use Dsc\MercadoLivre\Codec\TargetSerializerInterface;
 use Dsc\MercadoLivre\Http\MeliResourceInterface;
 use Psr\Http\Message\StreamInterface;
 
@@ -42,16 +42,15 @@ abstract class Service
     }
 
     /**
-     * @param MeliResourceInterface $request
-     * @param MeliResponseInterface $response
+     * @param MeliResourceInterface $resource
      * @return mixed
      */
-    protected function get(MeliResourceInterface $request, MeliResponseInterface $response)
+    protected function get(MeliResourceInterface $resource)
     {
         try {
 
-            $stream = $this->client->get($request)->getBody();
-            return $this->handleResponse($stream, $response);
+            $stream = $this->client->get($resource)->getBody();
+            return $this->handleResponse($stream, $resource);
 
         } catch(MeliException $me) {
             throw $me;
@@ -59,16 +58,15 @@ abstract class Service
     }
 
     /**
-     * @param MeliResourceInterface $request
-     * @param MeliResponseInterface $response
+     * @param MeliResourceInterface $resource
      * @return mixed
      */
-    protected function post(MeliResourceInterface $request, MeliResponseInterface $response)
+    protected function post(MeliResourceInterface $resource)
     {
         try {
 
-            $stream = $this->client->post($request)->getBody();
-            return $this->handleResponse($stream, $response);
+            $stream = $this->client->post($resource)->getBody();
+            return $this->handleResponse($stream, $resource);
 
         } catch(MeliException $me) {
             throw $me;
@@ -93,13 +91,13 @@ abstract class Service
 
     /**
      * @param StreamInterface $stream
-     * @param MeliResponseInterface $response
+     * @param TargetSerializerInterface $resource
      * @return mixed
      */
-    protected function handleResponse(StreamInterface $stream, MeliResponseInterface $response)
+    protected function handleResponse(StreamInterface $stream, TargetSerializerInterface $resource)
     {
         return $this->getSerializer()
-                    ->deserialize($stream->getContents(), $response->getEntityTarget(), $this->getFormatter());
+                    ->deserialize($stream->getContents(), $resource->getTarget(), $this->getFormatter());
     }
 
     /**

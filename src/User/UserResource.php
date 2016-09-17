@@ -9,4 +9,13 @@ namespace Dsc\MercadoLivre\User;
 
 use Dsc\MercadoLivre\Http\AbstractMeliResource;
 
-class UserResource extends AbstractMeliResource {}
+class UserResource extends AbstractMeliResource
+{
+    /**
+     * @return string
+     */
+    public function getTargetEntity()
+    {
+        return User::class;
+    }
+}

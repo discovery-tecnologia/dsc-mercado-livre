@@ -1,8 +1,6 @@
 <?php
 namespace Dsc\MercadoLivre;
 
-use Dsc\MercadoLivre\Codec\SerializerInterface;
-
 /**
  * @author Diego Wagner <diegowagner4@gmail.com>
  */

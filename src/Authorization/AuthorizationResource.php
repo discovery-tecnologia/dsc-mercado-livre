@@ -9,4 +9,13 @@ namespace Dsc\MercadoLivre\Authorization;
 
 use Dsc\MercadoLivre\Http\AbstractMeliResource;
 
-class AuthorizationResource extends AbstractMeliResource {}
+class AuthorizationResource extends AbstractMeliResource
+{
+    /**
+     * @return string
+     */
+    public function getTargetEntity()
+    {
+        return Authorization::class;
+    }
+}

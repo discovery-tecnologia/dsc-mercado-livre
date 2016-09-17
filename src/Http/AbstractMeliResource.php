@@ -55,4 +55,14 @@ abstract class AbstractMeliResource implements MeliResourceInterface
     {
         return $this->params;
     }
+
+    /**
+     * @return string
+     */
+    public function getTarget()
+    {
+        return $this->getTargetEntity();
+    }
+
+    public abstract function getTargetEntity();
 }

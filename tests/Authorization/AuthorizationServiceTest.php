@@ -2,7 +2,6 @@
 namespace Dsc\MercadoLivre\Authorization;
 
 use Dsc\MercadoLivre\Client;
-use Dsc\MercadoLivre\Codec\SerializerInterface;
 use Dsc\MercadoLivre\Configuration;
 use Dsc\MercadoLivre\Environment;
 use Dsc\MercadoLivre\MeliInterface;
