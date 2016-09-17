@@ -7,6 +7,7 @@
  */
 namespace Dsc\MercadoLivre\Codec;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use JMS\Serializer\DeserializationContext;
 use JMS\Serializer\SerializationContext;
 use JMS\Serializer\SerializerBuilder;
@@ -22,7 +23,7 @@ class ParserSerializer implements SerializerInterface
     public function serialize($data, $formatter = Formatter::JSON, SerializationContext $context = null)
     {
         $builder = SerializerBuilder::create()->build();
-        return $builder->serialize(\GuzzleHttp\json_decode($data), $formatter, $context);
+        return $builder->serialize($data, $formatter, $context);
     }
 
     /**
@@ -35,8 +36,8 @@ class ParserSerializer implements SerializerInterface
     public function deserialize($data, $type, $formatter = Formatter::JSON, DeserializationContext $context = null)
     {
         $builder = SerializerBuilder::create()->build();
-        if(isset($data['results'])) {
-            return $builder->deserialize($data['results'], 'ArrayCollection<' . $type . '>', $formatter, $context);
+        if(substr($data, 0, 1) == '[') {
+            return new ArrayCollection($builder->deserialize($data, 'ArrayCollection<' . $type . '>', $formatter, $context));
         }
 
         return $builder->deserialize($data, $type, $formatter, $context);

@@ -7,6 +7,6 @@
  */
 namespace Dsc\MercadoLivre\Authorization;
 
-use Dsc\MercadoLivre\Http\AbstractResource;
+use Dsc\MercadoLivre\Http\AbstractMeliResource;
 
-class AuthorizationResource extends AbstractResource {}
+class AuthorizationResource extends AbstractMeliResource {}

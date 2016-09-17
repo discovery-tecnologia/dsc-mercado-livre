@@ -3,7 +3,8 @@ namespace Dsc\MercadoLivre;
 
 use Dsc\MercadoLivre\Codec\ParserSerializer;
 use Dsc\MercadoLivre\Codec\SerializerInterface;
-use Dsc\MercadoLivre\Http\ResourceInterface;
+use Dsc\MercadoLivre\Http\MeliResponseInterface;
+use Dsc\MercadoLivre\Http\MeliResourceInterface;
 use Psr\Http\Message\StreamInterface;
 
 /**
@@ -51,7 +52,7 @@ abstract class Service
      * @param Resource $request
      * @throws MeliException
      */
-    protected function get(ResourceInterface $request)
+    protected function get(MeliResourceInterface $request)
     {
         try {
 
@@ -68,7 +69,7 @@ abstract class Service
      * @return StreamInterface
      * @throws MeliException
      */
-    protected function post(ResourceInterface $request)
+    protected function post(MeliResourceInterface $request)
     {
         try {
 
@@ -83,7 +84,7 @@ abstract class Service
     /**
      * @param Resource $request
      */
-    protected function put(ResourceInterface $request)
+    protected function put(MeliResourceInterface $request)
     {
         // TODO: Implement put() method.
     }
@@ -91,8 +92,23 @@ abstract class Service
     /**
      * @param Resource $request
      */
-    protected function delete(ResourceInterface $request)
+    protected function delete(MeliResourceInterface $request)
     {
         // TODO: Implement delete() method.
+    }
+
+    /**
+     * @param StreamInterface $stream
+     * @param MeliResponseInterface $response
+     * @return mixed
+     */
+    protected function handleResponse(StreamInterface $stream, MeliResponseInterface $response)
+    {
+        $formatter = $this->getMeli()
+                          ->getEnvironment()
+                          ->getConfiguration()
+                          ->getFormatter();
+
+        return $this->serializer->deserialize($stream->getContents(), $response->getEntityTarget(), $formatter);
     }
 }

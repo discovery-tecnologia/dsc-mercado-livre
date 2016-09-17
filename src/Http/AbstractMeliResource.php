@@ -7,7 +7,7 @@
  */
 namespace Dsc\MercadoLivre\Http;
 
-abstract class AbstractResource implements ResourceInterface
+abstract class AbstractMeliResource implements MeliResourceInterface
 {
     /**
      * @var string
@@ -17,7 +17,7 @@ abstract class AbstractResource implements ResourceInterface
     /**
      * @var array
      */
-    protected $params;
+    protected $params = [];
 
     /**
      * @param string $url

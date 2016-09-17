@@ -1,16 +1,16 @@
 <?php
 namespace Dsc\MercadoLivre\Http;
 
-class ResourceTest extends \PHPUnit_Framework_TestCase
+class MeliResourceTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var ResourceInterface
+     * @var MeliResourceInterface
      */
     private $resource;
 
     protected function setUp()
     {
-        $this->resource = $this->getMockForAbstractClass(AbstractResource::class);
+        $this->resource = $this->getMockForAbstractClass(AbstractMeliResource::class);
     }
 
     /**

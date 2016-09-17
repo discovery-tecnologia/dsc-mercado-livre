@@ -1,7 +1,7 @@
 <?php
 namespace Dsc\MercadoLivre;
 
-use Dsc\MercadoLivre\Http\ResourceInterface;
+use Dsc\MercadoLivre\Http\MeliResourceInterface;
 use GuzzleHttp\Client as HttpClient;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
@@ -19,7 +19,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     /**
      * @var Request|\PHPUnit_Framework_MockObject_MockObject
      */
-    protected $request;
+    protected $resource;
 
     /**
      * @var Response|\PHPUnit_Framework_MockObject_MockObject
@@ -66,11 +66,11 @@ class ClientTest extends \PHPUnit_Framework_TestCase
             "client_secret" => 'clientsecret',
             "refresh_token" => 'refreshtoken'
         ];
-        $request = $this->createMock(ResourceInterface::class);
-        $request->expects($this->any())
+        $resource = $this->createMock(MeliResourceInterface::class);
+        $resource->expects($this->any())
                 ->method('getParams')
                 ->willReturn($body);
-        $request->expects($this->any())
+        $resource->expects($this->any())
                 ->method('getUrl')
                 ->willReturn('/test');
 
@@ -85,7 +85,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
                 ]
              )->willReturn($this->response);
 
-        $response = $client->post($request);
+        $response = $client->post($resource);
         $this->assertEquals(['result' => true], $response->getBody());
     }
 
@@ -95,11 +95,11 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     public function getShouldConfigureHeaders()
     {
         $client = new Client($this->httpClient);
-        $request = $this->createMock(ResourceInterface::class);
-        $request->expects($this->any())
+        $resource = $this->createMock(MeliResourceInterface::class);
+        $resource->expects($this->any())
                 ->method('getParams')
                 ->willReturn([]);
-        $request->expects($this->any())
+        $resource->expects($this->any())
             ->method('getUrl')
             ->willReturn('/test?name=Test');
 
@@ -111,7 +111,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
                  ])
              ->willReturn($this->response);
 
-        $response = $client->get($request);
+        $response = $client->get($resource);
         $this->assertEquals(['result' => true], $response->getBody());
     }
 }

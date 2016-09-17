@@ -7,11 +7,11 @@
  */
 namespace Dsc\MercadoLivre\Http;
 
-interface ResourceInterface
+interface MeliResourceInterface
 {
     /**
      * @param string $url
-     * @return ResourceInterface
+     * @return MeliResourceInterface
      */
     public function setUrl($url);
 
@@ -23,7 +23,7 @@ interface ResourceInterface
     /**
      * @param $key
      * @param $value
-     * @return ResourceInterface
+     * @return MeliResourceInterface
      */
     public function add($key, $value);
 

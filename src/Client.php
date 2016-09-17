@@ -1,7 +1,7 @@
 <?php
 namespace Dsc\MercadoLivre;
 
-use Dsc\MercadoLivre\Http\ResourceInterface;
+use Dsc\MercadoLivre\Http\MeliResourceInterface;
 use GuzzleHttp\Client as HttpClient;
 use GuzzleHttp\Exception\RequestException;
 
@@ -48,7 +48,7 @@ class Client
      * @param Resource $request
      * @return mixed|\Psr\Http\Message\ResponseInterface
      */
-    public function post(ResourceInterface $request)
+    public function post(MeliResourceInterface $request)
     {
         try {
             return $this->client->request(
@@ -70,7 +70,7 @@ class Client
      * @param Resource $request
      * @return mixed|\Psr\Http\Message\ResponseInterface
      */
-    public function get(ResourceInterface $request)
+    public function get(MeliResourceInterface $request)
     {
         $params = $request->getParams();
         try {

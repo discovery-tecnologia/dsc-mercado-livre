@@ -7,6 +7,6 @@
  */
 namespace Dsc\MercadoLivre\Category;
 
-use Dsc\MercadoLivre\Http\AbstractResource;
+use Dsc\MercadoLivre\Http\AbstractMeliResource;
 
-class CategoryResource extends AbstractResource {}
+class CategoryResource extends AbstractMeliResource {}

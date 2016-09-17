@@ -21,7 +21,8 @@ class CategoryService extends Service
         $resource = new CategoryResource();
         $resource->setUrl(sprintf('%s/sites/%s/categories', $environment->getWsHost(), $environment->getSite()));
 
-        return $this->get($resource);
+        $data = $this->get($resource);
+        return $this->handleResponse($data, new CategoryResponse());
     }
 
     /**
@@ -32,8 +33,8 @@ class CategoryService extends Service
     {
         $resource = new CategoryResource();
         $resource->setUrl(sprintf('%s/categories/%s', $this->getMeli()->getEnvironment()->getWsHost(), $code));
-        $data = $this->get($resource);
 
-        return $this->serializer->deserialize($data->getContents(), Category::class);
+        $data = $this->get($resource);
+        return $this->handleResponse($data, new CategoryResponse());
     }
 }

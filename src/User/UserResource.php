@@ -7,6 +7,6 @@
  */
 namespace Dsc\MercadoLivre\User;
 
-use Dsc\MercadoLivre\Http\AbstractResource;
+use Dsc\MercadoLivre\Http\AbstractMeliResource;
 
-class UserResource extends AbstractResource {}
+class UserResource extends AbstractMeliResource {}
