@@ -22,7 +22,7 @@ class CategoryService extends Service
         $resource = new CategoryResource();
         $resource->setUrl(sprintf('%s/sites/%s/categories', $environment->getWsHost(), $environment->getSite()));
 
-        return $this->get($resource);
+        return $this->get($resource)->handle();
     }
 
     /**
@@ -34,7 +34,7 @@ class CategoryService extends Service
         $resource = new CategoryResource();
         $resource->setUrl(sprintf('%s/categories/%s', $this->getMeli()->getEnvironment()->getWsHost(), $code));
 
-        return $this->get($resource);
+        return $this->get($resource)->handle();
     }
 
     /**
@@ -46,6 +46,6 @@ class CategoryService extends Service
         $resource = new AttributesResource();
         $resource->setUrl(sprintf('%s/categories/%s/attributes', $this->getMeli()->getEnvironment()->getWsHost(), $code));
 
-        return $this->get($resource);
+        return $this->get($resource)->handle();
     }
 }
