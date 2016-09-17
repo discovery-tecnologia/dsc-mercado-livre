@@ -1,4 +1,4 @@
-# dsc-mercado-livre - API de integração com o Mercado Livre
+# dsc-mercado-livre - Biblioteca de integração com o Mercado Livre
 Biblioteca de integração com a API do Mercado Livre.
 
 ### Features
