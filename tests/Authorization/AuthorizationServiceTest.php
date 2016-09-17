@@ -3,12 +3,9 @@ namespace Dsc\MercadoLivre\Authorization;
 
 use Dsc\MercadoLivre\Client;
 use Dsc\MercadoLivre\Codec\SerializerInterface;
-use Dsc\MercadoLivre\Credentials;
 use Dsc\MercadoLivre\Environment;
-use Dsc\MercadoLivre\Environments\Site;
 use Dsc\MercadoLivre\MeliInterface;
 use GuzzleHttp\Psr7\Response;
-use GuzzleHttp\Psr7\Stream;
 
 /**
  * @author Diego Wagner <diegowagner4@gmail.com>

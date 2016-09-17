@@ -23,13 +23,12 @@ class UserService extends Service
         if(! $accessToken) {
             throw MeliException::create(new Response(403, [], '{"message":"Access token not found - unauthorized.", "status":403}'));
         }
-
-        $params = [
-            'access_token' => $accessToken
-        ];
-
         $wsResource = sprintf('%s/users/me', $meli->getEnvironment()->getWsHost());
-        $response = $this->get($wsResource, $params);
+        $resource = new UserResource();
+        $resource->setUrl($wsResource)
+                 ->add('access_token', $accessToken);
+
+        $response = $this->get($resource);
 
         return $this->serializer->deserialize($response->getContents(), User::class);
     }
