@@ -29,11 +29,23 @@ class CategoryService extends Service
      * @param string $code
      * @return Category
      */
-    public function findCategoryById($code)
+    public function findCategory($code)
     {
         $resource = new CategoryResource();
         $resource->setUrl(sprintf('%s/categories/%s', $this->getMeli()->getEnvironment()->getWsHost(), $code));
 
         return $this->get($resource, new CategoryResponse());
+    }
+
+    /**
+     * @param string $code
+     * @return Collection<Attributes>
+     */
+    public function findCategoryAttributes($code)
+    {
+        $resource = new CategoryResource();
+        $resource->setUrl(sprintf('%s/categories/%s/attributes', $this->getMeli()->getEnvironment()->getWsHost(), $code));
+
+        return $this->get($resource, new AttributesResponse());
     }
 }

@@ -1,7 +1,6 @@
 <?php
 namespace Dsc\MercadoLivre;
 
-use Dsc\MercadoLivre\Codec\ParserSerializer;
 use Dsc\MercadoLivre\Codec\SerializerInterface;
 use Dsc\MercadoLivre\Http\MeliResponseInterface;
 use Dsc\MercadoLivre\Http\MeliResourceInterface;
@@ -23,21 +22,15 @@ abstract class Service
     private $client;
 
     /**
-     * @var SerializerInterface
-     */
-    protected $serializer;
-
-    /**
      * Service constructor.
      * @param MeliInterface $meli
      * @param Client|null $client
      * @param SerializerInterface|null $serializer
      */
-    public function __construct(MeliInterface $meli, Client $client = null, SerializerInterface $serializer = null)
+    public function __construct(MeliInterface $meli, Client $client = null)
     {
-        $this->meli        = $meli;
-        $this->client      = $client ?: new Client();
-        $this->serializer  = $serializer ?: new ParserSerializer();
+        $this->meli   = $meli;
+        $this->client = $client ?: new Client();
     }
 
     /**
@@ -105,11 +98,29 @@ abstract class Service
      */
     protected function handleResponse(StreamInterface $stream, MeliResponseInterface $response)
     {
-        $formatter = $this->getMeli()
-                          ->getEnvironment()
-                          ->getConfiguration()
-                          ->getFormatter();
+        return $this->getSerializer()
+                    ->deserialize($stream->getContents(), $response->getEntityTarget(), $this->getFormatter());
+    }
 
-        return $this->serializer->deserialize($stream->getContents(), $response->getEntityTarget(), $formatter);
+    /**
+     * @return SerializerInterface
+     */
+    private function getSerializer()
+    {
+        return $this->getMeli()
+                    ->getEnvironment()
+                    ->getConfiguration()
+                    ->getSerializer();
+    }
+
+    /**
+     * @return string
+     */
+    private function getFormatter()
+    {
+        return $this->getMeli()
+                    ->getEnvironment()
+                    ->getConfiguration()
+                    ->getFormatter();
     }
 }

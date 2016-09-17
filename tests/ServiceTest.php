@@ -18,16 +18,10 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
      */
     protected $client;
 
-    /**
-     * @var SerializerInterface
-     */
-    protected $serializer;
-
     protected function setUp()
     {
-        $this->meli        = new Meli('client-id', 'client-secret');
-        $this->client      = $this->createMock(Client::class);
-        $this->serializer  = $this->getMockBuilder(SerializerInterface::class)->getMock();
+        $this->meli   = new Meli('client-id', 'client-secret');
+        $this->client = $this->createMock(Client::class);
     }
 
     /**
@@ -37,11 +31,10 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
     {
         $service = $this->getMockForAbstractClass(
             Service::class,
-            [$this->meli, $this->client, $this->serializer]
+            [$this->meli, $this->client]
         );
         $this->assertAttributeSame($this->meli, 'meli', $service);
         $this->assertAttributeSame($this->client, 'client', $service);
-        $this->assertAttributeSame($this->serializer, 'serializer', $service);
     }
 
     /**
@@ -54,17 +47,5 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
             [$this->meli]
         );
         $this->assertAttributeInstanceOf(Client::class, 'client', $service);
-    }
-
-    /**
-     * @test
-     */
-    public function constructorShouldCreateASerializerWhenItWasntInformed()
-    {
-        $service = $this->getMockForAbstractClass(
-            Service::class,
-            [$this->meli, $this->client]
-        );
-        $this->assertAttributeInstanceOf(SerializerInterface::class, 'serializer', $service);
     }
 }

@@ -3,6 +3,7 @@ namespace Dsc\MercadoLivre\Authorization;
 
 use Dsc\MercadoLivre\Client;
 use Dsc\MercadoLivre\Codec\SerializerInterface;
+use Dsc\MercadoLivre\Configuration;
 use Dsc\MercadoLivre\Environment;
 use Dsc\MercadoLivre\MeliInterface;
 use GuzzleHttp\Psr7\Response;
@@ -42,18 +43,16 @@ class AuthorizationServiceTest extends \PHPUnit_Framework_TestCase
         $environment->expects($this->any())
                     ->method('getAuthUrl')
                     ->willReturn('ws.auth.test.com/authorize');
+        $environment->expects($this->any())
+                    ->method('getConfiguration')
+                    ->willReturn(new Configuration());
 
         $this->meli->expects($this->any())
              ->method('getEnvironment')
              ->willReturn($environment);
 
-        $serializer = $this->getMockBuilder(SerializerInterface::class)->getMock();
-        $serializer->expects($this->any())
-                   ->method('deserialize')
-                   ->willReturn(new Authorization());
-
         $this->client = $this->createMock(Client::class);
-        $this->service = new AuthorizationService($this->meli, $this->client, $serializer);
+        $this->service = new AuthorizationService($this->meli, $this->client);
     }
 
     /**
@@ -84,14 +83,14 @@ class AuthorizationServiceTest extends \PHPUnit_Framework_TestCase
                  ->method('getStatusCode')
                  ->willReturn(200);
 
-        $stream = \GuzzleHttp\Psr7\stream_for('string data');
+        $stream = \GuzzleHttp\Psr7\stream_for('{"data":"test"}');
         $response->expects($this->any())
                  ->method('getBody')
                  ->willReturn($stream);
 
         $this->client->expects($this->any())
-             ->method('post')
-             ->willReturn($response);
+                     ->method('post')
+                     ->willReturn($response);
 
         $result = $this->service->authorize('/authorize', 'example.org');
         $this->assertInstanceOf(Authorization::class, $result);

@@ -5,13 +5,20 @@ use Doctrine\Common\Annotations\AnnotationRegistry;
 use Doctrine\Common\Cache\Cache;
 use Doctrine\Common\Cache\FilesystemCache;
 use Dsc\MercadoLivre\Codec\Formatter;
+use Dsc\MercadoLivre\Codec\ParserSerializer;
+use Dsc\MercadoLivre\Codec\SerializerInterface;
 
-class Configuration
+final class Configuration
 {
     /**
      * @var FilesystemCache
      */
     protected $cache;
+
+    /**
+     * @var SerializerInterface
+     */
+    protected $serializer;
 
     /**
      * @var string
@@ -20,13 +27,32 @@ class Configuration
 
     /**
      * Configuration constructor.
-     * @param Cache $cache
+     * @param SerializerInterface|null $serializer
+     * @param Cache|null $cache
+     * @param null $formatter
      */
-    public function __construct(Cache $cache = null, $formatter = null)
+    public function __construct(SerializerInterface $serializer = null, Cache $cache = null, $formatter = null)
     {
         AnnotationRegistry::registerLoader('class_exists');
-        $this->cache = $cache ?: new FilesystemCache(sys_get_temp_dir());
-        $this->formatter = $formatter ? $formatter : Formatter::JSON; // A API do Meli só trabalha no formato JSON, mas já deixei a opção
+        $this->serializer  = $serializer ?: new ParserSerializer();
+        $this->cache       = $cache ?: new FilesystemCache(sys_get_temp_dir());
+        $this->formatter   = $formatter ? $formatter : Formatter::JSON; // A API do Meli só trabalha no formato JSON, mas já deixei a opção
+    }
+
+    /**
+     * @return SerializerInterface
+     */
+    public function getSerializer()
+    {
+        return $this->serializer;
+    }
+
+    /**
+     * @param SerializerInterface $serializer
+     */
+    public function setSerializer($serializer)
+    {
+        $this->serializer = $serializer;
     }
 
     /**
