@@ -4,6 +4,7 @@
 composer.lock
 composer.phar
 .gitignore
+index.php
 
 ### Vagrant ###
 .vagrant
