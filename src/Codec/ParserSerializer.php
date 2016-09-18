@@ -15,15 +15,15 @@ use JMS\Serializer\SerializerBuilder;
 class ParserSerializer implements SerializerInterface
 {
     /**
-     * @param array $data
+     * @param object $object
      * @param string $formatter
      * @param SerializationContext|null $context
      * @return string
      */
-    public function serialize($data, $formatter = Formatter::JSON, SerializationContext $context = null)
+    public function serialize($object, $formatter = Formatter::JSON, SerializationContext $context = null)
     {
         $builder = SerializerBuilder::create()->build();
-        return $builder->serialize($data, $formatter, $context);
+        return $builder->serialize($object, $formatter, $context);
     }
 
     /**
