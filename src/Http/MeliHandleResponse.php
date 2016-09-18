@@ -1,11 +1,17 @@
 <?php
+/**
+ * Class MeliHandleResponse
+ *
+ * @author Diego Wagner <diegowagner4@gmail.com>
+ * http://www.discoverytecnologia.com.br
+ */
 namespace Dsc\MercadoLivre\Http;
 
 use Dsc\MercadoLivre\Codec\SerializerInterface;
 use Dsc\MercadoLivre\Codec\TargetSerializerInterface;
 use Psr\Http\Message\StreamInterface;
 
-class HandleResponse
+class MeliHandleResponse implements MeliHandleResponseInterface
 {
     /**
      * @var StreamInterface
@@ -35,18 +41,35 @@ class HandleResponse
         $this->serializer = $serializer;
     }
 
-    public function __invoke()
-    {
-        return $this->stream->getContents();
-    }
-
+    /**
+     * @return string
+     */
     public function response()
     {
         return $this->stream->getContents();
     }
 
+    /**
+     * @return mixed
+     */
     public function handle()
     {
         return $this->serializer->deserialize($this->stream->getContents(), $this->target->getTarget());
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->stream->getContents();
+    }
+
+    /**
+     * @return string
+     */
+    public function __invoke()
+    {
+        return $this->stream->getContents();
     }
 }

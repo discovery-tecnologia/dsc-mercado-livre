@@ -2,7 +2,8 @@
 namespace Dsc\MercadoLivre;
 
 use Dsc\MercadoLivre\Codec\SerializerInterface;
-use Dsc\MercadoLivre\Http\HandleResponse;
+use Dsc\MercadoLivre\Http\MeliHandleResponse;
+use Dsc\MercadoLivre\Http\MeliHandleResponseInterface;
 use Dsc\MercadoLivre\Http\MeliResourceInterface;
 
 /**
@@ -42,14 +43,14 @@ abstract class Service
 
     /**
      * @param MeliResourceInterface $resource
-     * @return HandleResponse
+     * @return MeliHandleResponseInterface
      */
     protected function get(MeliResourceInterface $resource)
     {
         try {
 
             $stream = $this->client->get($resource)->getBody();
-            return new HandleResponse($stream, $resource, $this->getSerializer());
+            return new MeliHandleResponse($stream, $resource, $this->getSerializer());
 
         } catch(MeliException $me) {
             throw $me;
@@ -58,14 +59,14 @@ abstract class Service
 
     /**
      * @param MeliResourceInterface $resource
-     * @return HandleResponse
+     * @return MeliHandleResponseInterface
      */
     protected function post(MeliResourceInterface $resource)
     {
         try {
 
             $stream = $this->client->post($resource)->getBody();
-            return new HandleResponse($stream, $resource, $this->getSerializer());
+            return new MeliHandleResponse($stream, $resource, $this->getSerializer());
 
         } catch(MeliException $me) {
             throw $me;
