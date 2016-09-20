@@ -5,7 +5,7 @@ use Dsc\MercadoLivre\Codec\SerializerInterface;
 use Dsc\MercadoLivre\Codec\TargetSerializerInterface;
 use Psr\Http\Message\StreamInterface;
 
-class HandleResponseTest extends \PHPUnit_Framework_TestCase
+class MeliHandleResponseTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var StreamInterface
