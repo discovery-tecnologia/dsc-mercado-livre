@@ -74,7 +74,8 @@ abstract class Service
     }
 
     /**
-     * @param Resource $request
+     * @param MeliResourceInterface $resource
+     * @return MeliHandleResponseInterface
      */
     protected function put(MeliResourceInterface $request)
     {
@@ -82,7 +83,8 @@ abstract class Service
     }
 
     /**
-     * @param Resource $request
+     * @param MeliResourceInterface $resource
+     * @return MeliHandleResponseInterface
      */
     protected function delete(MeliResourceInterface $request)
     {
