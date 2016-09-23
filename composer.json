@@ -32,5 +32,8 @@
     "psr-4": {
       "Dsc\\MercadoLivre\\": ["src", "test"]
     }
+  },
+  "scripts": {
+    "test": "./vendor/bin/phpunit"
   }
 }
