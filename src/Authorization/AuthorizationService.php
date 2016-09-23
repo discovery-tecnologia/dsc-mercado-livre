@@ -42,11 +42,9 @@ class AuthorizationService extends Service
      */
     public function getAuthorizationCode($redirectUri = null)
     {
-        $meli  = $this->getMeli();
-        $wsUrl = sprintf('%s/%s', $meli->getEnvironment()->getWsAuth(), 'authorization');
-
+        $meli = $this->getMeli();
         $resource = new AuthorizationResource();
-        $resource->setUrl($wsUrl)
+        $resource->setPath('/authorization')
                  ->add('grant_type', 'code')
                  ->add('client_id', $meli->getClientId())
                  ->add('redirect_url', $redirectUri);
@@ -67,7 +65,7 @@ class AuthorizationService extends Service
         $oAuthUri   = $meli->getEnvironment()->getOAuthUri();
 
         $resource = new AuthorizationResource();
-        $resource->setUrl($oAuthUri)
+        $resource->setPath($oAuthUri)
                  ->add('grant_type', 'authorization_code')
                  ->add('client_id', $meli->getClientId())
                  ->add('client_secret', $meli->getClientSecret())
@@ -103,7 +101,7 @@ class AuthorizationService extends Service
         $oAuthUri = $meli->getEnvironment()->getOAuthUri();
 
         $resource = new AuthorizationResource();
-        $resource->setUrl($oAuthUri)
+        $resource->setPath($oAuthUri)
                  ->add('grant_type', 'refresh_token')
                  ->add('client_id', $meli->getClientId())
                  ->add('client_secret', $meli->getClientSecret())

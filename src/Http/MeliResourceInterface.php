@@ -12,15 +12,15 @@ use Dsc\MercadoLivre\Codec\TargetSerializerInterface;
 interface MeliResourceInterface extends TargetSerializerInterface
 {
     /**
-     * @param string $url
+     * @param string $path
      * @return MeliResourceInterface
      */
-    public function setUrl($url);
+    public function setPath($path);
 
     /**
      * @return string
      */
-    public function getUrl();
+    public function getPath();
 
     /**
      * @param $key

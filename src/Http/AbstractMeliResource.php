@@ -12,7 +12,7 @@ abstract class AbstractMeliResource implements MeliResourceInterface
     /**
      * @var string
      */
-    protected $url;
+    protected $path;
 
     /**
      * @var array
@@ -20,21 +20,21 @@ abstract class AbstractMeliResource implements MeliResourceInterface
     protected $params = [];
 
     /**
-     * @param string $url
+     * @param string $path
      * @return $this
      */
-    public function setUrl($url)
+    public function setPath($path)
     {
-        $this->url = $url;
+        $this->path = $path;
         return $this;
     }
 
     /**
      * @return string
      */
-    public function getUrl()
+    public function getPath()
     {
-        return $this->url;
+        return $this->path;
     }
 
     /**

@@ -56,7 +56,7 @@ class Client
         try {
             return $this->client->request(
                 'POST',
-                $resource->getUrl(), [
+                $resource->getPath(), [
                     'headers' => [
                         'Content-Type' => 'application/x-www-form-urlencoded; charset=UTF-8'
                     ],
@@ -87,7 +87,7 @@ class Client
             if(! empty($params)) {
                 $options = array_merge(['query' => $params], $options);
             }
-            return $this->client->request('GET', $resource->getUrl(), $options);
+            return $this->client->request('GET', $resource->getPath(), $options);
 
         } catch(RequestException $re) {
             $this->handleError($re);

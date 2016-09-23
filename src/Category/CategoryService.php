@@ -20,7 +20,7 @@ class CategoryService extends Service
         $meli = $this->getMeli();
         $environment = $meli->getEnvironment();
         $resource = new CategoryResource();
-        $resource->setUrl(sprintf('%s/sites/%s/categories', $environment->getWsHost(), $environment->getSite()));
+        $resource->setPath(sprintf('/sites/%s/categories', $environment->getSite()));
 
         return $this->get($resource)->handle();
     }
@@ -32,7 +32,7 @@ class CategoryService extends Service
     public function findCategory($code)
     {
         $resource = new CategoryResource();
-        $resource->setUrl(sprintf('%s/categories/%s', $this->getMeli()->getEnvironment()->getWsHost(), $code));
+        $resource->setPath(sprintf('/categories/%s', $code));
 
         return $this->get($resource)->handle();
     }
@@ -44,7 +44,7 @@ class CategoryService extends Service
     public function findCategoryAttributes($code)
     {
         $resource = new AttributesResource();
-        $resource->setUrl(sprintf('%s/categories/%s/attributes', $this->getMeli()->getEnvironment()->getWsHost(), $code));
+        $resource->setPath(sprintf('/categories/%s/attributes', $code));
 
         return $this->get($resource)->handle();
     }

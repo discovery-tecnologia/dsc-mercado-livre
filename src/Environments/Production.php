@@ -48,7 +48,7 @@ class Production extends Environment
      */
     public function getOAuthUri()
     {
-        return static::WS_HOST . static::OAUTH_URI;
+        return static::OAUTH_URI;
     }
 
     /**

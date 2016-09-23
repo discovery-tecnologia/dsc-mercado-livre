@@ -88,7 +88,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
                 ->method('getParams')
                 ->willReturn($body);
         $resource->expects($this->any())
-                ->method('getUrl')
+                ->method('getPath')
                 ->willReturn('/test');
 
         $this->httpClient->expects($this->once())
@@ -117,7 +117,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
                 ->method('getParams')
                 ->willReturn([]);
         $resource->expects($this->any())
-            ->method('getUrl')
+            ->method('getPath')
             ->willReturn('/test?name=Test');
 
         $this->httpClient->expects($this->once())

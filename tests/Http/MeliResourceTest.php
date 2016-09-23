@@ -18,8 +18,8 @@ class MeliResourceTest extends \PHPUnit_Framework_TestCase
      */
     public function shouldReturnUrl()
     {
-        $this->resource->setUrl('http://test.com');
-        $this->assertEquals('http://test.com', $this->resource->getUrl());
+        $this->resource->setPath('http://test.com');
+        $this->assertEquals('http://test.com', $this->resource->getPath());
     }
 
     /**
