@@ -28,7 +28,7 @@ Icon
 *.ipr
 *.iws
 .idea/
-
+.sonar/
 ### NetBeans ###
 /nbproject/
 /build/
