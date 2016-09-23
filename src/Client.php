@@ -28,11 +28,14 @@ class Client
 
     /**
      * Client constructor.
+     * @param MeliInterface $meli
      * @param HttpClient|null $client
      */
-    public function __construct(HttpClient $client = null)
+    public function __construct(MeliInterface $meli, HttpClient $client = null)
     {
-        $this->client = $client ?: new HttpClient();
+        $this->client = $client ?: new HttpClient([
+            'base_uri' => $meli->getEnvironment()->getWsHost()
+        ]);
     }
 
     /**
@@ -48,16 +51,16 @@ class Client
      * @param Resource $request
      * @return mixed|\Psr\Http\Message\ResponseInterface
      */
-    public function post(MeliResourceInterface $request)
+    public function post(MeliResourceInterface $resource)
     {
         try {
             return $this->client->request(
                 'POST',
-                $request->getUrl(), [
+                $resource->getUrl(), [
                     'headers' => [
                         'Content-Type' => 'application/x-www-form-urlencoded; charset=UTF-8'
                     ],
-                    'form_params' => $request->getParams(),
+                    'form_params' => $resource->getParams(),
                     'verify'      => true
                 ]
             );
@@ -70,9 +73,9 @@ class Client
      * @param Resource $request
      * @return mixed|\Psr\Http\Message\ResponseInterface
      */
-    public function get(MeliResourceInterface $request)
+    public function get(MeliResourceInterface $resource)
     {
-        $params = $request->getParams();
+        $params = $resource->getParams();
         try {
             $options = [
                 'headers' => [
@@ -84,7 +87,7 @@ class Client
             if(! empty($params)) {
                 $options = array_merge(['query' => $params], $options);
             }
-            return $this->client->request('GET', $request->getUrl(), $options);
+            return $this->client->request('GET', $resource->getUrl(), $options);
 
         } catch(RequestException $re) {
             $this->handleError($re);

@@ -12,6 +12,11 @@ use GuzzleHttp\Psr7\Response;
 class ClientTest extends \PHPUnit_Framework_TestCase
 {
     /**
+     * @var MeliInterface|\PHPUnit_Framework_MockObject_MockObject
+     */
+    protected $meli;
+
+    /**
      * @var HttpClient|\PHPUnit_Framework_MockObject_MockObject
      */
     protected $httpClient;
@@ -28,6 +33,16 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
+        $environment = $this->getMockForAbstractClass(Environment::class);
+        $environment->expects($this->any())
+                    ->method('getWsHost')
+                    ->willReturn('https://test.com');
+
+        $this->meli  = $this->createMock(MeliInterface::class);
+        $this->meli->expects($this->any())
+                   ->method('getEnvironment')
+                   ->willReturn($environment);
+
         $this->httpClient = $this->createMock(HttpClient::class);
         $this->request    = $this->createMock(Request::class);
         $this->response   = $this->createMock(Response::class);
@@ -41,8 +56,10 @@ class ClientTest extends \PHPUnit_Framework_TestCase
      */
     public function constructShouldInstatiateHttpClient()
     {
-        $client = new Client();
-        $this->assertAttributeEquals(new HttpClient(), 'client', $client);
+        $client = new Client($this->meli);
+        $this->assertAttributeEquals(new HttpClient([
+            'base_uri' => $this->meli->getEnvironment()->getWsHost()
+        ]), 'client', $client);
     }
 
     /**
@@ -50,7 +67,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
      */
     public function constructShouldReceiveHttpClient()
     {
-        $client = new Client($this->httpClient);
+        $client = new Client($this->meli, $this->httpClient);
         $this->assertAttributeSame($this->httpClient, 'client', $client);
     }
 
@@ -59,7 +76,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
      */
     public function postShouldSendTheBodyAsArray()
     {
-        $client = new Client($this->httpClient);
+        $client = new Client($this->meli, $this->httpClient);
         $body = [
             "grant_type"    => "granttype",
             "client_id"     => 'clientid',
@@ -94,7 +111,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
      */
     public function getShouldConfigureHeaders()
     {
-        $client = new Client($this->httpClient);
+        $client = new Client($this->meli, $this->httpClient);
         $resource = $this->createMock(MeliResourceInterface::class);
         $resource->expects($this->any())
                 ->method('getParams')

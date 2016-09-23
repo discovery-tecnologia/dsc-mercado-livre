@@ -30,7 +30,7 @@ abstract class Service
     public function __construct(MeliInterface $meli, Client $client = null)
     {
         $this->meli   = $meli;
-        $this->client = $client ?: new Client();
+        $this->client = $client ?: new Client($meli);
     }
 
     /**
