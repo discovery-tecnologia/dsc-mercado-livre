@@ -58,7 +58,8 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     {
         $client = new Client($this->meli);
         $this->assertAttributeEquals(new HttpClient([
-            'base_uri' => $this->meli->getEnvironment()->getWsHost()
+            'base_uri' => $this->meli->getEnvironment()->getWsHost(),
+            'timeout'  => Client::TIMEOUT
         ]), 'client', $client);
     }
 
@@ -96,7 +97,10 @@ class ClientTest extends \PHPUnit_Framework_TestCase
              ->with(
                 'POST',
                 '/test',[
-                    'headers' => ['Content-Type' => 'application/x-www-form-urlencoded; charset=UTF-8'],
+                    'headers' => [
+                        'Content-Type' => 'application/x-www-form-urlencoded; charset=UTF-8',
+                        'User-Agent'   => Client::USERAGENT
+                    ],
                     'form_params' => $body,
                     'verify'  => true
                 ]
@@ -123,7 +127,10 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $this->httpClient->expects($this->once())
              ->method('request')
              ->with('GET', '/test?name=Test',[
-                     'headers' => ['Content-Type' => 'application/json; charset=UTF-8'],
+                     'headers' => [
+                         'Content-Type' => 'application/json; charset=UTF-8',
+                         'User-Agent'   => Client::USERAGENT
+                     ],
                      'verify' => true
                  ])
              ->willReturn($this->response);

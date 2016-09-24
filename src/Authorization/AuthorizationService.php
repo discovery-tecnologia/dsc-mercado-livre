@@ -43,8 +43,9 @@ class AuthorizationService extends Service
     public function getAuthorizationCode($redirectUri = null)
     {
         $meli = $this->getMeli();
+        $wsAuth = $meli->getEnvironment()->getWsAuth();
         $resource = new AuthorizationResource();
-        $resource->setPath('/authorization')
+        $resource->setPath($wsAuth . '/authorization')
                  ->add('grant_type', 'code')
                  ->add('client_id', $meli->getClientId())
                  ->add('redirect_url', $redirectUri);

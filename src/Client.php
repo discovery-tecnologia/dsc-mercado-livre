@@ -10,16 +10,8 @@ use GuzzleHttp\Exception\RequestException;
  */
 class Client
 {
-    /**
-     * Configuration for CURL
-     */
-    public static $CURL_OPTS = [
-        CURLOPT_USERAGENT      => "MELI-PHP-SDK-1.1.0",
-        CURLOPT_SSL_VERIFYPEER => true,
-        CURLOPT_CONNECTTIMEOUT => 10,
-        CURLOPT_RETURNTRANSFER => 1,
-        CURLOPT_TIMEOUT        => 60
-    ];
+    const USERAGENT = "MELI-PHP-SDK-1.1.0";
+    const TIMEOUT   = 60;
 
     /**
      * @var HttpClient
@@ -34,7 +26,8 @@ class Client
     public function __construct(MeliInterface $meli, HttpClient $client = null)
     {
         $this->client = $client ?: new HttpClient([
-            'base_uri' => $meli->getEnvironment()->getWsHost()
+            'base_uri' => $meli->getEnvironment()->getWsHost(),
+            'timeout'  => self::TIMEOUT
         ]);
     }
 
@@ -58,7 +51,8 @@ class Client
                 'POST',
                 $resource->getPath(), [
                     'headers' => [
-                        'Content-Type' => 'application/x-www-form-urlencoded; charset=UTF-8'
+                        'Content-Type' => 'application/x-www-form-urlencoded; charset=UTF-8',
+                        'User-Agent'   => self::USERAGENT
                     ],
                     'form_params' => $resource->getParams(),
                     'verify'      => true
@@ -79,7 +73,8 @@ class Client
         try {
             $options = [
                 'headers' => [
-                    'Content-Type' => 'application/json; charset=UTF-8'
+                    'Content-Type' => 'application/json; charset=UTF-8',
+                    'User-Agent'   => self::USERAGENT
                 ],
                 'verify'  => true
             ];
