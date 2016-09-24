@@ -6,12 +6,26 @@ use Psr\Http\Message\ResponseInterface;
 class MeliException extends \RuntimeException
 {
     /**
+     * @var int
+     */
+    private $stateCode;
+
+    /**
+     * @var string
+     */
+    private $jsonMessage;
+
+    /**
      * @param ResponseInterface $response
      * @return MeliException
      */
     public static function create(ResponseInterface $response)
     {
-        return new static(static::createMessage($response));
+        $exception = new static(static::createMessage($response));
+        $exception->stateCode   = $response->getStatusCode();
+        $exception->jsonMessage = $response->getBody();
+
+        return $exception;
     }
 
     /**
@@ -29,5 +43,37 @@ class MeliException extends \RuntimeException
         }
 
         return '[' . $response->getStatusCode() . '] Some errors occurred: ' . $response->getBody();
+    }
+
+    /**
+     * @return int
+     */
+    public function getStateCode()
+    {
+        return $this->stateCode;
+    }
+
+    /**
+     * @param int $stateCode
+     */
+    public function setStateCode($stateCode)
+    {
+        $this->stateCode = $stateCode;
+    }
+
+    /**
+     * @return string
+     */
+    public function getJsonMessage()
+    {
+        return (string)$this->jsonMessage;
+    }
+
+    /**
+     * @param string $jsonMessage
+     */
+    public function setJsonMessage($jsonMessage)
+    {
+        $this->jsonMessage = $jsonMessage;
     }
 }

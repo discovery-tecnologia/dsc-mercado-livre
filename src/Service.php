@@ -1,104 +1,162 @@
 <?php
+/**
+ * Class Service
+ *
+ * @author Diego Wagner <diegowagner4@gmail.com>
+ * http://www.discoverytecnologia.com.br
+ */
 namespace Dsc\MercadoLivre;
 
-use Dsc\MercadoLivre\Codec\SerializerInterface;
-use Dsc\MercadoLivre\Http\MeliHandleResponse;
-use Dsc\MercadoLivre\Http\MeliHandleResponseInterface;
-use Dsc\MercadoLivre\Http\MeliResourceInterface;
+use Dsc\MercadoLivre\Authorization\Authorization;
+use Dsc\MercadoLivre\Authorization\AuthorizationResource;
+use GuzzleHttp\Psr7\Response;
+use Psr\Http\Message\StreamInterface;
 
 /**
  * @author Diego Wagner <diegowagner4@gmail.com>
  */
-abstract class Service
+class Service extends BaseService
 {
     /**
-     * @var MeliInterface
+     * @param string $resource
+     * @param string $redirectUri
+     * @return string
      */
-    private $meli;
-
-    /**
-     * @var Client
-     */
-    private $client;
-
-    /**
-     * Service constructor.
-     * @param MeliInterface $meli
-     * @param Client|null $client
-     * @param SerializerInterface|null $serializer
-     */
-    public function __construct(MeliInterface $meli, Client $client = null)
+    public function getAuthUrl($resource, $redirectUri)
     {
-        $this->meli   = $meli;
-        $this->client = $client ?: new Client($meli);
+        $meli = $this->getMeli();
+        $environment = $meli->getEnvironment();
+
+        $params = [
+            "client_id"     => $meli->getClientId(),
+            "response_type" => "code",
+            "redirect_uri"  => $redirectUri
+        ];
+        return $environment->getAuthUrl($resource) . "?" . http_build_query($params);
     }
 
     /**
-     * @return MeliInterface
+     * @param $region
+     * @param null $redirectUri
+     * @return StreamInterface
      */
-    protected function getMeli()
+    public function getAuthorizationCode($redirectUri = null)
     {
-        return $this->meli;
+        $meli = $this->getMeli();
+        $wsAuth = $meli->getEnvironment()->getWsAuth();
+        $resource = new AuthorizationResource();
+        $resource->setPath($wsAuth . '/authorization')
+                 ->add('grant_type', 'code')
+                 ->add('client_id', $meli->getClientId())
+                 ->add('redirect_url', $redirectUri);
+
+        return parent::get($resource)->response();
     }
 
     /**
-     * @param MeliResourceInterface $resource
-     * @return MeliHandleResponseInterface
+     * Executes a POST Request to authorize the application and take an AccessToken.
+     *
+     * @param $code
+     * @param $redirectUri
+     * @return Authorization
      */
-    protected function get(MeliResourceInterface $resource)
+    public function authorize($code, $redirectUri = null)
+    {
+        $meli       = $this->getMeli();
+        $oAuthUri   = $meli->getEnvironment()->getOAuthUri();
+
+        $resource = new AuthorizationResource();
+        $resource->setPath($oAuthUri)
+                 ->add('grant_type', 'authorization_code')
+                 ->add('client_id', $meli->getClientId())
+                 ->add('client_secret', $meli->getClientSecret())
+                 ->add('code', $code)
+                 ->add('redirect_url', $redirectUri);
+
+        return parent::post($resource)->handle();
+    }
+
+    /**
+     * Execute a POST Request to create a new AccessToken from a existent refresh_token
+     *
+     * @param string $tokenParam = null
+     * @return Authorization
+     * @throws MeliException
+     */
+    public function refreshAccessToken($tokenParam = null)
+    {
+        $meli  = $this->getMeli();
+        $cache = $meli->getEnvironment()->getConfiguration()->getCache();
+        $refreshToken = $cache->fetch('refresh_token');
+
+        if(! $tokenParam && ! $refreshToken) {
+            throw MeliException::create(new Response(403, [], '{"message":"Offline-Access is not allowed.", "status":403}'));
+        }
+
+        $token = $refreshToken ? $refreshToken : $tokenParam;
+        $oAuthUri = $meli->getEnvironment()->getOAuthUri();
+
+        $resource = new AuthorizationResource();
+        $resource->setPath($oAuthUri)
+                 ->add('grant_type', 'refresh_token')
+                 ->add('client_id', $meli->getClientId())
+                 ->add('client_secret', $meli->getClientSecret())
+                 ->add('refresh_token', $token);
+
+        return parent::post($resource)->handle();
+    }
+
+    /**
+     * @param null $code
+     * @param null $redirectUrl
+     * @return string
+     * @throws MeliException
+     */
+    public function getAccessToken($code = null, $redirectUrl = null)
+    {
+        $cache = $this->getMeli()
+                      ->getEnvironment()
+                      ->getConfiguration()
+                      ->getCache();
+
+        $accessToken = $cache->fetch('access_token');
+        // se existir o parametro code ou um token de acesso na sessao
+        if(! $code && ! $accessToken) {
+            throw MeliException::create(new Response(403, [], '{"message":"User not authenticate - unauthorized", "status":403}'));
+        }
+
+        if($cache->contains('expires_in')) {
+            if($cache->fetch('expires_in') >= time()) {
+                return $accessToken;
+            }
+        }
+
+        // Se existe o parametro code e o cache está vazio
+        if($code && !($accessToken))  {
+            // faz um pedido de autorizacao a API
+            $authorization = $this->authorize($code, $redirectUrl);
+        } else {
+            // Refresh token
+            $authorization = $this->refreshAccessToken();
+        }
+        // save data in cache
+        $cache->save('access_token', $authorization->getAccessToken());
+        $cache->save('expires_in', time() + $authorization->getExpiresIn());
+        $cache->save('refresh_token', $authorization->getRefreshToken());
+
+        return $cache->fetch('access_token');
+    }
+
+    /**
+     * @return mixed
+     * @throws \Exception
+     */
+    public function isAuthorized()
     {
         try {
-
-            $stream = $this->client->get($resource)->getBody();
-            return new MeliHandleResponse($stream, $resource, $this->getSerializer());
-
-        } catch(MeliException $me) {
-            throw $me;
+            return $this->getAccessToken();
+        } catch (\Exception $e){
+            throw $e;
         }
-    }
-
-    /**
-     * @param MeliResourceInterface $resource
-     * @return MeliHandleResponseInterface
-     */
-    protected function post(MeliResourceInterface $resource)
-    {
-        try {
-
-            $stream = $this->client->post($resource)->getBody();
-            return new MeliHandleResponse($stream, $resource, $this->getSerializer());
-
-        } catch(MeliException $me) {
-            throw $me;
-        }
-    }
-
-    /**
-     * @param MeliResourceInterface $resource
-     * @return MeliHandleResponseInterface
-     */
-    protected function put(MeliResourceInterface $request)
-    {
-        // TODO: Implement put() method.
-    }
-
-    /**
-     * @param MeliResourceInterface $resource
-     * @return MeliHandleResponseInterface
-     */
-    protected function delete(MeliResourceInterface $request)
-    {
-        // TODO: Implement delete() method.
-    }
-
-    /**
-     * @return SerializerInterface
-     */
-    private function getSerializer()
-    {
-        return $this->getMeli()
-                    ->getEnvironment()
-                    ->getConfiguration()
-                    ->getSerializer();
     }
 }

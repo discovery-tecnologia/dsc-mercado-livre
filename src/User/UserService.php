@@ -17,12 +17,9 @@ class UserService extends Service
      * @param $accessToken
      * @return User
      */
-    public function getInformationAuthenticatedUser($accessToken)
+    public function getInformationAuthenticatedUser()
     {
-        if(! $accessToken) {
-            throw MeliException::create(new Response(403, [], '{"message":"Access token not found - unauthorized.", "status":403}'));
-        }
-
+        $accessToken = $this->getAccessToken();
         $resource = new UserResource();
         $resource->setPath('/users/me')
                  ->add('access_token', $accessToken);
