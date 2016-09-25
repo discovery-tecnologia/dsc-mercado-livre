@@ -21,9 +21,13 @@ Biblioteca de integração com a API do Mercado Livre.
 - Doctrine Cache
 
 ### Tests
-Para rodar os testes:
+Para rodar os testes usando o [composer](https://getcomposer.org/download/):
 ```composer
 composer test
+```
+ou utilizando o .phar
+```composer
+php composer.phar test
 ```
 
 **OBS:** Esta biblioteca está em fase de desenvolvimento
