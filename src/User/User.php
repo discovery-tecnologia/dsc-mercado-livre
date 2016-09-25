@@ -18,20 +18,56 @@ class User
     private $id;
 
     /**
-     * @var integer
-     * @JMS\Type("integer")
+     * @var string
+     * @JMS\Type("string")
      */
-    private $userId;
+    private $nickname;
 
     /**
      * @var string
      * @JMS\Type("string")
      */
-    private $contact;
+    private $registrationDate;
 
     /**
      * @var string
      * @JMS\Type("string")
+     */
+    private $firstName;
+
+    /**
+     * @var string
+     * @JMS\Type("string")
+     */
+    private $lastName;
+
+    /**
+     * @var string
+     * @JMS\Type("string")
+     */
+    private $countryId;
+
+    /**
+     * @var string
+     * @JMS\Type("string")
+     */
+    private $email;
+
+    /**
+     * @var Identification
+     * @JMS\Type("Dsc\MercadoLivre\User\Identification")
+     */
+    private $identification;
+
+    /**
+     * @var Address
+     * @JMS\Type("Dsc\MercadoLivre\Category\Address")
+     */
+    private $address;
+
+    /**
+     * @var Phone
+     * @JMS\Type("Dsc\MercadoLivre\Category\Phone")
      */
     private $phone;
 
@@ -39,49 +75,37 @@ class User
      * @var string
      * @JMS\Type("string")
      */
-    private $addressLine;
+    private $userType;
+
+    /**
+     * @var array
+     * @JMS\Type("array")
+     */
+    private $tags;
 
     /**
      * @var string
      * @JMS\Type("string")
      */
-    private $floor;
+    private $logo;
+
+    /**
+     * @var integer
+     * @JMS\Type("integer")
+     */
+    private $points;
 
     /**
      * @var string
      * @JMS\Type("string")
      */
-    private $apartment;
+    private $siteId;
 
     /**
      * @var string
      * @JMS\Type("string")
      */
-    private $streetName;
-
-    /**
-     * @var string
-     * @JMS\Type("string")
-     */
-    private $zipCode;
-
-    /**
-     * @var City
-     * @JMS\Type("Dsc\MercadoLivre\User\City")
-     */
-    private $city;
-
-    /**
-     * @var State
-     * @JMS\Type("Dsc\MercadoLivre\Category\State")
-     */
-    private $state;
-
-    /**
-     * @var Country
-     * @JMS\Type("Dsc\MercadoLivre\Category\Country")
-     */
-    private $country;
+    private $permalink;
 
     /**
      * @return int
@@ -93,46 +117,160 @@ class User
 
     /**
      * @param int $id
+     * @return User
      */
     public function setId($id)
     {
         $this->id = $id;
-    }
-
-    /**
-     * @return int
-     */
-    public function getUserId()
-    {
-        return $this->userId;
-    }
-
-    /**
-     * @param int $userId
-     */
-    public function setUserId($userId)
-    {
-        $this->userId = $userId;
+        return $this;
     }
 
     /**
      * @return string
      */
-    public function getContact()
+    public function getNickname()
     {
-        return $this->contact;
+        return $this->nickname;
     }
 
     /**
-     * @param string $contact
+     * @param string $nickname
+     * @return User
      */
-    public function setContact($contact)
+    public function setNickname($nickname)
     {
-        $this->contact = $contact;
+        $this->nickname = $nickname;
+        return $this;
     }
 
     /**
      * @return string
+     */
+    public function getRegistrationDate()
+    {
+        return $this->registrationDate;
+    }
+
+    /**
+     * @param string $registrationDate
+     * @return User
+     */
+    public function setRegistrationDate($registrationDate)
+    {
+        $this->registrationDate = $registrationDate;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFirstName()
+    {
+        return $this->firstName;
+    }
+
+    /**
+     * @param string $firstName
+     * @return User
+     */
+    public function setFirstName($firstName)
+    {
+        $this->firstName = $firstName;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLastName()
+    {
+        return $this->lastName;
+    }
+
+    /**
+     * @param string $lastName
+     * @return User
+     */
+    public function setLastName($lastName)
+    {
+        $this->lastName = $lastName;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCountryId()
+    {
+        return $this->countryId;
+    }
+
+    /**
+     * @param string $countryId
+     * @return User
+     */
+    public function setCountryId($countryId)
+    {
+        $this->countryId = $countryId;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    /**
+     * @param string $email
+     * @return User
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+        return $this;
+    }
+
+    /**
+     * @return Identification
+     */
+    public function getIdentification()
+    {
+        return $this->identification;
+    }
+
+    /**
+     * @param Identification $identification
+     * @return User
+     */
+    public function setIdentification($identification)
+    {
+        $this->identification = $identification;
+        return $this;
+    }
+
+    /**
+     * @return Address
+     */
+    public function getAddress()
+    {
+        return $this->address;
+    }
+
+    /**
+     * @param Address $address
+     * @return User
+     */
+    public function setAddress($address)
+    {
+        $this->address = $address;
+        return $this;
+    }
+
+    /**
+     * @return Phone
      */
     public function getPhone()
     {
@@ -140,138 +278,120 @@ class User
     }
 
     /**
-     * @param string $phone
+     * @param Phone $phone
+     * @return User
      */
     public function setPhone($phone)
     {
         $this->phone = $phone;
+        return $this;
     }
 
     /**
      * @return string
      */
-    public function getAddressLine()
+    public function getUserType()
     {
-        return $this->addressLine;
+        return $this->userType;
     }
 
     /**
-     * @param string $addressLine
+     * @param string $userType
+     * @return User
      */
-    public function setAddressLine($addressLine)
+    public function setUserType($userType)
     {
-        $this->addressLine = $addressLine;
+        $this->userType = $userType;
+        return $this;
     }
 
     /**
-     * @return string
+     * @return array
      */
-    public function getFloor()
+    public function getTags()
     {
-        return $this->floor;
+        return $this->tags;
     }
 
     /**
-     * @param string $floor
+     * @param array $tags
+     * @return User
      */
-    public function setFloor($floor)
+    public function setTags($tags)
     {
-        $this->floor = $floor;
-    }
-
-    /**
-     * @return string
-     */
-    public function getApartment()
-    {
-        return $this->apartment;
-    }
-
-    /**
-     * @param string $apartment
-     */
-    public function setApartment($apartment)
-    {
-        $this->apartment = $apartment;
+        $this->tags = $tags;
+        return $this;
     }
 
     /**
      * @return string
      */
-    public function getStreetName()
+    public function getLogo()
     {
-        return $this->streetName;
+        return $this->logo;
     }
 
     /**
-     * @param string $streetName
+     * @param string $logo
+     * @return User
      */
-    public function setStreetName($streetName)
+    public function setLogo($logo)
     {
-        $this->streetName = $streetName;
+        $this->logo = $logo;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getPoints()
+    {
+        return $this->points;
+    }
+
+    /**
+     * @param int $points
+     * @return User
+     */
+    public function setPoints($points)
+    {
+        $this->points = $points;
+        return $this;
     }
 
     /**
      * @return string
      */
-    public function getZipCode()
+    public function getSiteId()
     {
-        return $this->zipCode;
+        return $this->siteId;
     }
 
     /**
-     * @param string $zipCode
+     * @param string $siteId
+     * @return User
      */
-    public function setZipCode($zipCode)
+    public function setSiteId($siteId)
     {
-        $this->zipCode = $zipCode;
+        $this->siteId = $siteId;
+        return $this;
     }
 
     /**
-     * @return City
+     * @return string
      */
-    public function getCity()
+    public function getPermalink()
     {
-        return $this->city;
+        return $this->permalink;
     }
 
     /**
-     * @param City $city
+     * @param string $permalink
+     * @return User
      */
-    public function setCity($city)
+    public function setPermalink($permalink)
     {
-        $this->city = $city;
-    }
-
-    /**
-     * @return State
-     */
-    public function getState()
-    {
-        return $this->state;
-    }
-
-    /**
-     * @param State $state
-     */
-    public function setState($state)
-    {
-        $this->state = $state;
-    }
-
-    /**
-     * @return Country
-     */
-    public function getCountry()
-    {
-        return $this->country;
-    }
-
-    /**
-     * @param Country $country
-     */
-    public function setCountry($country)
-    {
-        $this->country = $country;
+        $this->permalink = $permalink;
+        return $this;
     }
 }
