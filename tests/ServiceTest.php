@@ -47,7 +47,7 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function getAuthUrlShouldReturnTheCorrectUrl()
+    public function getOAuthUrlShouldReturnTheCorrectUrl()
     {
         $url = $this->service->getOAuthUrl('example.org');
         $this->assertEquals('ws.auth.test.com/authorize?client_id=client-id&response_type=code&redirect_uri=example.org', $url);
