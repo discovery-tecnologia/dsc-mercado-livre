@@ -61,13 +61,13 @@ class User
 
     /**
      * @var Address
-     * @JMS\Type("Dsc\MercadoLivre\Category\Address")
+     * @JMS\Type("Dsc\MercadoLivre\User\Address")
      */
     private $address;
 
     /**
      * @var Phone
-     * @JMS\Type("Dsc\MercadoLivre\Category\Phone")
+     * @JMS\Type("Dsc\MercadoLivre\User\Phone")
      */
     private $phone;
 
