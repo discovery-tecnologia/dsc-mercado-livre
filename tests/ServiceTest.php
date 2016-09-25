@@ -1,49 +1,55 @@
 <?php
 namespace Dsc\MercadoLivre;
 
+use Doctrine\Common\Cache\Cache;
+
 /**
  * @author Diego Wagner <diegowagner4@gmail.com>
  */
 class ServiceTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var MeliInterface
+     * @var Cache
      */
-    protected $meli;
+    protected $cache;
 
     /**
-     * @var Client|\PHPUnit_Framework_MockObject_MockObject
+     * @var Service
      */
-    protected $client;
+    protected $service;
 
     protected function setUp()
     {
-        $this->meli   = new Meli('client-id', 'client-secret');
-        $this->client = $this->createMock(Client::class);
+        $this->cache = $this->createMock(Cache::class);
+
+        $environment  = $this->createMock(Environment::class);
+        $environment->expects($this->any())
+            ->method('getAuthUrl')
+            ->willReturn('ws.auth.test.com/authorize');
+        $environment->expects($this->any())
+            ->method('getConfiguration')
+            ->willReturn(new Configuration(null, $this->cache));
+
+        $meli   = new Meli('client-id', 'client-secret', $environment);
+        $client = $this->createMock(Client::class);
+
+        $this->service = new Service($meli, $client);
     }
 
     /**
      * @test
      */
-    public function constructorShouldConfigureAttributes()
+    public function constructorShouldConfigureCache()
     {
-        $service = $this->getMockForAbstractClass(
-            Service::class,
-            [$this->meli, $this->client]
-        );
-        $this->assertAttributeSame($this->meli, 'meli', $service);
-        $this->assertAttributeSame($this->client, 'client', $service);
+        $this->assertAttributeSame($this->cache, 'cache', $this->service);
     }
 
     /**
      * @test
      */
-    public function constructorShouldCreateAClientWhenItWasntInformed()
+    public function getAuthUrlShouldReturnTheCorrectUrl()
     {
-        $service = $this->getMockForAbstractClass(
-            Service::class,
-            [$this->meli]
-        );
-        $this->assertAttributeInstanceOf(Client::class, 'client', $service);
+        $url = $this->service->getOAuthUrl('example.org');
+        $this->assertEquals('ws.auth.test.com/authorize?client_id=client-id&response_type=code&redirect_uri=example.org', $url);
     }
 }

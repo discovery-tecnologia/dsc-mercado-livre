@@ -18,24 +18,6 @@ use Psr\Http\Message\StreamInterface;
 class AuthorizationService extends Service
 {
     /**
-     * @param string $resource
-     * @param string $redirectUri
-     * @return string
-     */
-    public function getAuthUrl($resource, $redirectUri)
-    {
-        $meli = $this->getMeli();
-        $environment = $meli->getEnvironment();
-
-        $params = [
-            "client_id"     => $meli->getClientId(),
-            "response_type" => "code",
-            "redirect_uri"  => $redirectUri
-        ];
-        return $environment->getAuthUrl($resource) . "?" . http_build_query($params);
-    }
-
-    /**
      * @param $region
      * @param null $redirectUri
      * @return StreamInterface

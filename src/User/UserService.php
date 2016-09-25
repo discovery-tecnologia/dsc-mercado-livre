@@ -7,9 +7,7 @@
  */
 namespace Dsc\MercadoLivre\User;
 
-use Dsc\MercadoLivre\MeliException;
 use Dsc\MercadoLivre\Service;
-use GuzzleHttp\Psr7\Response;
 
 class UserService extends Service
 {

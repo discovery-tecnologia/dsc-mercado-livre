@@ -63,55 +63,48 @@ class AuthorizationServiceTest extends \PHPUnit_Framework_TestCase
         $this->assertAttributeSame($this->client, 'client', $this->service);
     }
 
-    /**
-     * @test
-     */
-    public function getAuthUrlShouldReturnTheCorrectUrl()
-    {
-        $url = $this->service->getAuthUrl('/authorize', 'example.org');
-        $this->assertEquals('ws.auth.test.com/authorize?client_id=clientid&response_type=code&redirect_uri=example.org', $url);
-    }
 
-    /**
-     * @test
-     */
-    public function authorizeMethodShouldReturnTrue()
-    {
-        $response = $this->createMock(Response::class);
-        $response->expects($this->any())
-                 ->method('getStatusCode')
-                 ->willReturn(200);
 
-        $stream = \GuzzleHttp\Psr7\stream_for('{"data":"test"}');
-        $response->expects($this->any())
-                 ->method('getBody')
-                 ->willReturn($stream);
+//    /**
+//     * @test
+//     */
+//    public function authorizeMethodShouldReturnTrue()
+//    {
+//        $response = $this->createMock(Response::class);
+//        $response->expects($this->any())
+//                 ->method('getStatusCode')
+//                 ->willReturn(200);
+//
+//        $stream = \GuzzleHttp\Psr7\stream_for('{"data":"test"}');
+//        $response->expects($this->any())
+//                 ->method('getBody')
+//                 ->willReturn($stream);
+//
+//        $this->client->expects($this->any())
+//                     ->method('post')
+//                     ->willReturn($response);
+//
+//        $result = $this->service->authorize('/authorize', 'example.org');
+//        $this->assertInstanceOf(Authorization::class, $result);
+//    }
 
-        $this->client->expects($this->any())
-                     ->method('post')
-                     ->willReturn($response);
-
-        $result = $this->service->authorize('/authorize', 'example.org');
-        $this->assertInstanceOf(Authorization::class, $result);
-    }
-
-    /**
-     * @expectedException \Dsc\MercadoLivre\MeliException;
-     * @expectedExceptionMessage [403] A HTTP error has occurred: {"message":"Offline-Access is not allowed.", "status":403}
-     */
-    public function refreshTokenMethodShouldReturnIsNotAllowedCaseRefreshTokenIsNull()
-    {
-        $this->service->refreshAccessToken(null);
-    }
-
-    /**
-     * @expectedException \Dsc\MercadoLivre\MeliException;
-     * @expectedExceptionMessage [403] A HTTP error has occurred: {"message":"User not authenticate - unauthorized", "status":403}
-     */
-    public function accessTokenShouldReturnUserNotAuthenticateCaseNotExistsCodeOrAccessToken()
-    {
-        $this->service->getAccessToken();
-    }
+//    /**
+//     * @expectedException \Dsc\MercadoLivre\MeliException;
+//     * @expectedExceptionMessage [403] A HTTP error has occurred: {"message":"Offline-Access is not allowed.", "status":403}
+//     */
+//    public function refreshTokenMethodShouldReturnIsNotAllowedCaseRefreshTokenIsNull()
+//    {
+//        $this->service->refreshAccessToken(null);
+//    }
+//
+//    /**
+//     * @expectedException \Dsc\MercadoLivre\MeliException;
+//     * @expectedExceptionMessage [403] A HTTP error has occurred: {"message":"User not authenticate - unauthorized", "status":403}
+//     */
+//    public function accessTokenShouldReturnUserNotAuthenticateCaseNotExistsCodeOrAccessToken()
+//    {
+//        $this->service->getAccessToken();
+//    }
 
 //    /**
 //     * @test
