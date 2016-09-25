@@ -20,6 +20,12 @@ Biblioteca de integração com a API do Mercado Livre.
 - Doctrine Collections
 - Doctrine Cache
 
+### Tests
+Para rodar os testes:
+```composer
+composer test
+```
+
 **OBS:** Esta biblioteca está em fase de desenvolvimento
 
 ### Licence
