@@ -60,7 +60,7 @@ class AuthorizationService extends Service
      * @param $redirectUri
      * @return Authorization
      */
-    public function authorization($code, $redirectUri = null)
+    private function requestAuthorization($code, $redirectUri = null)
     {
         $meli       = $this->getMeli();
         $oAuthUri   = $meli->getEnvironment()->getOAuthUri();
@@ -83,14 +83,9 @@ class AuthorizationService extends Service
      * @return Authorization
      * @throws MeliException
      */
-    public function refreshAccessToken($tokenParam = null)
+    private function refreshAccessToken($tokenParam = null)
     {
-        $cache = $this->getMeli()
-                      ->getEnvironment()
-                      ->getConfiguration()
-                      ->getCache();
-
-        $refreshToken = $cache->fetch('refresh_token');
+        $refreshToken = $this->getRefreshToken();
 
         if(! $tokenParam && ! $refreshToken) {
             throw MeliException::create(new Response(403, [], '{"message":"Offline-Access is not allowed.", "status":403}'));
@@ -117,14 +112,8 @@ class AuthorizationService extends Service
      * @return string
      * @throws MeliException
      */
-    public function authorized($code = null, $redirectUrl = null)
+    public function authorize($code = null, $redirectUrl = null)
     {
-//        $cache = $this->getMeli()
-//                      ->getEnvironment()
-//                      ->getConfiguration()
-//                      ->getCache();
-//
-//        $accessToken = $cache->fetch('access_token');
         $accessToken = $this->getAccessToken();
         // se existir o parametro code ou um token de acesso na sessao
         if(! $code && ! $accessToken) {
@@ -134,17 +123,10 @@ class AuthorizationService extends Service
         if(! $this->isExpired()) {
             return $accessToken;
         }
-
-//        if($cache->contains('expires_in')) {
-//            if($cache->fetch('expires_in') >= time()) {
-//                return $accessToken;
-//            }
-//        }
-
         // Se existe o parametro code e o cache está vazio
         if($code && !($accessToken))  {
             // faz um pedido de autorizacao a API
-            $authorization = $this->authorization($code, $redirectUrl);
+            $authorization = $this->requestAuthorization($code, $redirectUrl);
         } else {
             // Refresh token
             $authorization = $this->refreshAccessToken();
@@ -164,7 +146,7 @@ class AuthorizationService extends Service
     public function isAuthorized()
     {
         try {
-            return $this->getAccessToken();
+            return $this->authorize();
         } catch (\Exception $e){
             throw $e;
         }
