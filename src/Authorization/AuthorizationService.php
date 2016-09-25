@@ -60,7 +60,7 @@ class AuthorizationService extends Service
      * @param $redirectUri
      * @return Authorization
      */
-    public function authorize($code, $redirectUri = null)
+    public function authorization($code, $redirectUri = null)
     {
         $meli       = $this->getMeli();
         $oAuthUri   = $meli->getEnvironment()->getOAuthUri();
@@ -117,39 +117,44 @@ class AuthorizationService extends Service
      * @return string
      * @throws MeliException
      */
-    public function getAccessToken($code = null, $redirectUrl = null)
+    public function authorized($code = null, $redirectUrl = null)
     {
-        $cache = $this->getMeli()
-                      ->getEnvironment()
-                      ->getConfiguration()
-                      ->getCache();
-
-        $accessToken = $cache->fetch('access_token');
+//        $cache = $this->getMeli()
+//                      ->getEnvironment()
+//                      ->getConfiguration()
+//                      ->getCache();
+//
+//        $accessToken = $cache->fetch('access_token');
+        $accessToken = $this->getAccessToken();
         // se existir o parametro code ou um token de acesso na sessao
         if(! $code && ! $accessToken) {
             throw MeliException::create(new Response(403, [], '{"message":"User not authenticate - unauthorized", "status":403}'));
         }
 
-        if($cache->contains('expires_in')) {
-            if($cache->fetch('expires_in') >= time()) {
-                return $accessToken;
-            }
+        if(! $this->isExpired()) {
+            return $accessToken;
         }
+
+//        if($cache->contains('expires_in')) {
+//            if($cache->fetch('expires_in') >= time()) {
+//                return $accessToken;
+//            }
+//        }
 
         // Se existe o parametro code e o cache está vazio
         if($code && !($accessToken))  {
             // faz um pedido de autorizacao a API
-            $authorization = $this->authorize($code, $redirectUrl);
+            $authorization = $this->authorization($code, $redirectUrl);
         } else {
             // Refresh token
             $authorization = $this->refreshAccessToken();
         }
-        // save data in cache
-        $cache->save('access_token', $authorization->getAccessToken());
-        $cache->save('expires_in', time() + $authorization->getExpiresIn());
-        $cache->save('refresh_token', $authorization->getRefreshToken());
 
-        return $cache->fetch('access_token');
+        $this->setAccessToken($authorization->getAccessToken());
+        $this->setRefreshToken($authorization->getRefreshToken());
+        $this->setExpireIn(time() + $authorization->getExpiresIn());
+
+        return $this->getAccessToken();
     }
 
     /**

@@ -7,156 +7,92 @@
  */
 namespace Dsc\MercadoLivre;
 
-use Dsc\MercadoLivre\Authorization\Authorization;
-use Dsc\MercadoLivre\Authorization\AuthorizationResource;
-use GuzzleHttp\Psr7\Response;
-use Psr\Http\Message\StreamInterface;
+use Doctrine\Common\Cache\Cache;
 
 /**
  * @author Diego Wagner <diegowagner4@gmail.com>
  */
 class Service extends BaseService
 {
+    const ACCESS_TOKEN  = 'access_token';
+    const REFRESH_TOKEN = 'refresh_token';
+    const EXPIRE_IN     = 'expire_in';
+
     /**
-     * @param string $resource
-     * @param string $redirectUri
+     * @var Cache
+     */
+    protected $cache;
+
+    /**
+     * Service constructor.
+     * @param MeliInterface $meli
+     * @param Client|null $client
+     */
+    public function __construct(MeliInterface $meli, Client $client = null)
+    {
+        parent::__construct($meli, $client);
+        $this->cache = $this->getMeli()->getEnvironment()->getConfiguration()->getCache();
+    }
+
+
+    /**
+     * @return string|bool
+     */
+    public function getAccessToken()
+    {
+        return $this->cache->fetch(Service::ACCESS_TOKEN);
+    }
+
+    /**
+     * @param string $accessToken
+     */
+    public function setAccessToken($accessToken)
+    {
+        $this->cache->save(Service::ACCESS_TOKEN, $accessToken);
+    }
+
+    /**
      * @return string
      */
-    public function getAuthUrl($resource, $redirectUri)
+    public function getRefreshToken()
     {
-        $meli = $this->getMeli();
-        $environment = $meli->getEnvironment();
-
-        $params = [
-            "client_id"     => $meli->getClientId(),
-            "response_type" => "code",
-            "redirect_uri"  => $redirectUri
-        ];
-        return $environment->getAuthUrl($resource) . "?" . http_build_query($params);
+        return $this->cache->fetch(Service::REFRESH_TOKEN);
     }
 
     /**
-     * @param $region
-     * @param null $redirectUri
-     * @return StreamInterface
+     * @param string $refreshToken
      */
-    public function getAuthorizationCode($redirectUri = null)
+    public function setRefreshToken($refreshToken)
     {
-        $meli = $this->getMeli();
-        $wsAuth = $meli->getEnvironment()->getWsAuth();
-        $resource = new AuthorizationResource();
-        $resource->setPath($wsAuth . '/authorization')
-                 ->add('grant_type', 'code')
-                 ->add('client_id', $meli->getClientId())
-                 ->add('redirect_url', $redirectUri);
-
-        return parent::get($resource)->response();
+        $this->cache->save(Service::REFRESH_TOKEN, $refreshToken);
     }
 
     /**
-     * Executes a POST Request to authorize the application and take an AccessToken.
-     *
-     * @param $code
-     * @param $redirectUri
-     * @return Authorization
+     * @return int
      */
-    public function authorize($code, $redirectUri = null)
+    public function getExpireIn()
     {
-        $meli       = $this->getMeli();
-        $oAuthUri   = $meli->getEnvironment()->getOAuthUri();
-
-        $resource = new AuthorizationResource();
-        $resource->setPath($oAuthUri)
-                 ->add('grant_type', 'authorization_code')
-                 ->add('client_id', $meli->getClientId())
-                 ->add('client_secret', $meli->getClientSecret())
-                 ->add('code', $code)
-                 ->add('redirect_url', $redirectUri);
-
-        return parent::post($resource)->handle();
+        return $this->cache->fetch(Service::EXPIRE_IN);
     }
 
     /**
-     * Execute a POST Request to create a new AccessToken from a existent refresh_token
-     *
-     * @param string $tokenParam = null
-     * @return Authorization
-     * @throws MeliException
+     * @param int $expireIn
      */
-    public function refreshAccessToken($tokenParam = null)
+    public function setExpireIn($expireIn)
     {
-        $meli  = $this->getMeli();
-        $cache = $meli->getEnvironment()->getConfiguration()->getCache();
-        $refreshToken = $cache->fetch('refresh_token');
-
-        if(! $tokenParam && ! $refreshToken) {
-            throw MeliException::create(new Response(403, [], '{"message":"Offline-Access is not allowed.", "status":403}'));
-        }
-
-        $token = $refreshToken ? $refreshToken : $tokenParam;
-        $oAuthUri = $meli->getEnvironment()->getOAuthUri();
-
-        $resource = new AuthorizationResource();
-        $resource->setPath($oAuthUri)
-                 ->add('grant_type', 'refresh_token')
-                 ->add('client_id', $meli->getClientId())
-                 ->add('client_secret', $meli->getClientSecret())
-                 ->add('refresh_token', $token);
-
-        return parent::post($resource)->handle();
+        $this->cache->save(Service::EXPIRE_IN, $expireIn);
     }
 
     /**
-     * @param null $code
-     * @param null $redirectUrl
-     * @return string
-     * @throws MeliException
+     * @return bool
      */
-    public function getAccessToken($code = null, $redirectUrl = null)
+    public function isExpired()
     {
-        $cache = $this->getMeli()
-                      ->getEnvironment()
-                      ->getConfiguration()
-                      ->getCache();
-
-        $accessToken = $cache->fetch('access_token');
-        // se existir o parametro code ou um token de acesso na sessao
-        if(! $code && ! $accessToken) {
-            throw MeliException::create(new Response(403, [], '{"message":"User not authenticate - unauthorized", "status":403}'));
-        }
-
-        if($cache->contains('expires_in')) {
-            if($cache->fetch('expires_in') >= time()) {
-                return $accessToken;
+        if($this->cache->contains('expires_in')) {
+            if($this->cache->fetch('expires_in') >= time()) {
+                return false;
             }
         }
-
-        // Se existe o parametro code e o cache está vazio
-        if($code && !($accessToken))  {
-            // faz um pedido de autorizacao a API
-            $authorization = $this->authorize($code, $redirectUrl);
-        } else {
-            // Refresh token
-            $authorization = $this->refreshAccessToken();
-        }
-        // save data in cache
-        $cache->save('access_token', $authorization->getAccessToken());
-        $cache->save('expires_in', time() + $authorization->getExpiresIn());
-        $cache->save('refresh_token', $authorization->getRefreshToken());
-
-        return $cache->fetch('access_token');
-    }
-
-    /**
-     * @return mixed
-     * @throws \Exception
-     */
-    public function isAuthorized()
-    {
-        try {
-            return $this->getAccessToken();
-        } catch (\Exception $e){
-            throw $e;
-        }
+        return true;
     }
 }
