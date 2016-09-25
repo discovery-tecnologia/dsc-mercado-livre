@@ -30,7 +30,7 @@ class AuthorizationService extends Service
         $resource->setPath($wsAuth . '/authorization')
                  ->add('grant_type', 'code')
                  ->add('client_id', $meli->getClientId())
-                 ->add('redirect_url', $redirectUri);
+                 ->add('redirect_uri', $redirectUri);
 
         return $this->get($resource)->response();
     }
@@ -53,7 +53,7 @@ class AuthorizationService extends Service
                  ->add('client_id', $meli->getClientId())
                  ->add('client_secret', $meli->getClientSecret())
                  ->add('code', $code)
-                 ->add('redirect_url', $redirectUri);
+                 ->add('redirect_uri', $redirectUri);
 
         return $this->post($resource)->handle();
     }
