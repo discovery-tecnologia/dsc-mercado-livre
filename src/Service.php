@@ -88,8 +88,8 @@ class Service extends BaseService
      */
     public function isExpired()
     {
-        if($this->cache->contains('expires_in')) {
-            if($this->cache->fetch('expires_in') >= time()) {
+        if($this->cache->contains(Service::EXPIRE_IN)) {
+            if($this->cache->fetch(Service::EXPIRE_IN) >= time()) {
                 return false;
             }
         }
