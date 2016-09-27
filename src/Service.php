@@ -34,7 +34,6 @@ class Service extends BaseService
         $this->cache = $this->getMeli()->getEnvironment()->getConfiguration()->getCache();
     }
 
-
     /**
      * @return string|bool
      */

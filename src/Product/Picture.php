@@ -18,6 +18,12 @@ class Picture
     private $id;
 
     /**
+     * @var string
+     * @JMS\Type("string")
+     */
+    private $source;
+
+    /**
      * @var integer
      * @JMS\Type("integer")
      */
@@ -62,6 +68,24 @@ class Picture
     public function setId($id)
     {
         $this->id = $id;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSource()
+    {
+        return $this->source;
+    }
+
+    /**
+     * @param string $source
+     * @return Picture
+     */
+    public function setSource($source)
+    {
+        $this->source = $source;
         return $this;
     }
 

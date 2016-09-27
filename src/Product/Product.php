@@ -155,7 +155,19 @@ class Product
      * @var string
      * @JMS\Type("string")
      */
+    private $description;
+
+    /**
+     * @var string
+     * @JMS\Type("string")
+     */
     private $videoId;
+
+    /**
+     * @var string
+     * @JMS\Type("string")
+     */
+    private $warranty;
 
     /**
      * @var ArrayCollection
@@ -654,6 +666,24 @@ class Product
     /**
      * @return string
      */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * @param string $description
+     * @return Product
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
     public function getVideoId()
     {
         return $this->videoId;
@@ -666,6 +696,24 @@ class Product
     public function setVideoId($videoId)
     {
         $this->videoId = $videoId;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getWarranty()
+    {
+        return $this->warranty;
+    }
+
+    /**
+     * @param string $warranty
+     * @return Product
+     */
+    public function setWarranty($warranty)
+    {
+        $this->warranty = $warranty;
         return $this;
     }
 
