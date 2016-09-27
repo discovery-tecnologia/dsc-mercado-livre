@@ -8,7 +8,7 @@
 namespace Dsc\MercadoLivre;
 
 use Doctrine\Common\Cache\Cache;
-use Dsc\MercadoLivre\Codec\SerializerInterface;
+use Dsc\MercadoLivre\Parser\SerializerInterface;
 
 class ConfigurationTest extends \PHPUnit_Framework_TestCase
 {

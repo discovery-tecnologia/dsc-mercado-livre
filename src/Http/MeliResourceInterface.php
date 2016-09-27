@@ -7,7 +7,7 @@
  */
 namespace Dsc\MercadoLivre\Http;
 
-use Dsc\MercadoLivre\Codec\TargetSerializerInterface;
+use Dsc\MercadoLivre\Parser\TargetSerializerInterface;
 
 interface MeliResourceInterface extends TargetSerializerInterface
 {

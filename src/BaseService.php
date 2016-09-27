@@ -7,7 +7,7 @@
  */
 namespace Dsc\MercadoLivre;
 
-use Dsc\MercadoLivre\Codec\SerializerInterface;
+use Dsc\MercadoLivre\Parser\SerializerInterface;
 use Dsc\MercadoLivre\Http\MeliHandleResponse;
 use Dsc\MercadoLivre\Http\MeliHandleResponseInterface;
 use Dsc\MercadoLivre\Http\MeliResourceInterface;

@@ -5,7 +5,7 @@
  * @author Diego Wagner <diegowagner4@gmail.com>
  * http://www.discoverytecnologia.com.br
  */
-namespace Dsc\MercadoLivre\Codec;
+namespace Dsc\MercadoLivre\Parser;
 
 use JMS\Serializer\DeserializationContext;
 use JMS\Serializer\SerializationContext;

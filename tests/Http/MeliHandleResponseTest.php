@@ -1,8 +1,8 @@
 <?php
 namespace Dsc\MercadoLivre\Http;
 
-use Dsc\MercadoLivre\Codec\SerializerInterface;
-use Dsc\MercadoLivre\Codec\TargetSerializerInterface;
+use Dsc\MercadoLivre\Parser\SerializerInterface;
+use Dsc\MercadoLivre\Parser\TargetSerializerInterface;
 use Psr\Http\Message\StreamInterface;
 
 class MeliHandleResponseTest extends \PHPUnit_Framework_TestCase

@@ -4,8 +4,8 @@ namespace Dsc\MercadoLivre;
 use Doctrine\Common\Annotations\AnnotationRegistry;
 use Doctrine\Common\Cache\Cache;
 use Doctrine\Common\Cache\FilesystemCache;
-use Dsc\MercadoLivre\Codec\ParserSerializer;
-use Dsc\MercadoLivre\Codec\SerializerInterface;
+use Dsc\MercadoLivre\Parser\ParserSerializer;
+use Dsc\MercadoLivre\Parser\SerializerInterface;
 
 final class Configuration
 {

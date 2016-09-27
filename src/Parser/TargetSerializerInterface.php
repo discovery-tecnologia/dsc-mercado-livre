@@ -1,5 +1,5 @@
 <?php
-namespace Dsc\MercadoLivre\Codec;
+namespace Dsc\MercadoLivre\Parser;
 
 interface TargetSerializerInterface
 {

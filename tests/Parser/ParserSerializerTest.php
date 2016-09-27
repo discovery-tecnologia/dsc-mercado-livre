@@ -1,5 +1,5 @@
 <?php
-namespace Dsc\MercadoLivre\Codec;
+namespace Dsc\MercadoLivre\Parser;
 
 class ParserSerializerTest extends \PHPUnit_Framework_TestCase
 {
