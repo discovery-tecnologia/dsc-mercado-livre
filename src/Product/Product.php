@@ -185,4 +185,16 @@ class Product
      * @JMS\Type("string")
      */
     private $internationalDeliveryMode;
+
+    /**
+     * @var Shipping
+     * @JMS\Type("Dsc\MercadoLivre\Product\SellerAddress")
+     */
+    private $sellerAddress;
+
+    /**
+     * @var string
+     * @JMS\Type("string")
+     */
+    private $sellerContact;
 }
