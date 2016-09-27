@@ -50,14 +50,11 @@ abstract class BaseService
      */
     protected function get(MeliResourceInterface $resource)
     {
-        try {
-
-            $stream = $this->client->get($resource)->getBody();
-            return new MeliHandleResponse($stream, $resource, $this->getSerializer());
-
-        } catch(MeliException $me) {
-            throw $me;
-        }
+        return new MeliHandleResponse(
+            $this->client->get($resource)->getBody(),
+            $resource,
+            $this->getSerializer()
+        );
     }
 
     /**
@@ -66,14 +63,11 @@ abstract class BaseService
      */
     protected function post(MeliResourceInterface $resource)
     {
-        try {
-
-            $stream = $this->client->post($resource)->getBody();
-            return new MeliHandleResponse($stream, $resource, $this->getSerializer());
-
-        } catch(MeliException $me) {
-            throw $me;
-        }
+        return new MeliHandleResponse(
+            $this->client->post($resource)->getBody(),
+            $resource,
+            $this->getSerializer()
+        );
     }
 
     /**
