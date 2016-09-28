@@ -11,6 +11,9 @@ use Dsc\MercadoLivre\Service;
 
 class ProductService extends Service
 {
+    /**
+     * @param Product $product
+     */
     public function save(Product $product)
     {
         $accessToken = $this->getAccessToken();
