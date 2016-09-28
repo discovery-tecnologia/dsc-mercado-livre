@@ -12,7 +12,7 @@ use Doctrine\Common\Cache\Cache;
 /**
  * @author Diego Wagner <diegowagner4@gmail.com>
  */
-class Service extends BaseService
+abstract class Service extends BaseService
 {
     const ACCESS_TOKEN  = 'access_token';
     const REFRESH_TOKEN = 'refresh_token';
