@@ -1,21 +1,21 @@
 <?php
 /**
- * Class UserResource
+ * Class AuthorizationResource
  *
  * @author Diego Wagner <diegowagner4@gmail.com>
  * http://www.discoverytecnologia.com.br
  */
-namespace Dsc\MercadoLivre\User;
+namespace Dsc\MercadoLivre\Requests\Authorization;
 
 use Dsc\MercadoLivre\Http\AbstractMeliResource;
 
-class UserResource extends AbstractMeliResource
+class AuthorizationResource extends AbstractMeliResource
 {
     /**
      * @return string
      */
     public function getTargetEntity()
     {
-        return User::class;
+        return Authorization::class;
     }
 }

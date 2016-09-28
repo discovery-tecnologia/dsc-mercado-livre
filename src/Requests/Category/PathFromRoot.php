@@ -1,21 +1,27 @@
 <?php
 /**
- * Class Description
+ * Class PathFromRoot
  *
  * @author Diego Wagner <diegowagner4@gmail.com>
  * http://www.discoverytecnologia.com.br
  */
-namespace Dsc\MercadoLivre\Product;
+namespace Dsc\MercadoLivre\Requests\Category;
 
 use JMS\Serializer\Annotation as JMS;
 
-class Description
+class PathFromRoot
 {
     /**
      * @var string
      * @JMS\Type("string")
      */
     private $id;
+
+    /**
+     * @var string
+     * @JMS\Type("string")
+     */
+    private $name;
 
     /**
      * @return string
@@ -27,11 +33,25 @@ class Description
 
     /**
      * @param string $id
-     * @return Description
      */
     public function setId($id)
     {
         $this->id = $id;
-        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param string $name
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
     }
 }

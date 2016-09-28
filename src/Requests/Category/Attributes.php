@@ -1,15 +1,15 @@
 <?php
 /**
- * Class PathFromRoot
+ * Class Attributes
  *
  * @author Diego Wagner <diegowagner4@gmail.com>
  * http://www.discoverytecnologia.com.br
  */
-namespace Dsc\MercadoLivre\Category;
+namespace Dsc\MercadoLivre\Requests\Category;
 
 use JMS\Serializer\Annotation as JMS;
 
-class PathFromRoot
+class Attributes
 {
     /**
      * @var string
@@ -22,6 +22,12 @@ class PathFromRoot
      * @JMS\Type("string")
      */
     private $name;
+
+    /**
+     * @var string
+     * @JMS\Type("string")
+     */
+    private $valueType;
 
     /**
      * @return string
@@ -54,4 +60,22 @@ class PathFromRoot
     {
         $this->name = $name;
     }
+
+    /**
+     * @return string
+     */
+    public function getValueType()
+    {
+        return $this->valueType;
+    }
+
+    /**
+     * @param string $valueType
+     */
+    public function setValueType($valueType)
+    {
+        $this->valueType = $valueType;
+    }
+
+    //TODO Mapear os demais atributos
 }

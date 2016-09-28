@@ -5,7 +5,7 @@
  * @author Diego Wagner <diegowagner4@gmail.com>
  * http://www.discoverytecnologia.com.br
  */
-namespace Dsc\MercadoLivre\Category;
+namespace Dsc\MercadoLivre\Requests\Category;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use JMS\Serializer\Annotation as JMS;
@@ -44,13 +44,13 @@ class Category
 
     /**
      * @var ArrayCollection
-     * @JMS\Type("ArrayCollection<Dsc\MercadoLivre\Category\PathFromRoot>")
+     * @JMS\Type("ArrayCollection<Dsc\MercadoLivre\Requests\Category\PathFromRoot>")
      */
     private $pathFromRoot;
 
     /**
      * @var ArrayCollection
-     * @JMS\Type("ArrayCollection<Dsc\MercadoLivre\Category\Category>")
+     * @JMS\Type("ArrayCollection<Dsc\MercadoLivre\Requests\Category\Category>")
      */
     private $childrenCategories;
 
@@ -62,7 +62,7 @@ class Category
 
     /**
      * @var Settings
-     * @JMS\Type("Dsc\MercadoLivre\Category\Settings")
+     * @JMS\Type("Dsc\MercadoLivre\Requests\Category\Settings")
      */
     private $settings;
 

@@ -5,7 +5,7 @@
  * @author Diego Wagner <diegowagner4@gmail.com>
  * http://www.discoverytecnologia.com.br
  */
-namespace Dsc\MercadoLivre\Product;
+namespace Dsc\MercadoLivre\Publish\Product;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -147,7 +147,7 @@ class Product
 
     /**
      * @var ArrayCollection
-     * @JMS\Type("ArrayCollection<Dsc\MercadoLivre\Product\Picture>")
+     * @JMS\Type("ArrayCollection<Dsc\MercadoLivre\Publish\Product\Picture>")
      */
     private $pictures;
 
@@ -171,7 +171,7 @@ class Product
 
     /**
      * @var ArrayCollection
-     * @JMS\Type("ArrayCollection<Dsc\MercadoLivre\Product\Description>")
+     * @JMS\Type("ArrayCollection<Dsc\MercadoLivre\Publish\Product\Description>")
      */
     private $descriptions;
 
@@ -189,7 +189,7 @@ class Product
 
     /**
      * @var Shipping
-     * @JMS\Type("Dsc\MercadoLivre\Product\Shipping")
+     * @JMS\Type("Dsc\MercadoLivre\Publish\Product\Shipping")
      */
     private $shipping;
 
@@ -201,7 +201,7 @@ class Product
 
     /**
      * @var Shipping
-     * @JMS\Type("Dsc\MercadoLivre\Product\SellerAddress")
+     * @JMS\Type("Dsc\MercadoLivre\Publish\Product\SellerAddress")
      */
     private $sellerAddress;
 
@@ -213,7 +213,7 @@ class Product
 
     /**
      * @var Geolocation
-     * @JMS\Type("Dsc\MercadoLivre\Product\Geolocation")
+     * @JMS\Type("Dsc\MercadoLivre\Publish\Product\Geolocation")
      */
     private $geolocation;
 

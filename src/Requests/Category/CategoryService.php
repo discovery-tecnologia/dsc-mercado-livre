@@ -5,7 +5,7 @@
  * @author Diego Wagner <diegowagner4@gmail.com>
  * http://www.discoverytecnologia.com.br
  */
-namespace Dsc\MercadoLivre\Category;
+namespace Dsc\MercadoLivre\Requests\Category;
 
 use Doctrine\Common\Collections\Collection;
 use Dsc\MercadoLivre\Service;

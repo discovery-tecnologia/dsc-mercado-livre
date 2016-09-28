@@ -5,7 +5,7 @@
  * @author Diego Wagner <diegowagner4@gmail.com>
  * http://www.discoverytecnologia.com.br
  */
-namespace Dsc\MercadoLivre\Authorization;
+namespace Dsc\MercadoLivre\Requests\Authorization;
 
 use JMS\Serializer\Annotation as JMS;
 

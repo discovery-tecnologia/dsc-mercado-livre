@@ -33,7 +33,7 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
         $meli   = new Meli('client-id', 'client-secret', $environment);
         $client = $this->createMock(Client::class);
 
-        $this->service = new Service($meli, $client);
+        $this->service = $this->getMockForAbstractClass(Service::class, [$meli, $client]);
     }
 
     /**

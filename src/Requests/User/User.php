@@ -5,7 +5,7 @@
  * @author Diego Wagner <diegowagner4@gmail.com>
  * http://www.discoverytecnologia.com.br
  */
-namespace Dsc\MercadoLivre\User;
+namespace Dsc\MercadoLivre\Requests\User;
 
 use JMS\Serializer\Annotation as JMS;
 
@@ -55,19 +55,19 @@ class User
 
     /**
      * @var Identification
-     * @JMS\Type("Dsc\MercadoLivre\User\Identification")
+     * @JMS\Type("Dsc\MercadoLivre\Requests\User\Identification")
      */
     private $identification;
 
     /**
      * @var Address
-     * @JMS\Type("Dsc\MercadoLivre\User\Address")
+     * @JMS\Type("Dsc\MercadoLivre\Requests\User\Address")
      */
     private $address;
 
     /**
      * @var Phone
-     * @JMS\Type("Dsc\MercadoLivre\User\Phone")
+     * @JMS\Type("Dsc\MercadoLivre\Requests\User\Phone")
      */
     private $phone;
 
