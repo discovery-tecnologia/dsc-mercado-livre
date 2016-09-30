@@ -19,10 +19,10 @@ class UserService extends Service
     public function getInformationAuthenticatedUser()
     {
         $accessToken = $this->getAccessToken();
-        $response = new UserResponseBuilder(
+        $builder = new UserResponseBuilder(
             $this->get('/users/me', ['access_token' => $accessToken]),
             $this->getSerializer()
         );
-        return $response->getResponse();
+        return $builder->getResponse();
     }
 }

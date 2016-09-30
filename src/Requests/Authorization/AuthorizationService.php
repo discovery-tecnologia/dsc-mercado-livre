@@ -32,11 +32,11 @@ class AuthorizationService extends Service
             'redirect_uri' => $redirectUri
         ];
 
-        $response = new AuthorizationResponseBuilder(
+        $builder = new AuthorizationResponseBuilder(
             $this->get($uri, $params),
             $this->getSerializer()
         );
-        return $response->getResponse();
+        return $builder->getResponse();
     }
 
     /**
@@ -58,11 +58,11 @@ class AuthorizationService extends Service
             'redirect_uri' => $redirectUri
         ];
 
-        $response = new AuthorizationResponseBuilder(
+        $builder = new AuthorizationResponseBuilder(
             $this->post($uri, $data),
             $this->getSerializer()
         );
-        return $response->getResponse();
+        return $builder->getResponse();
     }
 
     /**
@@ -91,11 +91,11 @@ class AuthorizationService extends Service
             'refresh_token' => $token
         ];
 
-        $response = new AuthorizationResponseBuilder(
+        $builder = new AuthorizationResponseBuilder(
             $this->post($uri, $data),
             $this->getSerializer()
         );
-        return $response->getResponse();
+        return $builder->getResponse();
     }
 
     /**

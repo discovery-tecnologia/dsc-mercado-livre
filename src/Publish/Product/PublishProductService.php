@@ -18,10 +18,10 @@ class ProductService extends Service
     public function publish(Product $product)
     {
         $accessToken = $this->getAccessToken();
-        $response = new ProductResponseBuilder(
+        $builder = new ProductResponseBuilder(
             $this->post('/items', $product, ['access_token' => $accessToken]),
             $this->getSerializer()
         );
-        return $response->getResponse();
+        return $builder->getResponse();
     }
 }

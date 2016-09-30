@@ -20,8 +20,11 @@ class CategoryService extends Service
         $meli = $this->getMeli();
         $environment = $meli->getEnvironment();
         $uri = sprintf('/sites/%s/categories', $environment->getSite());
-        $response = new CategoryResponseBuilder($this->get($uri));
-        return $response->getResponse();
+        $builder = new CategoryResponseBuilder(
+            $this->get($uri),
+            $this->getSerializer()
+        );
+        return $builder->getResponse();
     }
 
     /**
@@ -31,8 +34,11 @@ class CategoryService extends Service
     public function findCategory($code)
     {
         $uri = sprintf('/categories/%s', $code);
-        $response = new CategoryResponseBuilder($this->get($uri));
-        return $response->getResponse();
+        $builder = new CategoryResponseBuilder(
+            $this->get($uri),
+            $this->getSerializer()
+        );
+        return $builder->getResponse();
     }
 
     /**
@@ -42,7 +48,10 @@ class CategoryService extends Service
     public function findCategoryAttributes($code)
     {
         $uri = sprintf('/categories/%s/attributes', $code);
-        $response = new AttributesResponseBuilder($this->get($uri));
-        return $response->getResponse();
+        $builder = new AttributesResponseBuilder(
+            $this->get($uri),
+            $this->getSerializer()
+        );
+        return $builder->getResponse();
     }
 }
