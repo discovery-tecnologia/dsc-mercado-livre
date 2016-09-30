@@ -78,19 +78,12 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     public function postShouldSendTheBodyAsArray()
     {
         $client = new Client($this->meli, $this->httpClient);
-        $body = [
+        $data = [
             "grant_type"    => "granttype",
             "client_id"     => 'clientid',
             "client_secret" => 'clientsecret',
             "refresh_token" => 'refreshtoken'
         ];
-        $resource = $this->createMock(MeliResourceInterface::class);
-        $resource->expects($this->any())
-                ->method('getParams')
-                ->willReturn($body);
-        $resource->expects($this->any())
-                ->method('getPath')
-                ->willReturn('/test');
 
         $this->httpClient->expects($this->once())
              ->method('request')
@@ -98,15 +91,15 @@ class ClientTest extends \PHPUnit_Framework_TestCase
                 'POST',
                 '/test',[
                     'headers' => [
-                        'Content-Type' => 'application/x-www-form-urlencoded; charset=UTF-8',
+                        'Content-Type' => 'application/json; charset=UTF-8',
                         'User-Agent'   => Client::USERAGENT
                     ],
-                    'form_params' => $body,
+                    'json' => $data,
                     'verify'  => true
                 ]
              )->willReturn($this->response);
 
-        $response = $client->post($resource);
+        $response = $client->post('/test', $data);
         $this->assertEquals(['result' => true], $response->getBody());
     }
 
@@ -116,14 +109,6 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     public function getShouldConfigureHeaders()
     {
         $client = new Client($this->meli, $this->httpClient);
-        $resource = $this->createMock(MeliResourceInterface::class);
-        $resource->expects($this->any())
-                ->method('getParams')
-                ->willReturn([]);
-        $resource->expects($this->any())
-            ->method('getPath')
-            ->willReturn('/test?name=Test');
-
         $this->httpClient->expects($this->once())
              ->method('request')
              ->with('GET', '/test?name=Test',[
@@ -135,7 +120,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
                  ])
              ->willReturn($this->response);
 
-        $response = $client->get($resource);
+        $response = $client->get('/test?name=Test');
         $this->assertEquals(['result' => true], $response->getBody());
     }
 }

@@ -46,7 +46,7 @@ class Client
      * @param array $params
      * @return mixed|\Psr\Http\Message\ResponseInterface
      */
-    public function post($uri, $data, $params)
+    public function post($uri, $data, $params = [])
     {
         try {
 
