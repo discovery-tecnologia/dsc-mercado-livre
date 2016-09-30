@@ -7,10 +7,8 @@
  */
 namespace Dsc\MercadoLivre;
 
+use Dsc\MercadoLivre\Http\RequestBuilder;
 use Dsc\MercadoLivre\Parser\SerializerInterface;
-use Dsc\MercadoLivre\Http\MeliHandleResponse;
-use Dsc\MercadoLivre\Http\MeliHandleResponseInterface;
-use Dsc\MercadoLivre\Http\MeliResourceInterface;
 
 abstract class BaseService
 {
@@ -32,8 +30,8 @@ abstract class BaseService
      */
     public function __construct(MeliInterface $meli, Client $client = null)
     {
-        $this->meli   = $meli;
-        $this->client = $client ?: new Client($meli);
+        $this->meli    = $meli;
+        $this->client  = $client ?: new Client($meli);
     }
 
     /**
@@ -45,45 +43,40 @@ abstract class BaseService
     }
 
     /**
-     * @param MeliResourceInterface $resource
-     * @return MeliHandleResponseInterface
+     * @param $uri
+     * @param $params
      */
-    protected function get(MeliResourceInterface $resource)
+    protected function get($uri, $params = [])
     {
-        return new MeliHandleResponse(
-            $this->client->get($resource)->getBody(),
-            $resource,
-            $this->getSerializer()
-        );
+        return $this->client->get($uri, $params)->getBody();
     }
 
     /**
-     * @param MeliResourceInterface $resource
-     * @return MeliHandleResponseInterface
+     * @param $uri
+     * @param $data
+     * @param $params
      */
-    protected function post(MeliResourceInterface $resource)
+    protected function post($uri, $data, $params = [])
     {
-        return new MeliHandleResponse(
-            $this->client->post($resource)->getBody(),
-            $resource,
-            $this->getSerializer()
-        );
+        $request = new RequestBuilder($data, $this->getSerializer());
+        return $this->client->post($uri, $request->getRequest(), $params)->getBody();
     }
 
     /**
-     * @param MeliResourceInterface $resource
-     * @return MeliHandleResponseInterface
+     * @param $uri
+     * @param $data
+     * @param array $params
      */
-    protected function put(MeliResourceInterface $request)
+    protected function put($uri, $data, $params = [])
     {
         // TODO: Implement put() method.
     }
 
     /**
-     * @param MeliResourceInterface $resource
-     * @return MeliHandleResponseInterface
+     * @param $uri
+     * @param array $params
      */
-    protected function delete(MeliResourceInterface $request)
+    protected function delete($uri, $params = [])
     {
         // TODO: Implement delete() method.
     }
@@ -91,7 +84,7 @@ abstract class BaseService
     /**
      * @return SerializerInterface
      */
-    private function getSerializer()
+    protected function getSerializer()
     {
         return $this->getMeli()
                     ->getEnvironment()
