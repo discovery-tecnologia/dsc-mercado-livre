@@ -5,22 +5,19 @@
  * @author Diego Wagner <diegowagner4@gmail.com>
  * http://www.discoverytecnologia.com.br
  */
-namespace Dsc\MercadoLivre\Publish\Product;
+namespace Dsc\MercadoLivre\Requests\Product;
 
 use Dsc\MercadoLivre\Service;
 
 class ProductService extends Service
 {
     /**
-     * @param Product $product
-     * @return ProductResponse
+     * @param $code
      */
-    public function publish(Product $product)
+    public function findProduct($code)
     {
-        $accessToken = $this->getAccessToken();
         $response = new ProductResponseBuilder(
-            $this->post('/items', $product, ['access_token' => $accessToken]),
-            $this->getSerializer()
+            $this->get('/items/' . $code)
         );
         return $response->getResponse();
     }

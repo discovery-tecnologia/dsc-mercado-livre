@@ -7,6 +7,7 @@
  */
 namespace Dsc\MercadoLivre\Requests\User;
 
+use Dsc\MercadoLivre\Requests\Product\UserResponseBuilder;
 use Dsc\MercadoLivre\Service;
 
 class UserService extends Service
@@ -18,10 +19,10 @@ class UserService extends Service
     public function getInformationAuthenticatedUser()
     {
         $accessToken = $this->getAccessToken();
-        $resource = new UserResource();
-        $resource->setPath('/users/me')
-                 ->add('access_token', $accessToken);
-
-        return $this->get($resource)->handle();
+        $response = new UserResponseBuilder(
+            $this->get('/users/me', ['access_token' => $accessToken]),
+            $this->getSerializer()
+        );
+        return $response->getResponse();
     }
 }

@@ -25,14 +25,18 @@ class AuthorizationService extends Service
     public function getAuthorizationCode($redirectUri = null)
     {
         $meli = $this->getMeli();
-        $wsAuth = $meli->getEnvironment()->getWsAuth();
-        $resource = new AuthorizationResource();
-        $resource->setPath($wsAuth . '/authorization')
-                 ->add('grant_type', 'code')
-                 ->add('client_id', $meli->getClientId())
-                 ->add('redirect_uri', $redirectUri);
+        $uri  = $meli->getEnvironment()->getWsAuth();
+        $params = [
+            'grant_type'   => 'code',
+            'client_id'    => $meli->getClientId(),
+            'redirect_uri' => $redirectUri
+        ];
 
-        return $this->get($resource)->response();
+        $response = new AuthorizationResponseBuilder(
+            $this->get($uri, $params),
+            $this->getSerializer()
+        );
+        return $response->getResponse();
     }
 
     /**
@@ -44,18 +48,21 @@ class AuthorizationService extends Service
      */
     private function requestAuthorization($code, $redirectUri = null)
     {
-        $meli       = $this->getMeli();
-        $oAuthUri   = $meli->getEnvironment()->getOAuthUri();
+        $meli = $this->getMeli();
+        $uri  = $meli->getEnvironment()->getOAuthUri();
+        $data = [
+            'grant_type'   => 'authorization_code',
+            'client_id'    => $meli->getClientId(),
+            'client_secret'=> $meli->getClientSecret(),
+            'code'         => $code,
+            'redirect_uri' => $redirectUri
+        ];
 
-        $resource = new AuthorizationResource();
-        $resource->setPath($oAuthUri)
-                 ->add('grant_type', 'authorization_code')
-                 ->add('client_id', $meli->getClientId())
-                 ->add('client_secret', $meli->getClientSecret())
-                 ->add('code', $code)
-                 ->add('redirect_uri', $redirectUri);
-
-        return $this->post($resource)->handle();
+        $response = new AuthorizationResponseBuilder(
+            $this->post($uri, $data),
+            $this->getSerializer()
+        );
+        return $response->getResponse();
     }
 
     /**
@@ -76,16 +83,19 @@ class AuthorizationService extends Service
         $token = $refreshToken ? $refreshToken : $tokenParam;
         $meli  = $this->getMeli();
 
-        $oAuthUri = $meli->getEnvironment()->getOAuthUri();
+        $uri  = $meli->getEnvironment()->getOAuthUri();
+        $data = [
+            'grant_type'    => 'refresh_token',
+            'client_id'     => $meli->getClientId(),
+            'client_secret' => $meli->getClientSecret(),
+            'refresh_token' => $token
+        ];
 
-        $resource = new AuthorizationResource();
-        $resource->setPath($oAuthUri)
-                 ->add('grant_type', 'refresh_token')
-                 ->add('client_id', $meli->getClientId())
-                 ->add('client_secret', $meli->getClientSecret())
-                 ->add('refresh_token', $token);
-
-        return $this->post($resource)->handle();
+        $response = new AuthorizationResponseBuilder(
+            $this->post($uri, $data),
+            $this->getSerializer()
+        );
+        return $response->getResponse();
     }
 
     /**

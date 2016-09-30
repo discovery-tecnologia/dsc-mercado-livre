@@ -13,16 +13,15 @@ use Dsc\MercadoLivre\Service;
 class CategoryService extends Service
 {
     /**
-     * @return Collection<Category>
+     * @return Collection
      */
     public function findCategories()
     {
         $meli = $this->getMeli();
         $environment = $meli->getEnvironment();
-        $resource = new CategoryResource();
-        $resource->setPath(sprintf('/sites/%s/categories', $environment->getSite()));
-
-        return $this->get($resource)->handle();
+        $uri = sprintf('/sites/%s/categories', $environment->getSite());
+        $response = new CategoryResponseBuilder($this->get($uri));
+        return $response->getResponse();
     }
 
     /**
@@ -31,10 +30,9 @@ class CategoryService extends Service
      */
     public function findCategory($code)
     {
-        $resource = new CategoryResource();
-        $resource->setPath(sprintf('/categories/%s', $code));
-
-        return $this->get($resource)->handle();
+        $uri = sprintf('/categories/%s', $code);
+        $response = new CategoryResponseBuilder($this->get($uri));
+        return $response->getResponse();
     }
 
     /**
@@ -43,9 +41,8 @@ class CategoryService extends Service
      */
     public function findCategoryAttributes($code)
     {
-        $resource = new AttributesResource();
-        $resource->setPath(sprintf('/categories/%s/attributes', $code));
-
-        return $this->get($resource)->handle();
+        $uri = sprintf('/categories/%s/attributes', $code);
+        $response = new AttributesResponseBuilder($this->get($uri));
+        return $response->getResponse();
     }
 }

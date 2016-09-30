@@ -41,35 +41,42 @@ class Client
     }
 
     /**
-     * @param Resource $request
+     * @param string $uri
+     * @param string $data
+     * @param array $params
      * @return mixed|\Psr\Http\Message\ResponseInterface
      */
-    public function post(MeliResourceInterface $resource)
+    public function post($uri, $data, $params)
     {
         try {
-            return $this->client->request(
-                'POST',
-                $resource->getPath(), [
-                    'headers' => [
-                        'Content-Type' => 'application/x-www-form-urlencoded; charset=UTF-8',
-                        'User-Agent'   => self::USERAGENT
-                    ],
-                    'form_params' => $resource->getParams(),
-                    'verify'      => true
-                ]
-            );
+
+            $options = [
+                'headers' => [
+                    'Content-Type' => 'application/json; charset=UTF-8',
+                    'User-Agent'   => self::USERAGENT
+                ],
+                'json'    => $data,
+                'verify'  => true
+            ];
+
+            if(! empty($params)) {
+                $options = array_merge(['query' => $params], $options);
+            }
+
+            return $this->client->request('POST', $uri, $options);
+
         } catch(RequestException $re) {
             $this->handleError($re);
         }
     }
 
     /**
-     * @param Resource $request
+     * @param string $uri
+     * @param array $params
      * @return mixed|\Psr\Http\Message\ResponseInterface
      */
-    public function get(MeliResourceInterface $resource)
+    public function get($uri, $params = [])
     {
-        $params = $resource->getParams();
         try {
             $options = [
                 'headers' => [
@@ -82,7 +89,7 @@ class Client
             if(! empty($params)) {
                 $options = array_merge(['query' => $params], $options);
             }
-            return $this->client->request('GET', $resource->getPath(), $options);
+            return $this->client->request('GET', $uri, $options);
 
         } catch(RequestException $re) {
             $this->handleError($re);
