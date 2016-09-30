@@ -74,6 +74,12 @@ class Product
     private $videoId;
 
     /**
+     * @var array
+     * @JMS\Type("array")
+     */
+    private $tags;
+
+    /**
      * @var string
      * @JMS\Type("string")
      */
@@ -262,6 +268,24 @@ class Product
     public function setVideoId($videoId)
     {
         $this->videoId = $videoId;
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getTags()
+    {
+        return $this->tags;
+    }
+
+    /**
+     * @param array $tags
+     * @return Product
+     */
+    public function setTags($tags)
+    {
+        $this->tags = $tags;
         return $this;
     }
 
