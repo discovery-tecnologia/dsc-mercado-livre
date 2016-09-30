@@ -17,7 +17,8 @@ class ProductService extends Service
     public function findProduct($code)
     {
         $response = new ProductResponseBuilder(
-            $this->get('/items/' . $code)
+            $this->get('/items/' . $code),
+            $this->getSerializer()
         );
         return $response->getResponse();
     }
