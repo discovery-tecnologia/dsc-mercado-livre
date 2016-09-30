@@ -13,6 +13,7 @@ class ProductService extends Service
 {
     /**
      * @param $code
+     * @return Product
      */
     public function findProduct($code)
     {

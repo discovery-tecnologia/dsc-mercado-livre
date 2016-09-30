@@ -133,13 +133,13 @@ class AuthorizationService extends Service
 
     /**
      * @return mixed
-     * @throws \Exception
+     * @throws MeliException
      */
     public function isAuthorized()
     {
         try {
             return $this->authorize();
-        } catch (\Exception $e){
+        } catch (MeliException $e){
             throw $e;
         }
     }
