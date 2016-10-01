@@ -45,7 +45,7 @@ class UserService extends Service
         $data = ['site_id' => $site];
         //$accessToken = $this->getAccessToken();
         return new UserResponseBuilder(
-            $this->post('/users/test_users', $data, ['auth' => 'oauth']),
+            $this->post('/users/test_user', $data, ['auth' => 'oauth']),
             $this->getSerializer()
         );
     }
