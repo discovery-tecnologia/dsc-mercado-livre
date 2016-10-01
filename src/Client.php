@@ -1,9 +1,10 @@
 <?php
 namespace Dsc\MercadoLivre;
 
-use Dsc\MercadoLivre\Http\MeliResourceInterface;
+use Dsc\MercadoLivre\Handler\OAuth2ClientHandler;
 use GuzzleHttp\Client as HttpClient;
 use GuzzleHttp\Exception\RequestException;
+use GuzzleHttp\HandlerStack;
 
 /**
  * @author Diego Wagner <diegowagner4@gmail.com>
@@ -25,8 +26,13 @@ class Client
      */
     public function __construct(MeliInterface $meli, HttpClient $client = null)
     {
+        $stack = HandlerStack::create();
+        $middleware = new OAuth2ClientHandler($meli);
+        $stack->push($middleware);
+
         $this->client = $client ?: new HttpClient([
             'base_uri' => $meli->getEnvironment()->getWsHost(),
+            'handler'  => $stack,
             'timeout'  => self::TIMEOUT
         ]);
     }
@@ -49,18 +55,17 @@ class Client
     public function post($uri, $data, $params = [])
     {
         try {
-
             $options = [
                 'headers' => [
                     'Content-Type' => 'application/json; charset=UTF-8',
                     'User-Agent'   => self::USERAGENT
                 ],
-                'json'    => $data,
+                'body'    => $data,
                 'verify'  => true
             ];
 
             if(! empty($params)) {
-                $options = array_merge(['query' => $params], $options);
+                $options = array_merge($params, $options);
             }
 
             return $this->client->request('POST', $uri, $options);
@@ -89,6 +94,7 @@ class Client
             if(! empty($params)) {
                 $options = array_merge(['query' => $params], $options);
             }
+
             return $this->client->request('GET', $uri, $options);
 
         } catch(RequestException $re) {
