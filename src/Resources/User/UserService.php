@@ -5,14 +5,14 @@
  * @author Diego Wagner <diegowagner4@gmail.com>
  * http://www.discoverytecnologia.com.br
  */
-namespace Dsc\MercadoLivre\Requests\User;
+namespace Dsc\MercadoLivre\Resources\User;
 
-use Dsc\MercadoLivre\BaseService;
 use Dsc\MercadoLivre\Environments\Site;
 use Dsc\MercadoLivre\MeliException;
+use Dsc\MercadoLivre\Resources\Service;
 use GuzzleHttp\Psr7\Response;
 
-class UserService extends BaseService
+class UserService extends Service
 {
     /**
      * @param $accessToken
@@ -34,7 +34,7 @@ class UserService extends BaseService
     public function createTestUser($site = null)
     {
         if(null === $site) {
-            $site = $this->getMeli() ? $this->getMeli()->getEnvironment()->getSite() : null;
+            $site = $this->getMeli()->getEnvironment()->getSite();
         }
 
         if(! Site::isValid($site)) {

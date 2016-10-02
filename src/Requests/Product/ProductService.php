@@ -7,9 +7,9 @@
  */
 namespace Dsc\MercadoLivre\Requests\Product;
 
-use Dsc\MercadoLivre\BaseService;
+use Dsc\MercadoLivre\Requests\Service;
 
-class ProductService extends BaseService
+class ProductService extends Service
 {
     /**
      * @param $code

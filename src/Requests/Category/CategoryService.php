@@ -8,9 +8,9 @@
 namespace Dsc\MercadoLivre\Requests\Category;
 
 use Doctrine\Common\Collections\Collection;
-use Dsc\MercadoLivre\BaseService;
+use Dsc\MercadoLivre\Requests\Service;
 
-class CategoryService extends BaseService
+class CategoryService extends Service
 {
     /**
      * @param $site
