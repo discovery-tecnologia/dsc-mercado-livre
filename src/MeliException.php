@@ -1,6 +1,7 @@
 <?php
 namespace Dsc\MercadoLivre;
 
+use Dsc\MercadoLivre\Handler\NotAuthorizedException;
 use Psr\Http\Message\ResponseInterface;
 
 class MeliException extends \RuntimeException
@@ -36,6 +37,10 @@ class MeliException extends \RuntimeException
     {
         if ($response->getStatusCode() == 404) {
             return  '[' . $response->getStatusCode() . '] Not found: ' . $response->getBody();
+        }
+
+        if ($response->getStatusCode() == 403) {
+            throw new NotAuthorizedException($response->getBody());
         }
 
         if ($response->getStatusCode() != 400) {

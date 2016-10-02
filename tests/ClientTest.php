@@ -1,8 +1,10 @@
 <?php
 namespace Dsc\MercadoLivre;
 
-use Dsc\MercadoLivre\Http\MeliResourceInterface;
+use Dsc\MercadoLivre\Environments\Production;
+use Dsc\MercadoLivre\Handler\OAuth2ClientHandler;
 use GuzzleHttp\Client as HttpClient;
+use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
 
@@ -56,9 +58,31 @@ class ClientTest extends \PHPUnit_Framework_TestCase
      */
     public function constructShouldInstatiateHttpClient()
     {
+        $stack = HandlerStack::create();
+        $handler = new OAuth2ClientHandler($this->meli);
+        $stack->push($handler);
+
         $client = new Client($this->meli);
         $this->assertAttributeEquals(new HttpClient([
             'base_uri' => $this->meli->getEnvironment()->getWsHost(),
+            'handler'  => $stack,
+            'timeout'  => Client::TIMEOUT
+        ]), 'client', $client);
+    }
+
+    /**
+     * @test
+     */
+    public function constructCanInstatiateHttpClient()
+    {
+        $stack = HandlerStack::create();
+        $handler = new OAuth2ClientHandler();
+        $stack->push($handler);
+
+        $client = new Client();
+        $this->assertAttributeEquals(new HttpClient([
+            'base_uri' => Production::WS_HOST,
+            'handler'  => $stack,
             'timeout'  => Client::TIMEOUT
         ]), 'client', $client);
     }
@@ -94,8 +118,8 @@ class ClientTest extends \PHPUnit_Framework_TestCase
                         'Content-Type' => 'application/json; charset=UTF-8',
                         'User-Agent'   => Client::USERAGENT
                     ],
-                    'json' => $data,
-                    'verify'  => true
+                    'body'   => $data,
+                    'verify' => true
                 ]
              )->willReturn($this->response);
 

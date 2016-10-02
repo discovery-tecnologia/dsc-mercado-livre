@@ -7,9 +7,9 @@
  */
 namespace Dsc\MercadoLivre\Requests\Product;
 
-use Dsc\MercadoLivre\Service;
+use Dsc\MercadoLivre\BaseService;
 
-class ProductService extends Service
+class ProductService extends BaseService
 {
     /**
      * @param $code
@@ -17,10 +17,10 @@ class ProductService extends Service
      */
     public function findProduct($code)
     {
-        $response = new ProductResponseBuilder(
+        $builder = new ProductResponseBuilder(
             $this->get('/items/' . $code),
             $this->getSerializer()
         );
-        return $response->getResponse();
+        return $builder->getResponse();
     }
 }

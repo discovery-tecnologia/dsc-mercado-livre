@@ -7,10 +7,12 @@
  */
 namespace Dsc\MercadoLivre\Requests\User;
 
-use Dsc\MercadoLivre\Requests\Product\UserResponseBuilder;
-use Dsc\MercadoLivre\Service;
+use Dsc\MercadoLivre\BaseService;
+use Dsc\MercadoLivre\Environments\Site;
+use Dsc\MercadoLivre\MeliException;
+use GuzzleHttp\Psr7\Response;
 
-class UserService extends Service
+class UserService extends BaseService
 {
     /**
      * @param $accessToken
@@ -18,11 +20,31 @@ class UserService extends Service
      */
     public function getInformationAuthenticatedUser()
     {
-        $accessToken = $this->getAccessToken();
-        $response = new UserResponseBuilder(
-            $this->get('/users/me', ['access_token' => $accessToken]),
+        $builder = new UserResponseBuilder(
+            $this->get('/users/me'),
             $this->getSerializer()
         );
-        return $response->getResponse();
+        return $builder->getResponse();
+    }
+
+    /**
+     * @param null $site
+     * @return UserResponseBuilder
+     */
+    public function createTestUser($site = null)
+    {
+        if(null === $site) {
+            $site = $this->getMeli() ? $this->getMeli()->getEnvironment()->getSite() : null;
+        }
+
+        if(! Site::isValid($site)) {
+            throw MeliException::create(new Response(400, [], '{"message": "Site not found.", "status": 400}'));
+        }
+
+        $data = ['site_id' => $site];
+        return new UserResponseBuilder(
+            $this->post('/users/test_user', $data),
+            $this->getSerializer()
+        );
     }
 }

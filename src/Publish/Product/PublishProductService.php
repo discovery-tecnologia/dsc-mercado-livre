@@ -7,9 +7,9 @@
  */
 namespace Dsc\MercadoLivre\Publish\Product;
 
-use Dsc\MercadoLivre\Service;
+use Dsc\MercadoLivre\BaseService;
 
-class ProductService extends Service
+class ProductService extends BaseService
 {
     /**
      * @param Product $product
@@ -17,11 +17,10 @@ class ProductService extends Service
      */
     public function publish(Product $product)
     {
-        $accessToken = $this->getAccessToken();
-        $response = new ProductResponseBuilder(
-            $this->post('/items', $product, ['access_token' => $accessToken]),
+        $builder = new ProductResponseBuilder(
+            $this->post('/items', $product),
             $this->getSerializer()
         );
-        return $response->getResponse();
+        return $builder->getResponse();
     }
 }

@@ -8,20 +8,21 @@
 namespace Dsc\MercadoLivre\Requests\Category;
 
 use Doctrine\Common\Collections\Collection;
-use Dsc\MercadoLivre\Service;
+use Dsc\MercadoLivre\BaseService;
 
-class CategoryService extends Service
+class CategoryService extends BaseService
 {
     /**
-     * @return Collection
+     * @param $site
+     * @return mixed
      */
-    public function findCategories()
+    public function findCategories($site)
     {
-        $meli = $this->getMeli();
-        $environment = $meli->getEnvironment();
-        $uri = sprintf('/sites/%s/categories', $environment->getSite());
-        $response = new CategoryResponseBuilder($this->get($uri));
-        return $response->getResponse();
+        $builder = new CategoryResponseBuilder(
+            $this->get(sprintf('/sites/%s/categories', $site)),
+            $this->getSerializer()
+        );
+        return $builder->getResponse();
     }
 
     /**
@@ -30,9 +31,11 @@ class CategoryService extends Service
      */
     public function findCategory($code)
     {
-        $uri = sprintf('/categories/%s', $code);
-        $response = new CategoryResponseBuilder($this->get($uri));
-        return $response->getResponse();
+        $builder = new CategoryResponseBuilder(
+            $this->get(sprintf('/categories/%s', $code)),
+            $this->getSerializer()
+        );
+        return $builder->getResponse();
     }
 
     /**
@@ -41,8 +44,10 @@ class CategoryService extends Service
      */
     public function findCategoryAttributes($code)
     {
-        $uri = sprintf('/categories/%s/attributes', $code);
-        $response = new AttributesResponseBuilder($this->get($uri));
-        return $response->getResponse();
+        $builder = new AttributesResponseBuilder(
+            $this->get(sprintf('/categories/%s/attributes', $code)),
+            $this->getSerializer()
+        );
+        return $builder->getResponse();
     }
 }

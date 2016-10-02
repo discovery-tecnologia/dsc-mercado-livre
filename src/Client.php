@@ -1,9 +1,17 @@
 <?php
+/**
+ * Class Client
+ *
+ * @author Diego Wagner <diegowagner4@gmail.com>
+ * http://www.discoverytecnologia.com.br
+ */
 namespace Dsc\MercadoLivre;
 
-use Dsc\MercadoLivre\Http\MeliResourceInterface;
+use Dsc\MercadoLivre\Environments\Production;
+use Dsc\MercadoLivre\Handler\OAuth2ClientHandler;
 use GuzzleHttp\Client as HttpClient;
 use GuzzleHttp\Exception\RequestException;
+use GuzzleHttp\HandlerStack;
 
 /**
  * @author Diego Wagner <diegowagner4@gmail.com>
@@ -23,10 +31,18 @@ class Client
      * @param MeliInterface $meli
      * @param HttpClient|null $client
      */
-    public function __construct(MeliInterface $meli, HttpClient $client = null)
+    public function __construct(MeliInterface $meli = null, HttpClient $client = null)
     {
+        $stack = HandlerStack::create();
+        $handler = new OAuth2ClientHandler($meli);
+        $stack->push($handler);
+
+        //TODO Verificar essa dependência - Acessos publicos sempre acessaram produção, como não existe ambiente de teste até o momento, não será problema
+        $environment = $meli ? $meli->getEnvironment() : new Production();
+
         $this->client = $client ?: new HttpClient([
-            'base_uri' => $meli->getEnvironment()->getWsHost(),
+            'base_uri' => $environment->getWsHost(),
+            'handler'  => $stack,
             'timeout'  => self::TIMEOUT
         ]);
     }
@@ -55,7 +71,7 @@ class Client
                     'Content-Type' => 'application/json; charset=UTF-8',
                     'User-Agent'   => self::USERAGENT
                 ],
-                'json'    => $data,
+                'body'    => $data,
                 'verify'  => true
             ];
 
