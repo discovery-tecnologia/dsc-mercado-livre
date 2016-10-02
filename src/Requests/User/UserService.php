@@ -7,12 +7,12 @@
  */
 namespace Dsc\MercadoLivre\Requests\User;
 
+use Dsc\MercadoLivre\BaseService;
 use Dsc\MercadoLivre\Environments\Site;
 use Dsc\MercadoLivre\MeliException;
-use Dsc\MercadoLivre\Service;
 use GuzzleHttp\Psr7\Response;
 
-class UserService extends Service
+class UserService extends BaseService
 {
     /**
      * @param $accessToken
@@ -20,9 +20,8 @@ class UserService extends Service
      */
     public function getInformationAuthenticatedUser()
     {
-        $accessToken = $this->getAccessToken();
         $builder = new UserResponseBuilder(
-            $this->get('/users/me', ['access_token' => $accessToken]),
+            $this->get('/users/me'),
             $this->getSerializer()
         );
         return $builder->getResponse();
@@ -35,7 +34,7 @@ class UserService extends Service
     public function createTestUser($site = null)
     {
         if(null === $site) {
-            $site = $this->getMeli()->getEnvironment()->getSite();
+            $site = $this->getMeli() ? $this->getMeli()->getEnvironment()->getSite() : null;
         }
 
         if(! Site::isValid($site)) {
@@ -43,9 +42,8 @@ class UserService extends Service
         }
 
         $data = ['site_id' => $site];
-        //$accessToken = $this->getAccessToken();
         return new UserResponseBuilder(
-            $this->post('/users/test_user', $data, ['auth' => 'oauth']),
+            $this->post('/users/test_user', $data),
             $this->getSerializer()
         );
     }

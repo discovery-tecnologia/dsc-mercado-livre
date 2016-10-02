@@ -4,6 +4,8 @@
  */
 namespace Dsc\MercadoLivre;
 
+use Dsc\MercadoLivre\Parser\SerializerInterface;
+
 class BaseServiceTest extends \PHPUnit_Framework_TestCase
 {
     /**
@@ -25,10 +27,22 @@ class BaseServiceTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
+    public function baseServiceShouldReceiveParametersNullWhenAccessIsPublic()
+    {
+        $service = $this->getMockForAbstractClass(
+            BaseService::class,
+            [null]
+        );
+        $this->assertAttributeSame(null, 'meli', $service);
+    }
+
+    /**
+     * @test
+     */
     public function constructorShouldConfigureAttributes()
     {
         $service = $this->getMockForAbstractClass(
-            Service::class,
+            BaseService::class,
             [$this->meli, $this->client]
         );
         $this->assertAttributeSame($this->meli, 'meli', $service);
@@ -41,7 +55,7 @@ class BaseServiceTest extends \PHPUnit_Framework_TestCase
     public function constructorShouldCreateAClientWhenItWasntInformed()
     {
         $service = $this->getMockForAbstractClass(
-            Service::class,
+            BaseService::class,
             [$this->meli]
         );
         $this->assertAttributeInstanceOf(Client::class, 'client', $service);

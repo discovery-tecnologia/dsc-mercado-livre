@@ -1,4 +1,10 @@
 <?php
+/**
+ * Class OAuth2ClientHandler
+ *
+ * @author Diego Wagner <diegowagner4@gmail.com>
+ * http://www.discoverytecnologia.com.br
+ */
 namespace Dsc\MercadoLivre\Handler;
 
 use Doctrine\Common\Cache\Cache;
@@ -7,7 +13,6 @@ use Dsc\MercadoLivre\MeliInterface;
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Response;
 use Psr\Http\Message\RequestInterface;
-use Psr\Http\Message\StreamInterface;
 
 /**
  * Class OAuth2ClientHandler
@@ -30,29 +35,28 @@ class OAuth2ClientHandler extends Client
     private $cache;
 
     /**
-     * OAuth2 constructor.
+     * OAuth2ClientHandler constructor.
      * @param MeliInterface $meli
      */
-    public function __construct(MeliInterface $meli)
+    public function __construct(MeliInterface $meli = null)
     {
-        parent::__construct([
-            'base_uri' => $meli->getEnvironment()->getWsAuth()
-        ]);
+        $options = [];
         $this->meli  = $meli;
-        $this->cache = $meli->getEnvironment()->getConfiguration()->getCache();
+        if($meli !== null) {
+            $options['base_uri'] = $meli->getEnvironment()->getWsAuth();
+            $this->cache = $meli->getEnvironment()->getConfiguration()->getCache();
+        }
+        parent::__construct($options);
     }
 
     /**
-     * Called when the middleware is handled.
-     *
      * @param callable $handler
-     *
      * @return \Closure
      */
     public function __invoke(callable $handler)
     {
         return function ($request, array $options) use ($handler) {
-            if (isset($options['auth']) && $options['auth'] == 'oauth') {
+            if($this->meli !== null) {
                 $request = $this->authorize($request);
             }
             return $handler($request, $options);
@@ -89,11 +93,7 @@ class OAuth2ClientHandler extends Client
     }
 
     /**
-     * Execute a POST Request to create a new AccessToken from a existent refresh_token
-     *
-     * @param string $tokenParam = null
-     * @return StreamInterface
-     * @throws MeliException
+     * @return mixed
      */
     private function refreshAccessToken()
     {

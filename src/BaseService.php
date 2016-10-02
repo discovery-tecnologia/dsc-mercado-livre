@@ -8,6 +8,7 @@
 namespace Dsc\MercadoLivre;
 
 use Dsc\MercadoLivre\Http\RequestBuilder;
+use Dsc\MercadoLivre\Parser\ParserSerializer;
 use Dsc\MercadoLivre\Parser\SerializerInterface;
 
 abstract class BaseService
@@ -28,10 +29,10 @@ abstract class BaseService
      * @param Client|null $client
      * @param SerializerInterface|null $serializer
      */
-    public function __construct(MeliInterface $meli, Client $client = null)
+    public function __construct(MeliInterface $meli = null, Client $client = null)
     {
-        $this->meli    = $meli;
-        $this->client  = $client ?: new Client($meli);
+        $this->meli   = $meli;
+        $this->client = $client ?: new Client($meli);
     }
 
     /**
@@ -56,9 +57,10 @@ abstract class BaseService
      * @param $data
      * @param $params
      */
-    protected function post($uri, $data, $params = [])
+    protected function post($uri, $data, $params = [], SerializerInterface $serializer = null)
     {
-        $request = new RequestBuilder($data, $this->getSerializer());
+        $serializer = $serializer ?: $this->getSerializer();
+        $request = new RequestBuilder($data, $serializer);
         return $this->client->post($uri, $request->getRequest(), $params)->getBody();
     }
 
@@ -87,8 +89,27 @@ abstract class BaseService
     protected function getSerializer()
     {
         return $this->getMeli()
+            ?  $this->getMeli()
                     ->getEnvironment()
                     ->getConfiguration()
-                    ->getSerializer();
+                    ->getSerializer()
+            : new ParserSerializer();
+    }
+
+    /**
+     * @param string $redirectUri
+     * @return string
+     */
+    public function getOAuthUrl($redirectUri)
+    {
+        $meli = $this->getMeli();
+        $environment = $meli->getEnvironment();
+
+        $params = [
+            "client_id"     => $meli->getClientId(),
+            "response_type" => "code",
+            "redirect_uri"  => $redirectUri
+        ];
+        return $environment->getAuthUrl('/authorization') . "?" . http_build_query($params);
     }
 }

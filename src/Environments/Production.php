@@ -1,4 +1,11 @@
 <?php
+/**
+ * Class Production
+ * O Mercado Livre até o momento possui apenas estes ambientes, não possui ambiente de testes.
+ *
+ * @author Diego Wagner <diegowagner4@gmail.com>
+ * http://www.discoverytecnologia.com.br
+ */
 namespace Dsc\MercadoLivre\Environments;
 
 use Dsc\MercadoLivre\Environment;
@@ -9,10 +16,8 @@ use Dsc\MercadoLivre\Environment;
 class Production extends Environment
 {
     const WS_HOST   = 'https://api.mercadolibre.com';
-    //const WS_AUTH   = 'http://auth.mercadolivre.com.br/authorization';
-
-    // mais informações - GET https://api.mercadolibre.com/sites
     const OAUTH_URI = '/oauth/token';
+    // mais informações - GET https://api.mercadolibre.com/sites
     public static $WS_AUTH = [
         Site::ARGENTINA => "https://auth.mercadolibre.com.ar", // Argentina
         Site::BOLIVIA   => "https://auth.mercadolibre.com.bo", // Bolívia

@@ -1,17 +1,19 @@
 <?php
+/**
+ * Class Test
+ * Este Environment foi criado, mas o Mercado Livre até o momento não possui ambiente de sandbox ou teste, apenas produção
+ *
+ * @author Diego Wagner <diegowagner4@gmail.com>
+ * http://www.discoverytecnologia.com.br
+ */
 namespace Dsc\MercadoLivre\Environments;
 
 use Dsc\MercadoLivre\Environment;
 
-/**
- * @author Diego Wagner <diegowagner4@gmail.com>
- */
 class Test extends Environment
 {
     const WS_HOST   = 'https://api.mercadolibre.com';
-    //const WS_AUTH   = 'http://auth.mercadolivre.com.br/authorization';
     const OAUTH_URI = '/oauth/token';
-
     // mais informações - GET https://api.mercadolibre.com/sites
     public static $WS_AUTH = [
         Site::ARGENTINA => "https://auth.mercadolibre.com.ar", // Argentina

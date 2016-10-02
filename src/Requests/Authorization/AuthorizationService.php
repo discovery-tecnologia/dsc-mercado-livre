@@ -7,14 +7,15 @@
  */
 namespace Dsc\MercadoLivre\Requests\Authorization;
 
+use Dsc\MercadoLivre\BaseService;
+use Dsc\MercadoLivre\Handler\OAuth2ClientHandler;
 use Dsc\MercadoLivre\MeliException;
-use Dsc\MercadoLivre\Service;
 use Psr\Http\Message\StreamInterface;
 
 /**
  * @author Diego Wagner <diegowagner4@gmail.com>
  */
-class AuthorizationService extends Service
+class AuthorizationService extends BaseService
 {
     /**
      * @param $region
@@ -62,10 +63,12 @@ class AuthorizationService extends Service
         );
 
         $authorization = $builder->getResponse();
-        $this->setAccessToken($authorization->getAccessToken());
-        $this->setRefreshToken($authorization->getRefreshToken());
-        $this->setExpireIn(time() + $authorization->getExpiresIn());
 
-        return $this->getAccessToken();
+        $cache = $this->getMeli()->getEnvironment()->getConfiguration()->getCache();
+        $cache->save(OAuth2ClientHandler::ACCESS_TOKEN, $authorization->getAccessToken());
+        $cache->save(OAuth2ClientHandler::REFRESH_TOKEN, $authorization->getRefreshToken());
+        $cache->save(OAuth2ClientHandler::EXPIRE_IN, time() + $authorization->getExpiresIn());
+
+        return $authorization->getAccessToken();
     }
 }

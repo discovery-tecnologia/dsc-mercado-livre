@@ -1,6 +1,13 @@
 <?php
+/**
+ * Class Client
+ *
+ * @author Diego Wagner <diegowagner4@gmail.com>
+ * http://www.discoverytecnologia.com.br
+ */
 namespace Dsc\MercadoLivre;
 
+use Dsc\MercadoLivre\Environments\Production;
 use Dsc\MercadoLivre\Handler\OAuth2ClientHandler;
 use GuzzleHttp\Client as HttpClient;
 use GuzzleHttp\Exception\RequestException;
@@ -24,14 +31,17 @@ class Client
      * @param MeliInterface $meli
      * @param HttpClient|null $client
      */
-    public function __construct(MeliInterface $meli, HttpClient $client = null)
+    public function __construct(MeliInterface $meli = null, HttpClient $client = null)
     {
         $stack = HandlerStack::create();
-        $middleware = new OAuth2ClientHandler($meli);
-        $stack->push($middleware);
+        $handler = new OAuth2ClientHandler($meli);
+        $stack->push($handler);
+
+        //TODO Verificar essa dependência - Acessos publicos sempre acessaram produção, como não existe ambiente de teste até o momento, não será problema
+        $environment = $meli ? $meli->getEnvironment() : new Production();
 
         $this->client = $client ?: new HttpClient([
-            'base_uri' => $meli->getEnvironment()->getWsHost(),
+            'base_uri' => $environment->getWsHost(),
             'handler'  => $stack,
             'timeout'  => self::TIMEOUT
         ]);
@@ -55,6 +65,7 @@ class Client
     public function post($uri, $data, $params = [])
     {
         try {
+
             $options = [
                 'headers' => [
                     'Content-Type' => 'application/json; charset=UTF-8',
@@ -65,7 +76,7 @@ class Client
             ];
 
             if(! empty($params)) {
-                $options = array_merge($params, $options);
+                $options = array_merge(['query' => $params], $options);
             }
 
             return $this->client->request('POST', $uri, $options);
@@ -94,7 +105,6 @@ class Client
             if(! empty($params)) {
                 $options = array_merge(['query' => $params], $options);
             }
-
             return $this->client->request('GET', $uri, $options);
 
         } catch(RequestException $re) {
