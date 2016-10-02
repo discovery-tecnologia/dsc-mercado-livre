@@ -5,17 +5,17 @@
  * @author Diego Wagner <diegowagner4@gmail.com>
  * http://www.discoverytecnologia.com.br
  */
-namespace Dsc\MercadoLivre\Requests\Authorization;
+namespace Dsc\MercadoLivre\Resources\Authorization;
 
-use Dsc\MercadoLivre\BaseService;
 use Dsc\MercadoLivre\Handler\OAuth2ClientHandler;
 use Dsc\MercadoLivre\MeliException;
+use Dsc\MercadoLivre\Resources\Service;
 use Psr\Http\Message\StreamInterface;
 
 /**
  * @author Diego Wagner <diegowagner4@gmail.com>
  */
-class AuthorizationService extends BaseService
+class AuthorizationService extends Service
 {
     /**
      * @param $region

@@ -5,7 +5,7 @@
  * @author Diego Wagner <diegowagner4@gmail.com>
  * http://www.discoverytecnologia.com.br
  */
-namespace Dsc\MercadoLivre\Requests\User;
+namespace Dsc\MercadoLivre\Resources\User;
 
 use Dsc\MercadoLivre\Http\ResponseBuilder;
 
