@@ -1,6 +1,6 @@
 <?php
 /**
- * Class ProductService
+ * Class PublishProductService
  *
  * @author Diego Wagner <diegowagner4@gmail.com>
  * http://www.discoverytecnologia.com.br
