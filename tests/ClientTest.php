@@ -109,18 +109,14 @@ class ClientTest extends \PHPUnit_Framework_TestCase
             "refresh_token" => 'refreshtoken'
         ];
 
+        $options = Client::DEFAULT_HEADERS;
+        $options['body'] = $data;
         $this->httpClient->expects($this->once())
              ->method('request')
              ->with(
                 'POST',
-                '/test',[
-                    'headers' => [
-                        'Content-Type' => 'application/json; charset=UTF-8',
-                        'User-Agent'   => Client::USERAGENT
-                    ],
-                    'body'   => $data,
-                    'verify' => true
-                ]
+                '/test',
+                 $options
              )->willReturn($this->response);
 
         $response = $client->post('/test', $data);
@@ -135,13 +131,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $client = new Client($this->meli, $this->httpClient);
         $this->httpClient->expects($this->once())
              ->method('request')
-             ->with('GET', '/test?name=Test',[
-                     'headers' => [
-                         'Content-Type' => 'application/json; charset=UTF-8',
-                         'User-Agent'   => Client::USERAGENT
-                     ],
-                     'verify' => true
-                 ])
+             ->with('GET', '/test?name=Test', Client::DEFAULT_HEADERS)
              ->willReturn($this->response);
 
         $response = $client->get('/test?name=Test');
