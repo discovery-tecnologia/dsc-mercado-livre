@@ -63,6 +63,25 @@ class Client
     }
 
     /**
+     * @param $params
+     * @param null $data
+     * @return array
+     */
+    private function makeOptionsForRequest($params, $data = null)
+    {
+        $options = self::DEFAULT_HEADERS;
+
+        if($data !== null) {
+            $options['body'] = $data;
+        }
+
+        if(! empty($params)) {
+            $options = array_merge(['query' => $params], $options);
+        }
+        return $options;
+    }
+
+    /**
      * @param string $uri
      * @param string $data
      * @param array $params
@@ -71,12 +90,8 @@ class Client
     public function post($uri, $data, $params = [])
     {
         try {
-            $options = self::DEFAULT_HEADERS;
-            $options['body'] = $data;
-            if(! empty($params)) {
-                $options = array_merge(['query' => $params], $options);
-            }
 
+            $options = $this->makeOptionsForRequest($params, $data);
             return $this->client->request('POST', $uri, $options);
 
         } catch(RequestException $re) {
@@ -92,10 +107,8 @@ class Client
     public function get($uri, $params = [])
     {
         try {
-            $options = self::DEFAULT_HEADERS;
-            if(! empty($params)) {
-                $options = array_merge(['query' => $params], $options);
-            }
+
+            $options = $this->makeOptionsForRequest($params);
             return $this->client->request('GET', $uri, $options);
 
         } catch(RequestException $re) {
@@ -112,12 +125,8 @@ class Client
     public function put($uri, $data, $params = [])
     {
         try {
-            $options = self::DEFAULT_HEADERS;
-            $options['body'] = $data;
-            if(! empty($params)) {
-                $options = array_merge(['query' => $params], $options);
-            }
 
+            $options = $this->makeOptionsForRequest($params, $data);
             return $this->client->request('PUT', $uri, $options);
 
         } catch(RequestException $re) {
