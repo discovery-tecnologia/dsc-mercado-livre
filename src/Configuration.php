@@ -2,17 +2,17 @@
 namespace Dsc\MercadoLivre;
 
 use Doctrine\Common\Annotations\AnnotationRegistry;
-use Doctrine\Common\Cache\Cache;
-use Doctrine\Common\Cache\FilesystemCache;
 use Dsc\MercadoLivre\Parser\ParserSerializer;
 use Dsc\MercadoLivre\Parser\SerializerInterface;
+use Dsc\MercadoLivre\Storage\SessionManager;
+use Dsc\MercadoLivre\Storage\StorageInterface;
 
 final class Configuration
 {
     /**
-     * @var FilesystemCache
+     * @var StorageInterface
      */
-    protected $cache;
+    protected $storage;
 
     /**
      * @var SerializerInterface
@@ -22,13 +22,13 @@ final class Configuration
     /**
      * Configuration constructor.
      * @param SerializerInterface|null $serializer
-     * @param Cache|null $cache
+     * @param StorageInterface|null $storage
      */
-    public function __construct(SerializerInterface $serializer = null, Cache $cache = null)
+    public function __construct(SerializerInterface $serializer = null, StorageInterface $storage = null)
     {
         AnnotationRegistry::registerLoader('class_exists');
         $this->serializer  = $serializer ?: new ParserSerializer();
-        $this->cache       = $cache ?: new FilesystemCache(sys_get_temp_dir());
+        $this->storage     = $storage ?: new SessionManager();
     }
 
     /**
@@ -41,25 +41,29 @@ final class Configuration
 
     /**
      * @param SerializerInterface $serializer
+     * @return $this
      */
     public function setSerializer(SerializerInterface $serializer)
     {
         $this->serializer = $serializer;
+        return $this;
     }
 
     /**
-     * @return FilesystemCache
+     * @return StorageInterface
      */
-    public function getCache()
+    public function getStorage()
     {
-        return $this->cache;
+        return $this->storage;
     }
 
     /**
-     * @param Cache $cache
+     * @param StorageInterface $storage
+     * @return Configuration
      */
-    public function setCache(Cache $cache)
+    public function setStorage($storage)
     {
-        $this->cache = $cache;
+        $this->storage = $storage;
+        return $this;
     }
 }

@@ -9,6 +9,7 @@ namespace Dsc\MercadoLivre;
 
 use Doctrine\Common\Cache\Cache;
 use Dsc\MercadoLivre\Parser\SerializerInterface;
+use Dsc\MercadoLivre\Storage\StorageInterface;
 
 class ConfigurationTest extends \PHPUnit_Framework_TestCase
 {
@@ -18,14 +19,14 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
     private $serializer;
 
     /**
-     * @var Cache
+     * @var StorageInterface
      */
-    private $cache;
+    private $storage;
 
     protected function setUp()
     {
         $this->serializer = $this->createMock(SerializerInterface::class);
-        $this->cache = $this->createMock(Cache::class);
+        $this->storage    = $this->createMock(StorageInterface::class);
     }
 
     /**
@@ -33,9 +34,9 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
      */
     public function constructShouldConfigureTheAttributes()
     {
-        $configuration = new Configuration($this->serializer, $this->cache);
+        $configuration = new Configuration($this->serializer, $this->storage);
         $this->assertInstanceOf(SerializerInterface::class, $configuration->getSerializer());
-        $this->assertInstanceOf(Cache::class, $configuration->getCache());
+        $this->assertInstanceOf(StorageInterface::class, $configuration->getStorage());
     }
 
     /**
@@ -45,6 +46,6 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
     {
         $configuration = new Configuration();
         $this->assertInstanceOf(SerializerInterface::class, $configuration->getSerializer());
-        $this->assertInstanceOf(Cache::class, $configuration->getCache());
+        $this->assertInstanceOf(StorageInterface::class, $configuration->getStorage());
     }
 }
