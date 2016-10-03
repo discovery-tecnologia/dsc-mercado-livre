@@ -23,4 +23,17 @@ class ProductService extends Service
         );
         return $builder->getResponse();
     }
+
+    /**
+     * @param Product $product
+     * @return ProductResponse
+     */
+    public function update(Product $product)
+    {
+        $builder = new ProductResponseBuilder(
+            $this->put('/items', $product),
+            $this->getSerializer()
+        );
+        return $builder->getResponse();
+    }
 }

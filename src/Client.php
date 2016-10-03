@@ -18,8 +18,14 @@ use GuzzleHttp\HandlerStack;
  */
 class Client
 {
-    const USERAGENT = "MELI-PHP-SDK-1.1.0";
-    const TIMEOUT   = 60;
+    const TIMEOUT = 60;
+    const DEFAULT_HEADERS = [
+        'headers' => [
+            'Content-Type' => 'application/json; charset=UTF-8',
+            'User-Agent'   => 'MELI-PHP-SDK-1.1.0'
+        ],
+        'verify'  => true
+    ];
 
     /**
      * @var HttpClient
@@ -65,16 +71,8 @@ class Client
     public function post($uri, $data, $params = [])
     {
         try {
-
-            $options = [
-                'headers' => [
-                    'Content-Type' => 'application/json; charset=UTF-8',
-                    'User-Agent'   => self::USERAGENT
-                ],
-                'body'    => $data,
-                'verify'  => true
-            ];
-
+            $options = self::DEFAULT_HEADERS;
+            $options['body'] = $data;
             if(! empty($params)) {
                 $options = array_merge(['query' => $params], $options);
             }
@@ -94,18 +92,33 @@ class Client
     public function get($uri, $params = [])
     {
         try {
-            $options = [
-                'headers' => [
-                    'Content-Type' => 'application/json; charset=UTF-8',
-                    'User-Agent'   => self::USERAGENT
-                ],
-                'verify'  => true
-            ];
-
+            $options = self::DEFAULT_HEADERS;
             if(! empty($params)) {
                 $options = array_merge(['query' => $params], $options);
             }
             return $this->client->request('GET', $uri, $options);
+
+        } catch(RequestException $re) {
+            $this->handleError($re);
+        }
+    }
+
+    /**
+     * @param string $uri
+     * @param string $data
+     * @param array $params
+     * @return mixed|\Psr\Http\Message\ResponseInterface
+     */
+    public function put($uri, $data, $params = [])
+    {
+        try {
+            $options = self::DEFAULT_HEADERS;
+            $options['body'] = $data;
+            if(! empty($params)) {
+                $options = array_merge(['query' => $params], $options);
+            }
+
+            return $this->client->request('PUT', $uri, $options);
 
         } catch(RequestException $re) {
             $this->handleError($re);

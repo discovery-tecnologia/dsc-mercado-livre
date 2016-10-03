@@ -69,9 +69,11 @@ abstract class BaseService
      * @param $data
      * @param array $params
      */
-    protected function put($uri, $data, $params = [])
+    protected function put($uri, $data, $params = [], SerializerInterface $serializer = null)
     {
-        // TODO: Implement put() method.
+        $serializer = $serializer ?: $this->getSerializer();
+        $request = new RequestBuilder($data, $serializer);
+        return $this->client->put($uri, $request->getRequest(), $params)->getBody();
     }
 
     /**
