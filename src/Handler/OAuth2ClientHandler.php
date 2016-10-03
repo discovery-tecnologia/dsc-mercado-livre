@@ -7,9 +7,9 @@
  */
 namespace Dsc\MercadoLivre\Handler;
 
-use Doctrine\Common\Cache\Cache;
 use Dsc\MercadoLivre\MeliException;
 use Dsc\MercadoLivre\MeliInterface;
+use Dsc\MercadoLivre\Storage\StorageInterface;
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Response;
 use Psr\Http\Message\RequestInterface;
@@ -30,9 +30,9 @@ class OAuth2ClientHandler extends Client
     private $meli;
 
     /**
-     * @var Cache
+     * @var StorageInterface
      */
-    private $cache;
+    private $storage;
 
     /**
      * OAuth2ClientHandler constructor.
@@ -44,7 +44,7 @@ class OAuth2ClientHandler extends Client
         $this->meli  = $meli;
         if($meli !== null) {
             $options['base_uri'] = $meli->getEnvironment()->getWsAuth();
-            $this->cache = $meli->getEnvironment()->getConfiguration()->getCache();
+            $this->storage = $meli->getEnvironment()->getConfiguration()->getStorage();
         }
         parent::__construct($options);
     }
@@ -119,7 +119,7 @@ class OAuth2ClientHandler extends Client
      */
     public function getAccessToken()
     {
-        return $this->cache->fetch(OAuth2ClientHandler::ACCESS_TOKEN);
+        return $this->storage->get(OAuth2ClientHandler::ACCESS_TOKEN);
     }
 
     /**
@@ -127,7 +127,7 @@ class OAuth2ClientHandler extends Client
      */
     public function setAccessToken($accessToken)
     {
-        $this->cache->save(OAuth2ClientHandler::ACCESS_TOKEN, $accessToken);
+        $this->storage->set(OAuth2ClientHandler::ACCESS_TOKEN, $accessToken);
     }
 
     /**
@@ -135,7 +135,7 @@ class OAuth2ClientHandler extends Client
      */
     public function getRefreshToken()
     {
-        return $this->cache->fetch(OAuth2ClientHandler::REFRESH_TOKEN);
+        return $this->storage->get(OAuth2ClientHandler::REFRESH_TOKEN);
     }
 
     /**
@@ -143,7 +143,7 @@ class OAuth2ClientHandler extends Client
      */
     public function setRefreshToken($refreshToken)
     {
-        $this->cache->save(OAuth2ClientHandler::REFRESH_TOKEN, $refreshToken);
+        $this->storage->set(OAuth2ClientHandler::REFRESH_TOKEN, $refreshToken);
     }
 
     /**
@@ -151,7 +151,7 @@ class OAuth2ClientHandler extends Client
      */
     public function getExpireIn()
     {
-        return $this->cache->fetch(OAuth2ClientHandler::EXPIRE_IN);
+        return $this->storage->get(OAuth2ClientHandler::EXPIRE_IN);
     }
 
     /**
@@ -159,7 +159,7 @@ class OAuth2ClientHandler extends Client
      */
     public function setExpireIn($expireIn)
     {
-        $this->cache->save(OAuth2ClientHandler::EXPIRE_IN, $expireIn);
+        $this->storage->set(OAuth2ClientHandler::EXPIRE_IN, $expireIn);
     }
 
     /**
@@ -167,8 +167,8 @@ class OAuth2ClientHandler extends Client
      */
     public function isExpired()
     {
-        if($this->cache->contains(OAuth2ClientHandler::EXPIRE_IN)) {
-            if($this->cache->fetch(OAuth2ClientHandler::EXPIRE_IN) >= time()) {
+        if($this->storage->has(OAuth2ClientHandler::EXPIRE_IN)) {
+            if($this->storage->get(OAuth2ClientHandler::EXPIRE_IN) >= time()) {
                 return false;
             }
         }

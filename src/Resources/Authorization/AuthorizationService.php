@@ -81,10 +81,10 @@ class AuthorizationService extends Service
 
         $authorization = $builder->getResponse();
 
-        $cache = $this->getMeli()->getEnvironment()->getConfiguration()->getCache();
-        $cache->save(OAuth2ClientHandler::ACCESS_TOKEN, $authorization->getAccessToken());
-        $cache->save(OAuth2ClientHandler::REFRESH_TOKEN, $authorization->getRefreshToken());
-        $cache->save(OAuth2ClientHandler::EXPIRE_IN, time() + $authorization->getExpiresIn());
+        $storage = $this->getMeli()->getEnvironment()->getConfiguration()->getStorage();
+        $storage->set(OAuth2ClientHandler::ACCESS_TOKEN, $authorization->getAccessToken());
+        $storage->set(OAuth2ClientHandler::REFRESH_TOKEN, $authorization->getRefreshToken());
+        $storage->set(OAuth2ClientHandler::EXPIRE_IN, time() + $authorization->getExpiresIn());
 
         return $authorization->getAccessToken();
     }
