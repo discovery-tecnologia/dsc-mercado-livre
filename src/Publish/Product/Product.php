@@ -26,8 +26,8 @@ class Product
     private $categoryId;
 
     /**
-     * @var integer
-     * @JMS\Type("integer")
+     * @var double
+     * @JMS\Type("double")
      */
     private $price;
 
@@ -136,7 +136,7 @@ class Product
     }
 
     /**
-     * @return int
+     * @return double
      */
     public function getPrice()
     {
@@ -144,7 +144,7 @@ class Product
     }
 
     /**
-     * @param int $price
+     * @param double $price
      * @return Product
      */
     public function setPrice($price)

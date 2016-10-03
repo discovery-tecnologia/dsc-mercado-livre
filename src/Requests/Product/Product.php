@@ -218,6 +218,12 @@ class Product
     private $geolocation;
 
     /**
+     * @var string
+     * @JMS\Type("string")
+     */
+    private $status;
+
+    /**
      * @var \DateTime
      * @JMS\Type("DateTime<'Y-m-d\TH:i:s.000\Z'>")
      */
@@ -876,6 +882,24 @@ class Product
     public function setGeolocation(Geolocation $geolocation)
     {
         $this->geolocation = $geolocation;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * @param string $status
+     * @return Product
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
         return $this;
     }
 
