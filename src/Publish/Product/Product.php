@@ -92,6 +92,14 @@ class Product
     private $pictures;
 
     /**
+     * Product constructor.
+     */
+    public function __construct()
+    {
+        $this->pictures = new ArrayCollection();
+    }
+
+    /**
      * @return string
      */
     public function getTitle()
