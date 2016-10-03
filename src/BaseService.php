@@ -95,21 +95,4 @@ abstract class BaseService
                     ->getSerializer()
             : new ParserSerializer();
     }
-
-    /**
-     * @param string $redirectUri
-     * @return string
-     */
-    public function getOAuthUrl($redirectUri)
-    {
-        $meli = $this->getMeli();
-        $environment = $meli->getEnvironment();
-
-        $params = [
-            "client_id"     => $meli->getClientId(),
-            "response_type" => "code",
-            "redirect_uri"  => $redirectUri
-        ];
-        return $environment->getAuthUrl('/authorization') . "?" . http_build_query($params);
-    }
 }
