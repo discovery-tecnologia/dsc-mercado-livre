@@ -76,8 +76,8 @@ class Client
             $options['body'] = $data;
         }
 
-        if(in_array('authorization', $params)) {
-            $options['authorization'] = true;
+        if(array_key_exists('authorization', $params)) {
+            $options['authorization'] = $params['authorization'];
             unset($params['authorization']); // retirado do params para não afetar a query string
         }
 
