@@ -19,8 +19,7 @@ class CategoryService extends Service
     public function findCategories($site)
     {
         $builder = new CategoryResponseBuilder(
-            $this->get(sprintf('/sites/%s/categories', $site)),
-            $this->getSerializer()
+            $this->get(sprintf('/sites/%s/categories', $site))
         );
         return $builder->getResponse();
     }
@@ -32,8 +31,7 @@ class CategoryService extends Service
     public function findCategory($code)
     {
         $builder = new CategoryResponseBuilder(
-            $this->get(sprintf('/categories/%s', $code)),
-            $this->getSerializer()
+            $this->get(sprintf('/categories/%s', $code))
         );
         return $builder->getResponse();
     }
@@ -45,8 +43,7 @@ class CategoryService extends Service
     public function findCategoryAttributes($code)
     {
         $builder = new AttributesResponseBuilder(
-            $this->get(sprintf('/categories/%s/attributes', $code)),
-            $this->getSerializer()
+            $this->get(sprintf('/categories/%s/attributes', $code))
         );
         return $builder->getResponse();
     }

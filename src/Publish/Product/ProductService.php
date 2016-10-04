@@ -18,8 +18,7 @@ class ProductService extends Service
     public function publish(Product $product)
     {
         $builder = new ProductResponseBuilder(
-            $this->post('/items', $product),
-            $this->getSerializer()
+            $this->post('/items', $product)
         );
         return $builder->getResponse();
     }
@@ -31,8 +30,7 @@ class ProductService extends Service
     public function update(Product $product)
     {
         $builder = new ProductResponseBuilder(
-            $this->put('/items', $product),
-            $this->getSerializer()
+            $this->put('/items', $product)
         );
         return $builder->getResponse();
     }

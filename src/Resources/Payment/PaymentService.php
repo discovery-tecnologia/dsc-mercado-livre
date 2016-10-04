@@ -18,8 +18,7 @@ class PaymentService extends Service
     public function findPayment($code)
     {
         $builder = new PaymentResponseBuilder(
-            $this->get(sprintf('/payments/%s', $code)),
-            $this->getSerializer()
+            $this->get(sprintf('/payments/%s', $code))
         );
         return $builder->getResponse();
     }

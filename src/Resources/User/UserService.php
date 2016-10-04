@@ -21,8 +21,7 @@ class UserService extends Service
     public function getInformationAuthenticatedUser()
     {
         $builder = new UserResponseBuilder(
-            $this->get('/users/me'),
-            $this->getSerializer()
+            $this->get('/users/me')
         );
         return $builder->getResponse();
     }
@@ -43,8 +42,7 @@ class UserService extends Service
 
         $data = ['site_id' => $site];
         return new UserResponseBuilder(
-            $this->post('/users/test_user', $data),
-            $this->getSerializer()
+            $this->post('/users/test_user', $data)
         );
     }
 }
