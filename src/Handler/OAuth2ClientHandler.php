@@ -11,6 +11,7 @@ use Dsc\MercadoLivre\MeliException;
 use Dsc\MercadoLivre\MeliInterface;
 use Dsc\MercadoLivre\Storage\StorageInterface;
 use GuzzleHttp\Client;
+use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
 use Psr\Http\Message\RequestInterface;
 
@@ -18,7 +19,7 @@ use Psr\Http\Message\RequestInterface;
  * Class OAuth2ClientHandler
  * @package Dsc\MercadoLivre\Handler
  */
-class OAuth2ClientHandler extends Client
+class OAuth2ClientHandler extends Client implements HandlerInterface
 {
     const ACCESS_TOKEN  = 'access_token';
     const REFRESH_TOKEN = 'refresh_token';
@@ -56,7 +57,7 @@ class OAuth2ClientHandler extends Client
     public function __invoke(callable $handler)
     {
         return function ($request, array $options) use ($handler) {
-            if($this->meli !== null) {
+            if($this->meli !== null && ! in_array('authorization', $options)) {
                 $request = $this->authorize($request);
             }
             return $handler($request, $options);

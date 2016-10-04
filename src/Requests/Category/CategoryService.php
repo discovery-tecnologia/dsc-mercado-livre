@@ -9,45 +9,40 @@ namespace Dsc\MercadoLivre\Requests\Category;
 
 use Doctrine\Common\Collections\Collection;
 use Dsc\MercadoLivre\Requests\Service;
+use Dsc\MercadoLivre\Resources\RequestService;
 
-class CategoryService extends Service
+class CategoryService extends Service implements RequestService
 {
     /**
      * @param $site
-     * @return mixed
+     * @return Category|mixed
      */
     public function findCategories($site)
     {
-        $builder = new CategoryResponseBuilder(
-            $this->get(sprintf('/sites/%s/categories', $site)),
-            $this->getSerializer()
+        return new CategoryResponseBuilder(
+            $this->get(sprintf('/sites/%s/categories', $site))
         );
-        return $builder->getResponse();
     }
 
     /**
      * @param string $code
-     * @return Category
+     * @return Category|mixed
      */
     public function findCategory($code)
     {
-        $builder = new CategoryResponseBuilder(
-            $this->get(sprintf('/categories/%s', $code)),
-            $this->getSerializer()
+        return new CategoryResponseBuilder(
+            $this->get(sprintf('/categories/%s', $code))
         );
-        return $builder->getResponse();
     }
 
     /**
      * @param string $code
-     * @return Collection<Attributes>
+     * @return Collection|mixed
      */
     public function findCategoryAttributes($code)
     {
-        $builder = new AttributesResponseBuilder(
-            $this->get(sprintf('/categories/%s/attributes', $code)),
-            $this->getSerializer()
+        return new AttributesResponseBuilder(
+            $this->get(sprintf('/categories/%s/attributes', $code))
         );
-        return $builder->getResponse();
     }
 }

@@ -8,6 +8,7 @@
 namespace Dsc\MercadoLivre;
 
 use Dsc\MercadoLivre\Environments\Production;
+use Dsc\MercadoLivre\Handler\HandlerInterface;
 use Dsc\MercadoLivre\Handler\OAuth2ClientHandler;
 use GuzzleHttp\Client as HttpClient;
 use GuzzleHttp\Exception\RequestException;
@@ -37,10 +38,10 @@ class Client
      * @param MeliInterface $meli
      * @param HttpClient|null $client
      */
-    public function __construct(MeliInterface $meli = null, HttpClient $client = null)
+    public function __construct(MeliInterface $meli = null, HttpClient $client = null, HandlerInterface $handler = null)
     {
         $stack = HandlerStack::create();
-        $handler = new OAuth2ClientHandler($meli);
+        $handler = $handler ?: new OAuth2ClientHandler($meli);
         $stack->push($handler);
 
         //TODO Verificar essa dependência - Acessos publicos sempre acessaram produção, como não existe ambiente de teste até o momento, não será problema
@@ -75,6 +76,11 @@ class Client
             $options['body'] = $data;
         }
 
+        if(in_array('authorization', $params)) {
+            $options['authorization'] = true;
+            unset($params['authorization']); // retirado do params para não afetar a query string
+        }
+
         if(! empty($params)) {
             $options = array_merge(['query' => $params], $options);
         }
@@ -91,8 +97,7 @@ class Client
     {
         try {
 
-            $options = $this->makeOptionsForRequest($params, $data);
-            return $this->client->request('POST', $uri, $options);
+            return $this->client->request('POST',$uri, $this->makeOptionsForRequest($params, $data));
 
         } catch(RequestException $re) {
             $this->handleError($re);
@@ -108,8 +113,7 @@ class Client
     {
         try {
 
-            $options = $this->makeOptionsForRequest($params);
-            return $this->client->request('GET', $uri, $options);
+            return $this->client->request('GET', $uri, $this->makeOptionsForRequest($params));
 
         } catch(RequestException $re) {
             $this->handleError($re);
@@ -126,8 +130,7 @@ class Client
     {
         try {
 
-            $options = $this->makeOptionsForRequest($params, $data);
-            return $this->client->request('PUT', $uri, $options);
+            return $this->client->request('PUT', $uri, $this->makeOptionsForRequest($params, $data));
 
         } catch(RequestException $re) {
             $this->handleError($re);

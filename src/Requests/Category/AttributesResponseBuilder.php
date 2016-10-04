@@ -7,6 +7,7 @@
  */
 namespace Dsc\MercadoLivre\Requests\Category;
 
+use Doctrine\Common\Collections\Collection;
 use Dsc\MercadoLivre\Http\ResponseBuilder;
 
 class AttributesResponseBuilder extends ResponseBuilder
@@ -16,7 +17,10 @@ class AttributesResponseBuilder extends ResponseBuilder
      */
     const TARGET = Attributes::class;
 
-    public function getResponse()
+    /**
+     * @return Collection<Attributes>
+     */
+    public function __invoke()
     {
         return $this->serializer->deserialize($this->response->getContents(), self::TARGET);
     }

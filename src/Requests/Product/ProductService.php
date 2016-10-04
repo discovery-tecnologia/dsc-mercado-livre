@@ -8,19 +8,18 @@
 namespace Dsc\MercadoLivre\Requests\Product;
 
 use Dsc\MercadoLivre\Requests\Service;
+use Dsc\MercadoLivre\Resources\RequestService;
 
-class ProductService extends Service
+class ProductService extends Service implements RequestService
 {
     /**
      * @param $code
-     * @return Product
+     * @return Product|mixed
      */
     public function findProduct($code)
     {
-        $builder = new ProductResponseBuilder(
-            $this->get('/items/' . $code),
-            $this->getSerializer()
+        return new ProductResponseBuilder(
+            $this->get('/items/' . $code)
         );
-        return $builder->getResponse();
     }
 }

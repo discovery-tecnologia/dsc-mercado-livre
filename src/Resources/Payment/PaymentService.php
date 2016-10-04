@@ -7,9 +7,10 @@
  */
 namespace Dsc\MercadoLivre\Resources\Payment;
 
+use Dsc\MercadoLivre\Resources\ResourceService;
 use Dsc\MercadoLivre\Resources\Service;
 
-class PaymentService extends Service
+class PaymentService extends Service implements ResourceService
 {
     /**
      * @param $code
@@ -18,8 +19,7 @@ class PaymentService extends Service
     public function findPayment($code)
     {
         $builder = new PaymentResponseBuilder(
-            $this->get(sprintf('/payments/%s', $code)),
-            $this->getSerializer()
+            $this->get(sprintf('/payments/%s', $code))
         );
         return $builder->getResponse();
     }

@@ -17,9 +17,9 @@ class AuthorizationResponseBuilder extends ResponseBuilder
     const TARGET = Authorization::class;
 
     /**
-     * @return mixed
+     * @return Authorization|mixed
      */
-    public function getResponse()
+    public function __invoke()
     {
         return $this->serializer->deserialize($this->response->getContents(), self::TARGET);
     }

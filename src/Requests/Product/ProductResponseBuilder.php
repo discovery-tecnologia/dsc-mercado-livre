@@ -17,9 +17,9 @@ class ProductResponseBuilder extends ResponseBuilder
     const TARGET = Product::class;
 
     /**
-     * @return mixed
+     * @return Product
      */
-    public function getResponse()
+    public function __invoke()
     {
         return $this->serializer->deserialize($this->response->getContents(), self::TARGET);
     }

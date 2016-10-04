@@ -8,32 +8,29 @@
 namespace Dsc\MercadoLivre\Publish\Product;
 
 use Dsc\MercadoLivre\Publish\Service;
+use Dsc\MercadoLivre\Resources\PublishService;
 
-class ProductService extends Service
+class ProductService extends Service implements PublishService
 {
     /**
      * @param Product $product
-     * @return ProductResponse
+     * @return ProductResponse|mixed
      */
     public function publish(Product $product)
     {
-        $builder = new ProductResponseBuilder(
-            $this->post('/items', $product),
-            $this->getSerializer()
+        return new ProductResponseBuilder(
+            $this->post('/items', $product)
         );
-        return $builder->getResponse();
     }
 
     /**
      * @param Product $product
-     * @return ProductResponse
+     * @return ProductResponse|mixed
      */
     public function update(Product $product)
     {
-        $builder = new ProductResponseBuilder(
-            $this->put('/items', $product),
-            $this->getSerializer()
+        return new ProductResponseBuilder(
+            $this->put('/items', $product)
         );
-        return $builder->getResponse();
     }
 }

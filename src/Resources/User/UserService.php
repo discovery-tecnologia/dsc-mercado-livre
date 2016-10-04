@@ -9,10 +9,11 @@ namespace Dsc\MercadoLivre\Resources\User;
 
 use Dsc\MercadoLivre\Environments\Site;
 use Dsc\MercadoLivre\MeliException;
+use Dsc\MercadoLivre\Resources\ResourceService;
 use Dsc\MercadoLivre\Resources\Service;
 use GuzzleHttp\Psr7\Response;
 
-class UserService extends Service
+class UserService extends Service implements ResourceService
 {
     /**
      * @param $accessToken
@@ -21,8 +22,7 @@ class UserService extends Service
     public function getInformationAuthenticatedUser()
     {
         $builder = new UserResponseBuilder(
-            $this->get('/users/me'),
-            $this->getSerializer()
+            $this->get('/users/me')
         );
         return $builder->getResponse();
     }
@@ -43,8 +43,7 @@ class UserService extends Service
 
         $data = ['site_id' => $site];
         return new UserResponseBuilder(
-            $this->post('/users/test_user', $data),
-            $this->getSerializer()
+            $this->post('/users/test_user', $data)
         );
     }
 }
