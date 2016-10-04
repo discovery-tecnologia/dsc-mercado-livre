@@ -17,9 +17,9 @@ class UserResponseBuilder extends ResponseBuilder
     const TARGET = User::class;
 
     /**
-     * @return mixed
+     * @return User
      */
-    public function getResponse()
+    public function __invoke()
     {
         return $this->serializer->deserialize($this->response->getContents(), self::TARGET);
     }

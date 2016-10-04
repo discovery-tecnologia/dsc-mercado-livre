@@ -9,6 +9,7 @@
 namespace Dsc\MercadoLivre\Publish;
 
 use Dsc\MercadoLivre\BaseService;
+use Dsc\MercadoLivre\Client;
 use Dsc\MercadoLivre\MeliInterface;
 
 class Service extends BaseService
@@ -18,7 +19,7 @@ class Service extends BaseService
      * @param MeliInterface $meli
      * @param null $client
      */
-    public function __construct(MeliInterface $meli, $client = null)
+    public function __construct(MeliInterface $meli, Client $client = null)
     {
         parent::__construct($meli, $client);
     }

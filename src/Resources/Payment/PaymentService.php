@@ -14,13 +14,12 @@ class PaymentService extends Service implements ResourceService
 {
     /**
      * @param $code
-     * @return Payment
+     * @return Payment|mixed
      */
     public function findPayment($code)
     {
-        $builder = new PaymentResponseBuilder(
+        return new PaymentResponseBuilder(
             $this->get(sprintf('/payments/%s', $code))
         );
-        return $builder->getResponse();
     }
 }

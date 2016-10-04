@@ -17,19 +17,18 @@ class UserService extends Service implements ResourceService
 {
     /**
      * @param $accessToken
-     * @return User
+     * @return User|mixed
      */
     public function getInformationAuthenticatedUser()
     {
-        $builder = new UserResponseBuilder(
+        return new UserResponseBuilder(
             $this->get('/users/me')
         );
-        return $builder->getResponse();
     }
 
     /**
      * @param null $site
-     * @return UserResponseBuilder
+     * @return string
      */
     public function createTestUser($site = null)
     {
@@ -42,8 +41,9 @@ class UserService extends Service implements ResourceService
         }
 
         $data = ['site_id' => $site];
-        return new UserResponseBuilder(
+        $builder = new UserResponseBuilder(
             $this->post('/users/test_user', $data)
         );
+        return $builder->json();
     }
 }
