@@ -6,7 +6,7 @@
  * @author Diego Wagner <diegowagner4@gmail.com>
  * http://www.discoverytecnologia.com.br
  */
-namespace Dsc\MercadoLivre\Resources;
+namespace Dsc\MercadoLivre\Requests;
 
 use Dsc\MercadoLivre\Client;
 use Dsc\MercadoLivre\MeliInterface;
