@@ -75,7 +75,7 @@ class AuthorizationService extends Service implements ResourceService
 
         /** @var Authorization $authorization */
         $authorization = new AuthorizationResponseBuilder(
-            $this->post($uri, $data, ['authorization'])
+            $this->post($uri, $data, ['authorization' => true])
         );
 
         $storage = $this->getMeli()->getEnvironment()->getConfiguration()->getStorage();
