@@ -17,9 +17,9 @@ class PaymentResponseBuilder extends ResponseBuilder
     const TARGET = Payment::class;
 
     /**
-     * @return mixed
+     * @return Payment
      */
-    public function getResponse()
+    public function __invoke()
     {
         return $this->serializer->deserialize($this->response->getContents(), self::TARGET);
     }
