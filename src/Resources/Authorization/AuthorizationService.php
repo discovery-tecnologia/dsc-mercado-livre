@@ -7,9 +7,11 @@
  */
 namespace Dsc\MercadoLivre\Resources\Authorization;
 
+use Dsc\MercadoLivre\Client;
 use Dsc\MercadoLivre\Handler\OAuth2ClientHandler;
 use Dsc\MercadoLivre\MeliException;
 use Dsc\MercadoLivre\Resources\Service;
+use GuzzleHttp\RequestOptions;
 use Psr\Http\Message\StreamInterface;
 
 /**
@@ -75,7 +77,7 @@ class AuthorizationService extends Service
         ];
 
         $builder = new AuthorizationResponseBuilder(
-            $this->post($uri, $data),
+            $this->post($uri, $data, ['authorization']),
             $this->getSerializer()
         );
 
