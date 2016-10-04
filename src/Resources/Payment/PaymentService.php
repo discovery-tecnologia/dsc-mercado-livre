@@ -7,9 +7,10 @@
  */
 namespace Dsc\MercadoLivre\Resources\Payment;
 
+use Dsc\MercadoLivre\Resources\ResourceService;
 use Dsc\MercadoLivre\Resources\Service;
 
-class PaymentService extends Service
+class PaymentService extends Service implements ResourceService
 {
     /**
      * @param $code
