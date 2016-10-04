@@ -10,7 +10,6 @@ namespace Dsc\MercadoLivre\Resources\Authorization;
 use Dsc\MercadoLivre\Handler\OAuth2ClientHandler;
 use Dsc\MercadoLivre\MeliException;
 use Dsc\MercadoLivre\Resources\Service;
-use Psr\Http\Message\StreamInterface;
 
 /**
  * @author Diego Wagner <diegowagner4@gmail.com>
@@ -37,7 +36,7 @@ class AuthorizationService extends Service
     /**
      * @param $region
      * @param null $redirectUri
-     * @return StreamInterface
+     * @return string
      */
     public function getAuthorizationCode($redirectUri = null)
     {
@@ -52,7 +51,7 @@ class AuthorizationService extends Service
         $builder = new AuthorizationResponseBuilder(
             $this->get($uri, $params)
         );
-        return $builder->getResponse();
+        return $builder->json();
     }
 
     /**
@@ -73,11 +72,10 @@ class AuthorizationService extends Service
             'redirect_uri'  => $redirectUri
         ];
 
-        $builder = new AuthorizationResponseBuilder(
+        /** @var Authorization $authorization */
+        $authorization = new AuthorizationResponseBuilder(
             $this->post($uri, $data, ['authorization'])
         );
-
-        $authorization = $builder->getResponse();
 
         $storage = $this->getMeli()->getEnvironment()->getConfiguration()->getStorage();
         $storage->set(OAuth2ClientHandler::ACCESS_TOKEN, $authorization->getAccessToken());

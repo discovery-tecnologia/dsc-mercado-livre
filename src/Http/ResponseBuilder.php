@@ -37,7 +37,7 @@ abstract class ResponseBuilder
     /**
      * @return string
      */
-    public function contents()
+    public function json()
     {
         return $this->response->getContents();
     }
@@ -51,15 +51,7 @@ abstract class ResponseBuilder
     }
 
     /**
-     * @return string
-     */
-    public function __invoke()
-    {
-        return $this->response->getContents();
-    }
-
-    /**
      * @return mixed
      */
-    abstract public function getResponse();
+    abstract public function __invoke();
 }

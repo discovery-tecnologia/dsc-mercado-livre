@@ -17,9 +17,9 @@ class CategoryResponseBuilder extends ResponseBuilder
     const TARGET = Category::class;
 
     /**
-     * @return mixed
+     * @return Category
      */
-    public function getResponse()
+    public function __invoke()
     {
         return $this->serializer->deserialize($this->response->getContents(), self::TARGET);
     }

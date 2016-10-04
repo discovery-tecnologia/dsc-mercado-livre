@@ -13,13 +13,12 @@ class ProductService extends Service
 {
     /**
      * @param $code
-     * @return Product
+     * @return Product|mixed
      */
     public function findProduct($code)
     {
-        $builder = new ProductResponseBuilder(
+        return new ProductResponseBuilder(
             $this->get('/items/' . $code)
         );
-        return $builder->getResponse();
     }
 }

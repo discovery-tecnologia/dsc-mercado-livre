@@ -14,37 +14,34 @@ class CategoryService extends Service
 {
     /**
      * @param $site
-     * @return mixed
+     * @return Category|mixed
      */
     public function findCategories($site)
     {
-        $builder = new CategoryResponseBuilder(
+        return new CategoryResponseBuilder(
             $this->get(sprintf('/sites/%s/categories', $site))
         );
-        return $builder->getResponse();
     }
 
     /**
      * @param string $code
-     * @return Category
+     * @return Category|mixed
      */
     public function findCategory($code)
     {
-        $builder = new CategoryResponseBuilder(
+        return new CategoryResponseBuilder(
             $this->get(sprintf('/categories/%s', $code))
         );
-        return $builder->getResponse();
     }
 
     /**
      * @param string $code
-     * @return Collection<Attributes>
+     * @return Collection|mixed
      */
     public function findCategoryAttributes($code)
     {
-        $builder = new AttributesResponseBuilder(
+        return new AttributesResponseBuilder(
             $this->get(sprintf('/categories/%s/attributes', $code))
         );
-        return $builder->getResponse();
     }
 }
