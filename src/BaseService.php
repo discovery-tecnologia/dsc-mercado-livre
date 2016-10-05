@@ -38,7 +38,7 @@ abstract class BaseService
     /**
      * @return MeliInterface
      */
-    protected function getMeli()
+    public function getMeli()
     {
         return $this->meli;
     }

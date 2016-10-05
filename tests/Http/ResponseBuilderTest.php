@@ -19,6 +19,9 @@ class ResponseBuilderTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         $this->response   = $this->createMock(StreamInterface::class);
+        $this->response->expects($this->any())
+                       ->method('getContents')
+                       ->willReturn('string');
         $this->serializer = $this->createMock(SerializerInterface::class);
     }
 

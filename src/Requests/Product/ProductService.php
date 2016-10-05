@@ -14,12 +14,13 @@ class ProductService extends Service implements RequestService
 {
     /**
      * @param $code
-     * @return Product|mixed
+     * @return Product
      */
     public function findProduct($code)
     {
-        return new ProductResponseBuilder(
+        $builder = new ProductResponseBuilder(
             $this->get('/items/' . $code)
         );
+        return $builder->getResponse();
     }
 }

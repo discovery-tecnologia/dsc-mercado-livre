@@ -15,34 +15,37 @@ class CategoryService extends Service implements RequestService
 {
     /**
      * @param $site
-     * @return Category|mixed
+     * @return Category
      */
     public function findCategories($site)
     {
-        return new CategoryResponseBuilder(
+        $builder = new CategoryResponseBuilder(
             $this->get(sprintf('/sites/%s/categories', $site))
         );
+        return $builder->getResponse();
     }
 
     /**
      * @param string $code
-     * @return Category|mixed
+     * @return Category
      */
     public function findCategory($code)
     {
-        return new CategoryResponseBuilder(
+        $builder = new CategoryResponseBuilder(
             $this->get(sprintf('/categories/%s', $code))
         );
+        return $builder->getResponse();
     }
 
     /**
      * @param string $code
-     * @return Collection|mixed
+     * @return Collection
      */
     public function findCategoryAttributes($code)
     {
-        return new AttributesResponseBuilder(
+        $builder = new AttributesResponseBuilder(
             $this->get(sprintf('/categories/%s/attributes', $code))
         );
+        return $builder->getResponse();
     }
 }

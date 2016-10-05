@@ -19,7 +19,7 @@ class ProductResponseBuilder extends ResponseBuilder
     /**
      * @return ProductResponse
      */
-    public function __invoke()
+    public function getResponse()
     {
         return $this->serializer->deserialize($this->response->getContents(), self::TARGET);
     }

@@ -19,7 +19,7 @@ class UserResponseBuilder extends ResponseBuilder
     /**
      * @return User
      */
-    public function __invoke()
+    public function getResponse()
     {
         return $this->serializer->deserialize($this->response->getContents(), self::TARGET);
     }

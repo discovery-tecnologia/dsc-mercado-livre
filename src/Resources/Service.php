@@ -17,7 +17,7 @@ class Service extends BaseService
     /**
      * Service constructor.
      * @param MeliInterface $meli
-     * @param null $client
+     * @param Client|null $client
      */
     public function __construct(MeliInterface $meli, Client $client = null)
     {

@@ -19,7 +19,7 @@ class PaymentResponseBuilder extends ResponseBuilder
     /**
      * @return Payment
      */
-    public function __invoke()
+    public function getResponse()
     {
         return $this->serializer->deserialize($this->response->getContents(), self::TARGET);
     }

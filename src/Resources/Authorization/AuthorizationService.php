@@ -73,10 +73,10 @@ class AuthorizationService extends Service implements ResourceService
             'redirect_uri'  => $redirectUri
         ];
 
-        /** @var Authorization $authorization */
-        $authorization = new AuthorizationResponseBuilder(
+        $builder = new AuthorizationResponseBuilder(
             $this->post($uri, $data, ['authorization' => true])
         );
+        $authorization = $builder->getResponse();
 
         $storage = $this->getMeli()->getEnvironment()->getConfiguration()->getStorage();
         $storage->set(OAuth2ClientHandler::ACCESS_TOKEN, $authorization->getAccessToken());
