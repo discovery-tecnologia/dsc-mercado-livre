@@ -74,7 +74,7 @@ class AuthorizationService extends Service implements ResourceService
         ];
 
         $builder = new AuthorizationResponseBuilder(
-            $this->post($uri, $data, ['authorization' => true])
+            $this->post($uri, $data, ['skipOAuth' => true])
         );
         $authorization = $builder->getResponse();
 
