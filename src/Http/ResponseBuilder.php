@@ -51,7 +51,15 @@ abstract class ResponseBuilder
     }
 
     /**
+     * @return string
+     */
+    public function __invoke()
+    {
+        return $this->response->getContents();
+    }
+
+    /**
      * @return mixed
      */
-    abstract public function __invoke();
+    abstract public function getResponse();
 }

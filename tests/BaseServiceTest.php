@@ -4,8 +4,6 @@
  */
 namespace Dsc\MercadoLivre;
 
-use Dsc\MercadoLivre\Parser\SerializerInterface;
-
 class BaseServiceTest extends \PHPUnit_Framework_TestCase
 {
     /**
@@ -20,7 +18,11 @@ class BaseServiceTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->meli   = new Meli('client-id', 'client-secret');
+        $this->meli   = $this->createMock(MeliInterface::class);
+        $this->meli->expects($this->any())
+                   ->method('getEnvironment')
+                   ->willReturn($this->getMockForAbstractClass(Environment::class));
+
         $this->client = $this->createMock(Client::class);
     }
 

@@ -17,13 +17,14 @@ class UserService extends Service implements ResourceService
 {
     /**
      * @param $accessToken
-     * @return User|mixed
+     * @return User
      */
     public function getInformationAuthenticatedUser()
     {
-        return new UserResponseBuilder(
+        $builder = new UserResponseBuilder(
             $this->get('/users/me')
         );
+        return $builder->getResponse();
     }
 
     /**

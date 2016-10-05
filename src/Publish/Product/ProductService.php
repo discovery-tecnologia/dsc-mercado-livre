@@ -14,23 +14,25 @@ class ProductService extends Service implements PublishService
 {
     /**
      * @param Product $product
-     * @return ProductResponse|mixed
+     * @return ProductResponse
      */
     public function publish(Product $product)
     {
-        return new ProductResponseBuilder(
+        $builder = new ProductResponseBuilder(
             $this->post('/items', $product)
         );
+        return $builder->getResponse();
     }
 
     /**
      * @param Product $product
-     * @return ProductResponse|mixed
+     * @return ProductResponse
      */
     public function update(Product $product)
     {
-        return new ProductResponseBuilder(
+        $builder = new ProductResponseBuilder(
             $this->put('/items', $product)
         );
+        return $builder->getResponse();
     }
 }
