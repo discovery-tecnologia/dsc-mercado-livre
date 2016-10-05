@@ -57,7 +57,7 @@ class OAuth2ClientHandler extends Client implements HandlerInterface
     public function __invoke(callable $handler)
     {
         return function ($request, array $options) use ($handler) {
-            if($this->meli !== null && ! in_array('authorization', $options)) {
+            if($this->meli !== null && ! array_key_exists('skipOAuth', $options)) {
                 $request = $this->authorize($request);
             }
             return $handler($request, $options);

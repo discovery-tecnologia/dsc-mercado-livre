@@ -76,9 +76,9 @@ class Client
             $options['body'] = $data;
         }
 
-        if(array_key_exists('authorization', $params)) {
-            $options['authorization'] = $params['authorization'];
-            unset($params['authorization']); // retirado do params para não afetar a query string
+        if(array_key_exists('skipOAuth', $params) && $params['skipOAuth'] === true) {
+            $options['skipOAuth'] = $params['skipOAuth'];
+            unset($params['skipOAuth']); // retirado do params para não afetar a query string
         }
 
         if(! empty($params)) {
