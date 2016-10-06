@@ -1,8 +1,10 @@
 language: php
 php:
-  - 5.6
-  - 7.0
-
+- 5.6
+- 7.0
 before_script:
-  - composer selfupdate
-  - composer install --dev --prefer-dist
+- composer selfupdate
+- composer install --dev --prefer-dist
+notifications:
+  slack:
+    secure: EVJ2sHYSEZmKaEOyB9yYNvXB8A4uHwZEliObzaz/UnoVPiShWhWciPEVg0mfFhZuDusQSNXEdLmaEgnn9HnDRLwOahoYXYLJZMuRDySbHe1tmCjSl5+wkVPOxwL/ju1vuXlBDQ2OXmy2JXbr27ehRGjvjaEp7zJHn4oARB0AUNxvcpbWh5DHU3MmibTJZt24dg/c/w1vWSF/vOJZq2Ob0WAnbQebMPhN8PesK2TXOXpKHiq8ecWcCE6tBTl/EWzQ8+PoT+47ekOGbUdPAgXWBM3EnbO4WcCa8ARwk4PRaN/lrsUc3VjOYuFEIh39QyHbYyCdi1lANQ6E5N4LVOa0AcklOmRWll6BVpCSyyaiZPKDEQWMwSpbD9hqJPzxVvy1bBrKdsXbDmhKveCEnhGw4lP+vg33K7QvAhCXZ9UENopNdzoCjDndwhGQaP9rPw0ZfoRq8926klqDPCuh7X1yVi/pp5+oLAHQJ/uHHHupgYr3UDftvjALPa1+i8aS1bke0M61RGSJDrQNKMgmfy/nAdk5eZM4C48CvayJWEosBq04OiRUIZAXg7P5NU3gjz2myZzKY26s7p9dji4o2egaDvne9ddMKPt7i/j2Z/rM8+FrCe22xOYqUv5ToTHJ61pAVqW5IrSHaFklj/NS0mUCileP4fxTj4VdJeBvVyZJ04w=
