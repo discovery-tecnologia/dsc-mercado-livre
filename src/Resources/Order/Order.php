@@ -97,6 +97,12 @@ class Order
     private $payments;
 
     /**
+     * @var Shipping
+     * @JMS\Type("Dsc\MercadoLivre\Resources\Order\Shipping")
+     */
+    private $shipping;
+
+    /**
      * Order constructor.
      */
     public function __construct()
