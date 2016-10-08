@@ -1,0 +1,78 @@
+{
+  "id": "MLB5672",
+  "name": "Accessories for Vehicles",
+  "picture": "http://example.com/category/images.png",
+  "permalink": "http://example.com.br/veiculos-acessorios/",
+  "total_items_in_this_category": 9950683,
+  "path_from_root": [
+    {
+      "id": "MLB5672123123",
+      "name": "Accessories for Vehicles"
+    }
+  ],
+  "children_categories": [
+    {
+      "id": "MLB6005321",
+      "name": "Nautical Accessories",
+      "total_items_in_this_category": 32202
+    }
+  ],
+  "attribute_types": "none",
+  "settings": {
+    "adult_content": false,
+    "buying_allowed": true,
+    "buying_modes": [
+      "auction",
+      "buy_it_now"
+    ],
+    "coverage_areas": "not_allowed",
+    "currencies": [
+      "BRL"
+    ],
+    "fragile": false,
+    "immediate_payment": "optional",
+    "item_conditions": [
+      "not_specified",
+      "new",
+      "used"
+    ],
+    "items_reviews_allowed": false,
+    "listing_allowed": false,
+    "max_description_length": 50000,
+    "max_pictures_per_item": 12,
+    "max_pictures_per_item_var": 6,
+    "max_sub_title_length": 70,
+    "max_title_length": 60,
+    "maximum_price": 20000,
+    "minimum_price": 1,
+    "mirror_category": "test mirror",
+    "mirror_master_category": "test master mirror",
+    "mirror_slave_categories": [
+    ],
+    "price": "required",
+    "restrictions": [
+    ],
+    "rounded_address": false,
+    "seller_contact": "not_allowed",
+    "shipping_modes": [
+      "not_specified",
+      "custom",
+      "me1"
+    ],
+    "shipping_options": [
+      "custom"
+    ],
+    "shipping_profile": "optional",
+    "show_contact_information": false,
+    "simple_shipping": "optional",
+    "stock": "required",
+    "sub_vertical": "optional",
+    "tags": [
+      "tag"
+    ],
+    "vertical": "optional",
+    "vip_subdomain": "produto"
+  },
+  "meta_categ_id": null,
+  "attributable": false
+}

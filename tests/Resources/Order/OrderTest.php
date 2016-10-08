@@ -193,6 +193,9 @@ class OrderTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals("Brasil", $this->order->getShipping()->getReceiverAddress()->getCountry()->getName());
     }
 
+    /**
+     * @return Stream
+     */
     public function getData()
     {
         $json = file_get_contents(__DIR__ . '/order.json');
