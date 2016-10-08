@@ -17,7 +17,7 @@ Biblioteca de integração com a API do Mercado Livre.
 
 ### Requirements
 
-- PHP 5.4+
+- PHP 5.6+
 - Autoloader compatível com a PSR-4
 
 ### Dependencies
