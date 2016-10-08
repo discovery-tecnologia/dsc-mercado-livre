@@ -5,7 +5,7 @@
  * @author Diego Wagner <diegowagner4@gmail.com>
  * http://www.discoverytecnologia.com.br
  */
-namespace Dsc\MercadoLivre\Resources\Order;
+namespace Dsc\MercadoLivre\Resources\Shipping;
 
 use JMS\Serializer\Annotation as JMS;
 
@@ -21,7 +21,7 @@ class Shipping
      * @var string
      * @JMS\Type("string")
      */
-    private $shippingType;
+    private $shipmentType;
 
     /**
      * @var string
@@ -37,7 +37,7 @@ class Shipping
 
     /**
      * @var ReceiverAddress
-     * @JMS\Type("Dsc\MercadoLivre\Resources\Order\ReceiverAddress")
+     * @JMS\Type("Dsc\MercadoLivre\Resources\Shipping\ReceiverAddress")
      */
     private $receiverAddress;
 
@@ -74,18 +74,18 @@ class Shipping
     /**
      * @return string
      */
-    public function getShippingType()
+    public function getShipmentType()
     {
-        return $this->shippingType;
+        return $this->shipmentType;
     }
 
     /**
-     * @param string $shippingType
+     * @param string $shipmentType
      * @return Shipping
      */
-    public function setShippingType($shippingType)
+    public function setShipmentType($shipmentType)
     {
-        $this->shippingType = $shippingType;
+        $this->shipmentType = $shipmentType;
         return $this;
     }
 

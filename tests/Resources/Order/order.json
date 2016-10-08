@@ -1,0 +1,96 @@
+{
+  "id": 768570754,
+  "status": "paid",
+  "status_detail": {
+    "description": "description status",
+    "code": "code"
+  },
+  "date_created": "2013-05-27T10:01:50.000-04:00",
+  "date_closed": "2013-05-28T10:04:07.000-04:00",
+  "order_items": [{
+      "item": {
+        "id": "MLB12345678",
+        "title": "Samsung Galaxy",
+        "variation_id": "MLB123",
+        "variation_attributes": [
+          "123",
+          "456"
+        ]
+      },
+      "quantity": 1,
+      "unit_price": 499,
+      "currency_id": "BRL"
+  }],
+  "total_amount": 499,
+  "currency_id": "BRL",
+  "buyer": {
+    "id": "123456789",
+    "nickname": "COMPRADORTESTE",
+    "email": "b@b.com",
+    "phone": {
+      "area_code": "11",
+      "number": "12345678",
+      "extension": "extension"
+    },
+    "first_name": "Comprador de testes",
+    "last_name": "da Silva",
+    "billing_info": {
+      "doc_type": "CPF",
+      "doc_number": "12345678910"
+    }
+  },
+  "seller": {
+    "id": "123456789123",
+    "nickname": "VENDEDORTESTES",
+    "email": "a@a.com",
+    "phone": {
+      "area_code": "48",
+      "number": "11 12345678",
+      "extension": "11"
+    },
+    "first_name": "Vendedor de Testes",
+    "last_name": "testes de documentacao"
+  },
+"payments": [{
+  "id": "596707837",
+  "transaction_amount": 499,
+  "currency_id": "BRL",
+  "status": "approved",
+  "date_created": "2013-05-27T10:01:50.000-04:00"
+}],
+"feedback": {
+  "purchase": "purchase",
+  "sale": "sale"
+},
+"shipping": {
+  "id": 20676482441,
+  "shipment_type": "shipping",
+  "status": "handling",
+  "date_created": "2013-05-27T10:03:28.000-04:00",
+  "receiver_address": {
+    "id": 12345678,
+    "address_line": "Rua dos testes 123  ",
+    "zip_code": "01001000",
+    "city": {
+      "id": "BR-SP-44",
+      "name": "São Paulo"
+    },
+    "state": {
+      "id": "BR-SP",
+      "name": "São Paulo"
+    },
+    "country": {
+      "id": "BR",
+      "name": "Brasil"
+    },
+    "latitude": -20.0000,
+    "longitude": 20.0000,
+    "comment": "apenas teste"
+  },
+  "currency_id": "BRL",
+  "cost": 0
+},
+"tags": [
+  "paid",
+  "not_delivered"
+]}

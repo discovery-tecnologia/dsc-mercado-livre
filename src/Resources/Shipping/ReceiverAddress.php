@@ -5,7 +5,7 @@
  * @author Diego Wagner <diegowagner4@gmail.com>
  * http://www.discoverytecnologia.com.br
  */
-namespace Dsc\MercadoLivre\Resources\Order;
+namespace Dsc\MercadoLivre\Resources\Shipping;
 
 use Dsc\MercadoLivre\Requests\Address\City;
 use Dsc\MercadoLivre\Requests\Address\Country;
