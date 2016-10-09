@@ -88,9 +88,8 @@ class OAuth2ClientHandler extends Client implements HandlerInterface
         $oauthparams['access_token'] = $accessToken;
         $queryparams = \GuzzleHttp\Psr7\parse_query($request->getUri()->getQuery());
         $preparedParams = \GuzzleHttp\Psr7\build_query($oauthparams + $queryparams);
-        $request = $request->withUri($request->getUri()->withQuery($preparedParams));
 
-        return $request;
+        return $request->withUri($request->getUri()->withQuery($preparedParams));
     }
 
     /**
@@ -120,7 +119,7 @@ class OAuth2ClientHandler extends Client implements HandlerInterface
      */
     public function getAccessToken()
     {
-        return $this->storage->get(OAuth2ClientHandler::ACCESS_TOKEN);
+        return $this->storage->get(static::ACCESS_TOKEN);
     }
 
     /**
@@ -128,7 +127,7 @@ class OAuth2ClientHandler extends Client implements HandlerInterface
      */
     public function setAccessToken($accessToken)
     {
-        $this->storage->set(OAuth2ClientHandler::ACCESS_TOKEN, $accessToken);
+        $this->storage->set(static::ACCESS_TOKEN, $accessToken);
     }
 
     /**
@@ -136,7 +135,7 @@ class OAuth2ClientHandler extends Client implements HandlerInterface
      */
     public function getRefreshToken()
     {
-        return $this->storage->get(OAuth2ClientHandler::REFRESH_TOKEN);
+        return $this->storage->get(static::REFRESH_TOKEN);
     }
 
     /**
@@ -144,7 +143,7 @@ class OAuth2ClientHandler extends Client implements HandlerInterface
      */
     public function setRefreshToken($refreshToken)
     {
-        $this->storage->set(OAuth2ClientHandler::REFRESH_TOKEN, $refreshToken);
+        $this->storage->set(static::REFRESH_TOKEN, $refreshToken);
     }
 
     /**
@@ -152,7 +151,7 @@ class OAuth2ClientHandler extends Client implements HandlerInterface
      */
     public function getExpireIn()
     {
-        return $this->storage->get(OAuth2ClientHandler::EXPIRE_IN);
+        return $this->storage->get(static::EXPIRE_IN);
     }
 
     /**
@@ -160,7 +159,7 @@ class OAuth2ClientHandler extends Client implements HandlerInterface
      */
     public function setExpireIn($expireIn)
     {
-        $this->storage->set(OAuth2ClientHandler::EXPIRE_IN, $expireIn);
+        $this->storage->set(static::EXPIRE_IN, $expireIn);
     }
 
     /**
@@ -168,10 +167,9 @@ class OAuth2ClientHandler extends Client implements HandlerInterface
      */
     public function isExpired()
     {
-        if($this->storage->has(OAuth2ClientHandler::EXPIRE_IN)) {
-            if($this->storage->get(OAuth2ClientHandler::EXPIRE_IN) >= time()) {
-                return false;
-            }
+        if($this->storage->has(static::EXPIRE_IN) &&
+           $this->storage->get(static::EXPIRE_IN) >= time()) {
+            return false;
         }
         return true;
     }

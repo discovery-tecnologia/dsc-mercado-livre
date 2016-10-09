@@ -10,10 +10,10 @@ namespace Dsc\MercadoLivre\Resources\User;
 use Dsc\MercadoLivre\Environments\Site;
 use Dsc\MercadoLivre\MeliException;
 use Dsc\MercadoLivre\Resources\ResourceService;
-use Dsc\MercadoLivre\Resources\Service;
+use Dsc\MercadoLivre\BaseService;
 use GuzzleHttp\Psr7\Response;
 
-class UserService extends Service implements ResourceService
+class UserService extends BaseService implements ResourceService
 {
     /**
      * @param $accessToken

@@ -8,9 +8,9 @@
 namespace Dsc\MercadoLivre\Resources\Order;
 
 use Dsc\MercadoLivre\Resources\ResourceService;
-use Dsc\MercadoLivre\Resources\Service;
+use Dsc\MercadoLivre\BaseService;
 
-class OrderService extends Service implements ResourceService
+class OrderService extends BaseService implements ResourceService
 {
     /**
      * @param $orderId

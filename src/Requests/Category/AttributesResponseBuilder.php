@@ -22,6 +22,6 @@ class AttributesResponseBuilder extends ResponseBuilder
      */
     public function getResponse()
     {
-        return $this->serializer->deserialize($this->response->getContents(), self::TARGET);
+        return $this->serializer->deserialize($this->response->getContents(), static::TARGET);
     }
 }

@@ -16,25 +16,25 @@ class Test extends Environment
     const OAUTH_URI = '/oauth/token';
     // mais informações - GET https://api.mercadolibre.com/sites
     public static $WS_AUTH = [
-        Site::ARGENTINA => "https://auth.mercadolibre.com.ar", // Argentina
-        Site::BOLIVIA   => "https://auth.mercadolibre.com.bo", // Bolívia
-        Site::BRASIL    => "https://auth.mercadolivre.com.br", // Brasil
-        Site::COLOMBIA  => "https://auth.mercadolibre.com.co", // Colombia
-        Site::COSTA_RICA=> "https://auth.mercadolibre.com.cr", // Costa Rica
-        Site::EQUADOR   => "https://auth.mercadolibre.com.ec", // Ecuador
-        Site::HONDURAS  => "https://auth.mercadolibre.com.hn", // Honduras
-        Site::GUATEMALA => "https://auth.mercadolibre.com.gt", // Guatemala
-        Site::CHILE     => "https://auth.mercadolibre.cl",     // Chile
-        Site::MEXICO    => "https://auth.mercadolibre.com.mx", // Mexico
-        Site::NICARAGUA => "https://auth.mercadolibre.com.ni", // Nicaragua
-        Site::PARAGUAI  => "https://auth.mercadolibre.com.py", // Paraguai
-        Site::SALVADOR  => "https://auth.mercadolibre.com.sv", // Salvador
-        Site::URUGUAI   => "https://auth.mercadolibre.com.uy", // Uruguay
-        Site::VENEZUELA => "https://auth.mercadolibre.com.ve", // Venezuela
-        Site::PANAMA    => "https://auth.mercadolibre.com.pa", // Panama
-        Site::PERU      => "https://auth.mercadolibre.com.pe", // Peru
-        Site::PORTUGAL  => "https://auth.mercadolibre.com.pt", // Portugal
-        Site::DOMINICANA=> "https://auth.mercadolibre.com.do"  // Dominicana
+        Site::ARGENTINA => "https://auth.mercadolibre.com.ar",
+        Site::BOLIVIA   => "https://auth.mercadolibre.com.bo",
+        Site::BRASIL    => "https://auth.mercadolivre.com.br",
+        Site::COLOMBIA  => "https://auth.mercadolibre.com.co",
+        Site::COSTA_RICA=> "https://auth.mercadolibre.com.cr",
+        Site::EQUADOR   => "https://auth.mercadolibre.com.ec",
+        Site::HONDURAS  => "https://auth.mercadolibre.com.hn",
+        Site::GUATEMALA => "https://auth.mercadolibre.com.gt",
+        Site::CHILE     => "https://auth.mercadolibre.cl",
+        Site::MEXICO    => "https://auth.mercadolibre.com.mx",
+        Site::NICARAGUA => "https://auth.mercadolibre.com.ni",
+        Site::PARAGUAI  => "https://auth.mercadolibre.com.py",
+        Site::SALVADOR  => "https://auth.mercadolibre.com.sv",
+        Site::URUGUAI   => "https://auth.mercadolibre.com.uy",
+        Site::VENEZUELA => "https://auth.mercadolibre.com.ve",
+        Site::PANAMA    => "https://auth.mercadolibre.com.pa",
+        Site::PERU      => "https://auth.mercadolibre.com.pe",
+        Site::PORTUGAL  => "https://auth.mercadolibre.com.pt",
+        Site::DOMINICANA=> "https://auth.mercadolibre.com.do"
     ];
 
     /**
