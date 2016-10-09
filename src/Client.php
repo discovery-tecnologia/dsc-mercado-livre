@@ -27,6 +27,7 @@ class Client
         ],
         'verify'  => true
     ];
+    const SKIP_OAUTH = 'skipOAuth';
 
     /**
      * @var HttpClient
@@ -50,7 +51,7 @@ class Client
         $this->client = $client ?: new HttpClient([
             'base_uri' => $environment->getWsHost(),
             'handler'  => $stack,
-            'timeout'  => self::TIMEOUT
+            'timeout'  => static::TIMEOUT
         ]);
     }
 
@@ -70,15 +71,15 @@ class Client
      */
     private function makeOptionsForRequest($params, $data = null)
     {
-        $options = self::DEFAULT_HEADERS;
+        $options = static::DEFAULT_HEADERS;
 
         if($data !== null) {
             $options['body'] = $data;
         }
 
-        if(array_key_exists('skipOAuth', $params) && $params['skipOAuth'] === true) {
-            $options['skipOAuth'] = $params['skipOAuth'];
-            unset($params['skipOAuth']); // retirado do params para não afetar a query string
+        if(array_key_exists(static::SKIP_OAUTH, $params) && $params[static::SKIP_OAUTH] === true) {
+            $options[static::SKIP_OAUTH] = $params[static::SKIP_OAUTH];
+            unset($params[static::SKIP_OAUTH]); // retirado do params para não afetar a query string
         }
 
         if(! empty($params)) {

@@ -10,12 +10,12 @@ namespace Dsc\MercadoLivre\Resources\Authorization;
 use Dsc\MercadoLivre\Handler\OAuth2ClientHandler;
 use Dsc\MercadoLivre\MeliException;
 use Dsc\MercadoLivre\Resources\ResourceService;
-use Dsc\MercadoLivre\Resources\Service;
+use Dsc\MercadoLivre\BaseService;
 
 /**
  * @author Diego Wagner <diegowagner4@gmail.com>
  */
-class AuthorizationService extends Service implements ResourceService
+class AuthorizationService extends BaseService implements ResourceService
 {
     /**
      * @param string $redirectUri

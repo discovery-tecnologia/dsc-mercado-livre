@@ -9,9 +9,9 @@ namespace Dsc\MercadoLivre\Requests\Address;
 
 use Doctrine\Common\Collections\Collection;
 use Dsc\MercadoLivre\Requests\RequestService;
-use Dsc\MercadoLivre\Requests\Service;
+use Dsc\MercadoLivre\BaseService;
 
-class AddressService extends Service implements RequestService
+class AddressService extends BaseService implements RequestService
 {
     /**
      * @param string $code

@@ -9,9 +9,9 @@ namespace Dsc\MercadoLivre\Requests\Currency;
 
 use Doctrine\Common\Collections\Collection;
 use Dsc\MercadoLivre\Requests\RequestService;
-use Dsc\MercadoLivre\Requests\Service;
+use Dsc\MercadoLivre\BaseService;
 
-class CurrencyService extends Service implements RequestService
+class CurrencyService extends BaseService implements RequestService
 {
     /**
      * @return Collection<Currency>
