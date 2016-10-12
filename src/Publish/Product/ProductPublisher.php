@@ -11,13 +11,13 @@ use Dsc\MercadoLivre\BaseService;
 use Dsc\MercadoLivre\Publish\Model;
 use Dsc\MercadoLivre\Publish\PublishService;
 
-class ProductService extends BaseService  implements PublishService
+class ProductPublisher extends BaseService implements PublishService
 {
     /**
      * @param Model $product
      * @return ProductResponse
      */
-    public function publish(Model $product)
+    public function create(Model $product)
     {
         $builder = new ProductResponseBuilder(
             $this->post('/items', $product)
@@ -26,10 +26,10 @@ class ProductService extends BaseService  implements PublishService
     }
 
     /**
-     * @param Product $product
+     * @param Model $product
      * @return ProductResponse
      */
-    public function update(Product $product)
+    public function update(Model $product)
     {
         $builder = new ProductResponseBuilder(
             $this->put('/items', $product)

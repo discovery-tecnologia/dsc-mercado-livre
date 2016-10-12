@@ -8,11 +8,25 @@
 namespace Dsc\MercadoLivre\Requests\Category;
 
 use Doctrine\Common\Collections\Collection;
+use Dsc\MercadoLivre\Client;
+use Dsc\MercadoLivre\Meli;
+use Dsc\MercadoLivre\MeliInterface;
 use Dsc\MercadoLivre\Requests\RequestService;
 use Dsc\MercadoLivre\BaseService;
 
 class CategoryService extends BaseService implements RequestService
 {
+    /**
+     * CategoryService constructor.
+     * @param MeliInterface|null $meli
+     * @param Client|null $client
+     */
+    public function __construct(MeliInterface $meli = null, Client $client = null)
+    {
+        $credential = $meli ? $meli : new Meli(self::CLIENT_ID, self::CLIENT_SECRET);
+        parent::__construct($credential, $client);
+    }
+
     /**
      * @param $site
      * @return Category

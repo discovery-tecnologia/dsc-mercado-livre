@@ -16,12 +16,12 @@ abstract class BaseService
     /**
      * @var MeliInterface
      */
-    private $meli;
+    protected $meli;
 
     /**
      * @var Client
      */
-    private $client;
+    protected $client;
 
     /**
      * Service constructor.
@@ -29,7 +29,7 @@ abstract class BaseService
      * @param Client|null $client
      * @param SerializerInterface|null $serializer
      */
-    public function __construct(MeliInterface $meli = null, Client $client = null)
+    public function __construct(MeliInterface $meli, Client $client = null)
     {
         $this->meli   = $meli;
         $this->client = $client ?: new Client($meli);

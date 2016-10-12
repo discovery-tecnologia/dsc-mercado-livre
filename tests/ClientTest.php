@@ -73,23 +73,6 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function constructCanInstatiateHttpClient()
-    {
-        $stack = HandlerStack::create();
-        $handler = new OAuth2ClientHandler();
-        $stack->push($handler);
-
-        $client = new Client();
-        $this->assertAttributeEquals(new HttpClient([
-            'base_uri' => Production::WS_HOST,
-            'handler'  => $stack,
-            'timeout'  => Client::TIMEOUT
-        ]), 'client', $client);
-    }
-
-    /**
-     * @test
-     */
     public function constructShouldReceiveHttpClient()
     {
         $client = new Client($this->meli, $this->httpClient);

@@ -29,18 +29,6 @@ class BaseServiceTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function baseServiceShouldReceiveParametersNullWhenAccessIsPublic()
-    {
-        $service = $this->getMockForAbstractClass(
-            BaseService::class,
-            [null]
-        );
-        $this->assertAttributeSame(null, 'meli', $service);
-    }
-
-    /**
-     * @test
-     */
     public function constructorShouldConfigureAttributes()
     {
         $service = $this->getMockForAbstractClass(

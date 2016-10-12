@@ -9,6 +9,7 @@ namespace Dsc\MercadoLivre\Handler;
 
 use Dsc\MercadoLivre\MeliException;
 use Dsc\MercadoLivre\MeliInterface;
+use Dsc\MercadoLivre\Requests\RequestService;
 use Dsc\MercadoLivre\Storage\StorageInterface;
 use GuzzleHttp\Client;
 use GuzzleHttp\HandlerStack;
@@ -57,7 +58,7 @@ class OAuth2ClientHandler extends Client implements HandlerInterface
     public function __invoke(callable $handler)
     {
         return function ($request, array $options) use ($handler) {
-            if($this->meli !== null && ! array_key_exists('skipOAuth', $options)) {
+            if($this->meli->getClientId() !== RequestService::CLIENT_ID && ! array_key_exists('skipOAuth', $options)) {
                 $request = $this->authorize($request);
             }
             return $handler($request, $options);
