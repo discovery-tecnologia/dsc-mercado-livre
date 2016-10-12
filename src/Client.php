@@ -39,17 +39,14 @@ class Client
      * @param MeliInterface $meli
      * @param HttpClient|null $client
      */
-    public function __construct(MeliInterface $meli = null, HttpClient $client = null, HandlerInterface $handler = null)
+    public function __construct(MeliInterface $meli, HttpClient $client = null, HandlerInterface $handler = null)
     {
         $stack = HandlerStack::create();
         $handler = $handler ?: new OAuth2ClientHandler($meli);
         $stack->push($handler);
 
-        //TODO Verificar essa dependência - Acessos publicos sempre acessaram produção, como não existe ambiente de teste até o momento, não será problema
-        $environment = $meli ? $meli->getEnvironment() : new Production();
-
         $this->client = $client ?: new HttpClient([
-            'base_uri' => $environment->getWsHost(),
+            'base_uri' => $meli->getEnvironment()->getWsHost(),
             'handler'  => $stack,
             'timeout'  => static::TIMEOUT
         ]);

@@ -1,6 +1,6 @@
 <?php
 /**
- * Class RequestService
+ * Interface RequestService
  * Interface utilizada para serviços publicos que não precisam de autenticação OAuth2
  *
  * @author Diego Wagner <diegowagner4@gmail.com>
@@ -8,15 +8,15 @@
  */
 namespace Dsc\MercadoLivre\Requests;
 
-use Dsc\MercadoLivre\Client;
-use Dsc\MercadoLivre\MeliInterface;
-
 interface RequestService
 {
     /**
-     * ResourceInterface constructor.
-     * @param MeliInterface|null $meli
-     * @param Client|null $client
+     * @var string
      */
-    public function __construct(MeliInterface $meli = null, Client $client = null);
+    const CLIENT_ID     = 'PUBLIC_CLIENT';
+
+    /**
+     * @var string
+     */
+    const CLIENT_SECRET = 'PUBLIC_SECRET';
 }

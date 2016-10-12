@@ -1,6 +1,6 @@
 <?php
 /**
- * Class ServicePublish
+ * Class ServicePublisher
  *
  * @author Diego Wagner <diegowagner4@gmail.com>
  * http://www.discoverytecnologia.com.br
@@ -11,13 +11,22 @@ use Dsc\MercadoLivre\BaseService;
 use Dsc\MercadoLivre\Publish\Model;
 use Dsc\MercadoLivre\Publish\PublishService;
 
-class ServicePublish extends BaseService implements PublishService
+class ServicePublisher extends BaseService implements PublishService
 {
     /**
      * @param Model $service
      * @return mixed
      */
-    public function publish(Model $service)
+    public function create(Model $service)
+    {
+        // TODO Implementar
+    }
+
+    /**
+     * @param Model $service
+     * @return mixed
+     */
+    public function update(Model $service)
     {
         // TODO Implementar
     }

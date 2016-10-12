@@ -8,21 +8,17 @@
  */
 namespace Dsc\MercadoLivre\Publish;
 
-use Dsc\MercadoLivre\Client;
-use Dsc\MercadoLivre\MeliInterface;
-
 interface PublishService
 {
     /**
-     * ResourceInterface constructor.
-     * @param MeliInterface $meli
-     * @param Client|null $client
+     * @param Model $model
+     * @return mixed
      */
-    public function __construct(MeliInterface $meli, Client $client = null);
+    public function create(Model $model);
 
     /**
      * @param Model $model
      * @return mixed
      */
-    public function publish(Model $model);
+    public function update(Model $model);
 }

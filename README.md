@@ -44,15 +44,15 @@ php composer.phar test
 ### Utilização
 Para utilizar esta biblioteca, primeiramente você deve ter uma [aplicação](http://applications.mercadolibre.com/) configurada no Mercado Livre. 
 Caso não esteja habituado com estas funcionalidades, você pode conferir no [Getting Started](http://developers.mercadolibre.com/getting-started/) 
-da página do manual do desenvolvedor no Mercado Livre.  
+da página do manual do desenvolvedor.  
 
 Após a criação da aplicação você terá as informações do **App ID (client-id)** e **Secret Key (client-secret)** disponibilizados pelo Mercado Livre. Estas informações
 serão utilizadas quando você acessar algum recurso que necessita de autorização. 
 
 ##### Recursos públicos
-O Mercado Livre disponibiliza algumas consultas públicas, com isso, não é necessário passar o seu **App ID** e **Secret Key** 
+O Mercado Livre disponibiliza algumas consultas públicas, portanto, não é necessário passar o seu **App ID** e **Secret Key** 
 
-##### Exemplos
+##### Exemplos de consultas públicas
 
 - Consulta de categorias
 ```php

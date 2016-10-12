@@ -1,6 +1,6 @@
 <?php
 /**
- * Class PropertyService
+ * Class PropertyPublisher
  *
  * @author Diego Wagner <diegowagner4@gmail.com>
  * http://www.discoverytecnologia.com.br
@@ -11,13 +11,22 @@ use Dsc\MercadoLivre\BaseService;
 use Dsc\MercadoLivre\Publish\Model;
 use Dsc\MercadoLivre\Publish\PublishService;
 
-class PropertyService extends BaseService implements PublishService
+class PropertyPublisher extends BaseService implements PublishService
 {
     /**
-     * @param Model $property
+     * @param Model $service
      * @return mixed
      */
-    public function publish(Model $property)
+    public function create(Model $service)
+    {
+        // TODO Implementar
+    }
+
+    /**
+     * @param Model $service
+     * @return mixed
+     */
+    public function update(Model $service)
     {
         // TODO Implementar
     }
