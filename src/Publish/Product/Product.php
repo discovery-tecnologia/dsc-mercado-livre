@@ -9,9 +9,10 @@ namespace Dsc\MercadoLivre\Publish\Product;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Dsc\MercadoLivre\Publish\Model;
 use JMS\Serializer\Annotation as JMS;
 
-class Product
+class Product implements Model
 {
     /**
      * @var string
