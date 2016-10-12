@@ -8,15 +8,16 @@
 namespace Dsc\MercadoLivre\Publish\Product;
 
 use Dsc\MercadoLivre\BaseService;
+use Dsc\MercadoLivre\Publish\Model;
 use Dsc\MercadoLivre\Publish\PublishService;
 
 class ProductService extends BaseService  implements PublishService
 {
     /**
-     * @param Product $product
+     * @param Model $product
      * @return ProductResponse
      */
-    public function publish(Product $product)
+    public function publish(Model $product)
     {
         $builder = new ProductResponseBuilder(
             $this->post('/items', $product)

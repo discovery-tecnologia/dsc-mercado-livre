@@ -19,4 +19,10 @@ interface PublishService
      * @param Client|null $client
      */
     public function __construct(MeliInterface $meli, Client $client = null);
+
+    /**
+     * @param Model $model
+     * @return mixed
+     */
+    public function publish(Model $model);
 }
