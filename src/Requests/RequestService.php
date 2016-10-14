@@ -11,12 +11,14 @@ namespace Dsc\MercadoLivre\Requests;
 interface RequestService
 {
     /**
+     * ANONYMOUS USER
      * @var string
      */
-    const CLIENT_ID     = 'PUBLIC_CLIENT';
+    const CLIENT_ID     = 'ANONYMOUS_CLIENT';
 
     /**
+     * ANONYMOUS SECRET
      * @var string
      */
-    const CLIENT_SECRET = 'PUBLIC_SECRET';
+    const CLIENT_SECRET = 'ANONYMOUS_SECRET';
 }

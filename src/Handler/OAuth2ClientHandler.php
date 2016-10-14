@@ -7,12 +7,11 @@
  */
 namespace Dsc\MercadoLivre\Handler;
 
+use Dsc\MercadoLivre\AccessToken;
 use Dsc\MercadoLivre\MeliException;
 use Dsc\MercadoLivre\MeliInterface;
 use Dsc\MercadoLivre\Requests\RequestService;
-use Dsc\MercadoLivre\Storage\StorageInterface;
 use GuzzleHttp\Client;
-use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
 use Psr\Http\Message\RequestInterface;
 
@@ -22,32 +21,20 @@ use Psr\Http\Message\RequestInterface;
  */
 class OAuth2ClientHandler extends Client implements HandlerInterface
 {
-    const ACCESS_TOKEN  = 'access_token';
-    const REFRESH_TOKEN = 'refresh_token';
-    const EXPIRE_IN     = 'expire_in';
-
     /**
      * @var MeliInterface
      */
     private $meli;
 
     /**
-     * @var StorageInterface
-     */
-    private $storage;
-
-    /**
      * OAuth2ClientHandler constructor.
      * @param MeliInterface $meli
      */
-    public function __construct(MeliInterface $meli = null)
+    public function __construct(MeliInterface $meli)
     {
         $options = [];
         $this->meli  = $meli;
-        if($meli !== null) {
-            $options['base_uri'] = $meli->getEnvironment()->getWsAuth();
-            $this->storage = $meli->getEnvironment()->getConfiguration()->getStorage();
-        }
+        $options['base_uri'] = $meli->getEnvironment()->getWsAuth();
         parent::__construct($options);
     }
 
@@ -68,25 +55,33 @@ class OAuth2ClientHandler extends Client implements HandlerInterface
     /**
      * @param RequestInterface $request
      * @return RequestInterface
+     * @throws NotAuthorizedException
      */
     private function authorize(RequestInterface $request)
     {
-        $accessToken = $this->getAccessToken();
-        if(! $accessToken) {
-            throw MeliException::create(new Response(403, [], "User not authenticate - unauthorized"));
+        $accessToken = new AccessToken();
+        $token = $accessToken->getToken();
+        if(! $token) {
+            $this->throwNoAuthorizeException();
         }
 
-        if($this->isExpired()) {
+        if($accessToken->isExpired()) {
+
+            $refreshToken = $accessToken->getRefreshToken();
+            if(! $refreshToken) {
+                $this->throwNoAuthorizeException();
+            }
+
             /** @var \stdClass $authorization */
-            $authorization = $this->refreshAccessToken();
-            $this->setAccessToken($authorization->access_token);
-            $this->setRefreshToken($authorization->refresh_token);
-            $this->setExpireIn(time() + $authorization->expires_in);
+            $authorization = $this->refreshAccessToken($refreshToken);
+            $accessToken->setToken($authorization->access_token);
+            $accessToken->setRefreshToken($authorization->refresh_token);
+            $accessToken->setExpireIn($authorization->expires_in);
 
-            $accessToken = $authorization->access_token;
+            $token = $authorization->access_token;
         }
 
-        $oauthparams['access_token'] = $accessToken;
+        $oauthparams['access_token'] = $token;
         $queryparams = \GuzzleHttp\Psr7\parse_query($request->getUri()->getQuery());
         $preparedParams = \GuzzleHttp\Psr7\build_query($oauthparams + $queryparams);
 
@@ -96,13 +91,8 @@ class OAuth2ClientHandler extends Client implements HandlerInterface
     /**
      * @return mixed
      */
-    private function refreshAccessToken()
+    private function refreshAccessToken($refreshToken)
     {
-        $refreshToken = $this->getRefreshToken();
-        if(! $refreshToken) {
-            throw MeliException::create(new Response(403, [], "User not authenticate - unauthorized"));
-        }
-
         $uri  = $this->meli->getEnvironment()->getOAuthUri();
         $data = [
             'grant_type'    => 'refresh_token',
@@ -116,62 +106,10 @@ class OAuth2ClientHandler extends Client implements HandlerInterface
     }
 
     /**
-     * @return string|bool
+     * @throws NotAuthorizedException
      */
-    public function getAccessToken()
+    private function throwNoAuthorizeException()
     {
-        return $this->storage->get(static::ACCESS_TOKEN);
-    }
-
-    /**
-     * @param string $accessToken
-     */
-    public function setAccessToken($accessToken)
-    {
-        $this->storage->set(static::ACCESS_TOKEN, $accessToken);
-    }
-
-    /**
-     * @return string
-     */
-    public function getRefreshToken()
-    {
-        return $this->storage->get(static::REFRESH_TOKEN);
-    }
-
-    /**
-     * @param string $refreshToken
-     */
-    public function setRefreshToken($refreshToken)
-    {
-        $this->storage->set(static::REFRESH_TOKEN, $refreshToken);
-    }
-
-    /**
-     * @return int
-     */
-    public function getExpireIn()
-    {
-        return $this->storage->get(static::EXPIRE_IN);
-    }
-
-    /**
-     * @param int $expireIn
-     */
-    public function setExpireIn($expireIn)
-    {
-        $this->storage->set(static::EXPIRE_IN, $expireIn);
-    }
-
-    /**
-     * @return bool
-     */
-    public function isExpired()
-    {
-        if($this->storage->has(static::EXPIRE_IN) &&
-           $this->storage->get(static::EXPIRE_IN) >= time()) {
-            return false;
-        }
-        return true;
+        throw MeliException::create(new Response(403, [], "User not authenticate - unauthorized"));
     }
 }

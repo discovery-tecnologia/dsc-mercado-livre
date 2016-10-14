@@ -22,7 +22,7 @@ class ProductService extends BaseService implements RequestService
      */
     public function __construct(MeliInterface $meli = null, Client $client = null)
     {
-        $credential = $meli ? $meli : new Meli(self::CLIENT_ID, self::CLIENT_SECRET);
+        $credential = $meli ? $meli : new Meli(static::CLIENT_ID, static::CLIENT_SECRET);
         parent::__construct($credential, $client);
     }
 
