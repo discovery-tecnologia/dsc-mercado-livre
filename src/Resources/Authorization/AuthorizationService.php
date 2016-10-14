@@ -7,7 +7,7 @@
  */
 namespace Dsc\MercadoLivre\Resources\Authorization;
 
-use Dsc\MercadoLivre\Handler\OAuth2ClientHandler;
+use Dsc\MercadoLivre\AccessToken;
 use Dsc\MercadoLivre\MeliException;
 use Dsc\MercadoLivre\Resources\ResourceService;
 use Dsc\MercadoLivre\BaseService;
@@ -78,11 +78,20 @@ class AuthorizationService extends BaseService implements ResourceService
         );
         $authorization = $builder->getResponse();
 
-        $storage = $this->getMeli()->getEnvironment()->getConfiguration()->getStorage();
-        $storage->set(OAuth2ClientHandler::ACCESS_TOKEN, $authorization->getAccessToken());
-        $storage->set(OAuth2ClientHandler::REFRESH_TOKEN, $authorization->getRefreshToken());
-        $storage->set(OAuth2ClientHandler::EXPIRE_IN, time() + $authorization->getExpiresIn());
+        $accessToken = new AccessToken();
+        $accessToken->setToken($authorization->getAccessToken());
+        $accessToken->setRefreshToken($authorization->getRefreshToken());
+        $accessToken->setExpireIn($authorization->getExpiresIn());
 
-        return $authorization->getAccessToken();
+        return $accessToken->getToken();
+    }
+
+    /**
+     * @return bool
+     */
+    public function isAuthorized()
+    {
+        $accessToken = new AccessToken();
+        return $accessToken->isValid();
     }
 }
