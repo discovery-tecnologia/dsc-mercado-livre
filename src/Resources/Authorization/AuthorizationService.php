@@ -69,9 +69,10 @@ class AuthorizationService extends BaseService implements ResourceService
             'grant_type'    => 'authorization_code',
             'client_id'     => $meli->getClientId(),
             'client_secret' => $meli->getClientSecret(),
-            'code'          => $code,
-            'redirect_uri'  => $redirectUri
+            'code'          => $code
         ];
+
+        $data = !$redirectUri ? $data : array_merge($data, ['redirect_uri'  => $redirectUri]);
 
         $builder = new AuthorizationResponseBuilder(
             $this->post($uri, $data, ['skipOAuth' => true])
