@@ -57,11 +57,11 @@ class AuthorizationService extends BaseService implements ResourceService
 
     /**
      * @param string $code
-     * @param null $redirectUrl
+     * @param string $redirectUrl
      * @return string
      * @throws MeliException
      */
-    public function authorize($code, $redirectUri = null)
+    public function authorize($code, $redirectUri)
     {
         $meli = $this->getMeli();
         $uri  = $meli->getEnvironment()->getOAuthUri();
@@ -69,10 +69,9 @@ class AuthorizationService extends BaseService implements ResourceService
             'grant_type'    => 'authorization_code',
             'client_id'     => $meli->getClientId(),
             'client_secret' => $meli->getClientSecret(),
-            'code'          => $code
+            'code'          => $code,
+            'redirect_uri'  => $redirectUri
         ];
-
-        $data = !$redirectUri ? $data : array_merge($data, ['redirect_uri'  => $redirectUri]);
 
         $builder = new AuthorizationResponseBuilder(
             $this->post($uri, $data, ['skipOAuth' => true])
