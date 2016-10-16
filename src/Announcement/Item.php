@@ -1,18 +1,18 @@
 <?php
 /**
- * Class Product
+ * Class Item
+ * Classe para publicação de anúncios - Produto - Imóvies - Serviços - Veículos
  *
  * @author Diego Wagner <diegowagner4@gmail.com>
  * http://www.discoverytecnologia.com.br
  */
-namespace Dsc\MercadoLivre\Publish\Product;
+namespace Dsc\MercadoLivre\Announcement;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Dsc\MercadoLivre\Publish\Model;
 use JMS\Serializer\Annotation as JMS;
 
-class Product implements Model
+class Item implements Announcement
 {
     /**
      * @var string
@@ -88,12 +88,12 @@ class Product implements Model
 
     /**
      * @var ArrayCollection
-     * @JMS\Type("ArrayCollection<Dsc\MercadoLivre\Publish\Product\Picture>")
+     * @JMS\Type("ArrayCollection<Dsc\MercadoLivre\Announcement\Picture>")
      */
     private $pictures;
 
     /**
-     * Product constructor.
+     * Announcement constructor.
      */
     public function __construct()
     {
@@ -110,7 +110,7 @@ class Product implements Model
 
     /**
      * @param string $title
-     * @return Product
+     * @return Announcement
      */
     public function setTitle($title)
     {
@@ -128,7 +128,7 @@ class Product implements Model
 
     /**
      * @param string $categoryId
-     * @return Product
+     * @return Announcement
      */
     public function setCategoryId($categoryId)
     {
@@ -146,7 +146,7 @@ class Product implements Model
 
     /**
      * @param double $price
-     * @return Product
+     * @return Announcement
      */
     public function setPrice($price)
     {
@@ -164,7 +164,7 @@ class Product implements Model
 
     /**
      * @param string $currencyId
-     * @return Product
+     * @return Announcement
      */
     public function setCurrencyId($currencyId)
     {
@@ -182,7 +182,7 @@ class Product implements Model
 
     /**
      * @param int $availableQuantity
-     * @return Product
+     * @return Announcement
      */
     public function setAvailableQuantity($availableQuantity)
     {
@@ -200,7 +200,7 @@ class Product implements Model
 
     /**
      * @param string $buyingMode
-     * @return Product
+     * @return Announcement
      */
     public function setBuyingMode($buyingMode)
     {
@@ -218,7 +218,7 @@ class Product implements Model
 
     /**
      * @param string $listingTypeId
-     * @return Product
+     * @return Announcement
      */
     public function setListingTypeId($listingTypeId)
     {
@@ -236,7 +236,7 @@ class Product implements Model
 
     /**
      * @param string $condition
-     * @return Product
+     * @return Announcement
      */
     public function setCondition($condition)
     {
@@ -254,7 +254,7 @@ class Product implements Model
 
     /**
      * @param string $description
-     * @return Product
+     * @return Announcement
      */
     public function setDescription($description)
     {
@@ -272,7 +272,7 @@ class Product implements Model
 
     /**
      * @param string $videoId
-     * @return Product
+     * @return Announcement
      */
     public function setVideoId($videoId)
     {
@@ -290,7 +290,7 @@ class Product implements Model
 
     /**
      * @param array $tags
-     * @return Product
+     * @return Announcement
      */
     public function setTags($tags)
     {
@@ -308,7 +308,7 @@ class Product implements Model
 
     /**
      * @param string $warranty
-     * @return Product
+     * @return Announcement
      */
     public function setWarranty($warranty)
     {
@@ -342,7 +342,7 @@ class Product implements Model
 
     /**
      * @param ArrayCollection $pictures
-     * @return Product
+     * @return Announcement
      */
     public function setPictures(Collection $pictures)
     {

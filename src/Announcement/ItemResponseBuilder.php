@@ -1,23 +1,23 @@
 <?php
 /**
- * Class ProductResponseBuilder
+ * Class ItemResponseBuilder
  *
  * @author Diego Wagner <diegowagner4@gmail.com>
  * http://www.discoverytecnologia.com.br
  */
-namespace Dsc\MercadoLivre\Publish\Product;
+namespace Dsc\MercadoLivre\Announcement;
 
 use Dsc\MercadoLivre\Http\ResponseBuilder;
 
-class ProductResponseBuilder extends ResponseBuilder
+class ItemResponseBuilder extends ResponseBuilder
 {
     /**
      * @var string
      */
-    const TARGET = ProductResponse::class;
+    const TARGET = ItemResponse::class;
 
     /**
-     * @return ProductResponse
+     * @return ItemResponse
      */
     public function getResponse()
     {
