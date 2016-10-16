@@ -1,15 +1,15 @@
 <?php
 /**
- * Class Product
+ * Class ItemResponse
  *
  * @author Diego Wagner <diegowagner4@gmail.com>
  * http://www.discoverytecnologia.com.br
  */
-namespace Dsc\MercadoLivre\Publish\Product;
+namespace Dsc\MercadoLivre\Announcement;
 
 use JMS\Serializer\Annotation as JMS;
 
-class ProductResponse
+class ItemResponse
 {
     /**
      * @var string
@@ -51,7 +51,7 @@ class ProductResponse
 
     /**
      * @param string $id
-     * @return Product
+     * @return ItemResponse
      */
     public function setId($id)
     {
@@ -69,7 +69,7 @@ class ProductResponse
 
     /**
      * @param string $siteId
-     * @return Product
+     * @return ItemResponse
      */
     public function setSiteId($siteId)
     {
@@ -87,7 +87,7 @@ class ProductResponse
 
     /**
      * @param string $title
-     * @return Product
+     * @return ItemResponse
      */
     public function setTitle($title)
     {
@@ -105,7 +105,7 @@ class ProductResponse
 
     /**
      * @param int $soldQuantity
-     * @return Product
+     * @return ItemResponse
      */
     public function setSoldQuantity($soldQuantity)
     {
@@ -123,7 +123,7 @@ class ProductResponse
 
     /**
      * @param string $permalink
-     * @return Product
+     * @return ItemResponse
      */
     public function setPermalink($permalink)
     {
