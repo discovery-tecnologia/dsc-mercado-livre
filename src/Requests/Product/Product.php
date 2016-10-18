@@ -111,13 +111,13 @@ class Product
 
     /**
      * @var \DateTime
-     * @JMS\Type("DateTime<'Y-m-d\TH:i:s.000\Z'>")
+     * @JMS\Type("DateTime<'Y-m-d\TH:i:s.u\Z'>")
      */
     private $startTime;
 
     /**
      * @var \DateTime
-     * @JMS\Type("DateTime<'Y-m-d\TH:i:s.000\Z'>")
+     * @JMS\Type("DateTime<'Y-m-d\TH:i:s.u\Z'>")
      */
     private $stopTime;
 
@@ -225,13 +225,13 @@ class Product
 
     /**
      * @var \DateTime
-     * @JMS\Type("DateTime<'Y-m-d\TH:i:s.000\Z'>")
+     * @JMS\Type("DateTime<'Y-m-d\TH:i:s.u\Z'>")
      */
     private $dateCreated;
 
     /**
      * @var \DateTime
-     * @JMS\Type("DateTime<'Y-m-d\TH:i:s.000\Z'>")
+     * @JMS\Type("DateTime<'Y-m-d\TH:i:s.u\Z'>")
      */
     private $lastUpdated;
 

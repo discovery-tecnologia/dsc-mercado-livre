@@ -15,6 +15,16 @@ use JMS\Serializer\SerializerBuilder;
 class ParserSerializer implements SerializerInterface
 {
     /**
+     * @var \JMS\Serializer\Serializer
+     */
+    private $serializer;
+
+    public function __construct()
+    {
+        $this->serializer = SerializerBuilder::create()->build();
+    }
+
+    /**
      * @param object $object
      * @param string $formatter
      * @param SerializationContext|null $context
@@ -22,8 +32,7 @@ class ParserSerializer implements SerializerInterface
      */
     public function serialize($object, $formatter = Formatter::JSON, SerializationContext $context = null)
     {
-        $builder = SerializerBuilder::create()->build();
-        return $builder->serialize($object, $formatter, $context);
+        return $this->serializer->serialize($object, $formatter, $context);
     }
 
     /**
@@ -35,11 +44,9 @@ class ParserSerializer implements SerializerInterface
      */
     public function deserialize($data, $type, $formatter = Formatter::JSON, DeserializationContext $context = null)
     {
-        $builder = SerializerBuilder::create()->build();
         if(substr($data, 0, 1) == '[') {
-            return new ArrayCollection($builder->deserialize($data, 'ArrayCollection<' . $type . '>', $formatter, $context));
+            return new ArrayCollection($this->serializer->deserialize($data, 'ArrayCollection<' . $type . '>', $formatter, $context));
         }
-
-        return $builder->deserialize($data, $type, $formatter, $context);
+        return $this->serializer->deserialize($data, $type, $formatter, $context);
     }
 } 

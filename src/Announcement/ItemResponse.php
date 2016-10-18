@@ -103,25 +103,25 @@ class ItemResponse
 
     /**
      * @var \DateTime
-     * @JMS\Type("DateTime<'Y-m-d\TH:i:s.000\Z'>")
+     * @JMS\Type("DateTime<'Y-m-d\TH:i:s.u\Z'>")
      */
     private $startTime;
 
     /**
      * @var \DateTime
-     * @JMS\Type("DateTime<'Y-m-d\TH:i:s.000\Z'>")
+     * @JMS\Type("DateTime<'Y-m-d\TH:i:s.u\Z'>")
      */
     private $stopTime;
 
     /**
      * @var \DateTime
-     * @JMS\Type("DateTime<'Y-m-d\TH:i:s.000\Z'>")
+     * @JMS\Type("DateTime<'Y-m-d\TH:i:s.u\Z'>")
      */
     private $endTime;
 
     /**
      * @var \DateTime
-     * @JMS\Type("DateTime<'Y-m-d\TH:i:s.000\Z'>")
+     * @JMS\Type("DateTime<'Y-m-d\TH:i:s.u\Z'>")
      */
     private $expirationTime;
 
@@ -163,13 +163,13 @@ class ItemResponse
 
     /**
      * @var \DateTime
-     * @JMS\Type("DateTime<'Y-m-d\TH:i:s.000\Z'>")
+     * @JMS\Type("DateTime<'Y-m-d\TH:i:s.u\Z'>")
      */
     private $dateCreated;
 
     /**
      * @var \DateTime
-     * @JMS\Type("DateTime<'Y-m-d\TH:i:s.000\Z'>")
+     * @JMS\Type("DateTime<'Y-m-d\TH:i:s.u\Z'>")
      */
     private $lastUpdated;
 
