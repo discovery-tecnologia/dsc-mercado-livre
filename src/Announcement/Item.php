@@ -18,6 +18,12 @@ class Item implements Announcement
      * @var string
      * @JMS\Type("string")
      */
+    private $id;
+
+    /**
+     * @var string
+     * @JMS\Type("string")
+     */
     private $title;
 
     /**
@@ -98,6 +104,24 @@ class Item implements Announcement
     public function __construct()
     {
         $this->pictures = new ArrayCollection();
+    }
+
+    /**
+     * @return string
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param string $id
+     * @return Item
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+        return $this;
     }
 
     /**

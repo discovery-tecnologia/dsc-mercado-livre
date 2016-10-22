@@ -20,4 +20,10 @@ interface PublishService
      * @return mixed
      */
     public function update(Announcement $announcement);
+
+    /**
+     * @param string $code
+     * @return mixed
+     */
+    public function delete($code);
 }
