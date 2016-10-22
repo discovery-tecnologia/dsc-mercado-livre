@@ -8,6 +8,17 @@ interface Announcement
     /**
      * @return string
      */
+    public function getId();
+
+    /**
+     * @param string $id
+     * @return Announcement
+     */
+    public function setId($id);
+
+    /**
+     * @return string
+     */
     public function getTitle();
 
     /**

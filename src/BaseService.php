@@ -82,7 +82,7 @@ abstract class BaseService
      */
     protected function delete($uri, $params = [])
     {
-        // TODO: Implement delete() method.
+        return $this->client->delete($uri, $params)->getBody();
     }
 
     /**
