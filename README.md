@@ -55,7 +55,7 @@ serão utilizadas quando você acessar algum recurso que necessita de autorizaç
 
 > ##### Publicando um anúncio
 
-Para publicar o seu anúncio será necessário ter em mãos as informações da sua **App ID** e **Secret Key**
+Para publicar o seu anúncio será necessário ter as informações da sua **App ID** e **Secret Key**
 
 ```php
 <?php
