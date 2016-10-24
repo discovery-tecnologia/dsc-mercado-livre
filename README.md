@@ -32,16 +32,20 @@ Biblioteca de integração com a API do Mercado Livre.
 - Doctrine Cache
 
 > ### Testes
+
 Para rodar os testes, você pode usar o [composer](https://getcomposer.org/download/):
+
 ```composer
 composer test
 ```
 ou utilizando o .phar
+
 ```composer
 php composer.phar test
 ```
 
 > ### Utilização
+
 Para utilizar esta biblioteca, primeiramente você deve ter uma [aplicação](http://applications.mercadolibre.com/) configurada no Mercado Livre. 
 Caso não esteja habituado com estas funcionalidades, você pode conferir no [Getting Started](http://developers.mercadolibre.com/getting-started/) 
 da página do manual do desenvolvedor.  
@@ -50,7 +54,9 @@ Após a criação da aplicação você terá as informações do **App ID (clien
 serão utilizadas quando você acessar algum recurso que necessita de autorização. 
 
 > ##### Publicando um anúncio
+
 Para publicar o seu anúncio será necessário ter em mãos as informações da sua **App ID** e **Secret Key**
+
 ```php
 <?php
 // Consideramos que já existe um autoloader compatível com a PSR-4 registrado
@@ -87,7 +93,9 @@ echo $response->getPermalink();
 ```
 
 > ##### Alterando um anúncio
+
 Para alterar o seu anúncio, você pode recuperá-lo por meio de um serviço público.
+
 ```php
 <?php
 // Consideramos que já existe um autoloader compatível com a PSR-4 registrado
@@ -112,7 +120,9 @@ echo $response->getPermalink();
 ```
 
 > ##### Removendo um anúncio
+
 Para remover, basta informar o código do produto. Para realizar esta ação o anúncio tem que estar com o status **finalizado**.
+
 ```php
 <?php
 // Consideramos que já existe um autoloader compatível com a PSR-4 registrado
@@ -127,6 +137,7 @@ $service->delete('CODE');
 ```
 
 > ##### Recursos públicos
+
 O Mercado Livre disponibiliza algumas consultas públicas, portanto, não é necessário passar o seu **App ID** e **Secret Key** 
 
 > ##### Exemplos de consultas públicas
