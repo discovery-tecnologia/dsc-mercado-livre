@@ -8,7 +8,7 @@ Develop:
 
 Biblioteca de integração com a API do Mercado Livre.
 
-### Funcionalidades
+> ### Funcionalidades
 
 - Autenticação e Autorização
 - Consulta dos dados do usuário
@@ -17,19 +17,19 @@ Biblioteca de integração com a API do Mercado Livre.
 - Consulta e cadastro de produtos
 - Consulta de pedidos
 
-### Requisitos
+> ### Requisitos
 
 - PHP 5.6+
 - Autoloader compatível com a PSR-4
 
-### Dependências
+> ### Dependências
 
 - Guzzle
 - JMS Serializer
 - Doctrine Collections
 - Doctrine Cache
 
-### Testes
+> ### Testes
 Para rodar os testes, você pode usar o [composer](https://getcomposer.org/download/):
 ```composer
 composer test
@@ -41,7 +41,7 @@ php composer.phar test
 
 **OBS:** Esta biblioteca está em fase de desenvolvimento
 
-### Utilização
+> ### Utilização
 Para utilizar esta biblioteca, primeiramente você deve ter uma [aplicação](http://applications.mercadolibre.com/) configurada no Mercado Livre. 
 Caso não esteja habituado com estas funcionalidades, você pode conferir no [Getting Started](http://developers.mercadolibre.com/getting-started/) 
 da página do manual do desenvolvedor.  
@@ -49,10 +49,10 @@ da página do manual do desenvolvedor.
 Após a criação da aplicação você terá as informações do **App ID (client-id)** e **Secret Key (client-secret)** disponibilizados pelo Mercado Livre. Estas informações
 serão utilizadas quando você acessar algum recurso que necessita de autorização. 
 
-##### Recursos públicos
+> ##### Recursos públicos
 O Mercado Livre disponibiliza algumas consultas públicas, portanto, não é necessário passar o seu **App ID** e **Secret Key** 
 
-##### Exemplos de consultas públicas
+> ##### Exemplos de consultas públicas
 
 - Consulta de categorias
 ```php
@@ -92,10 +92,10 @@ $currencies = $service->findCurrencies();
 
 ```
 
-##### Recursos privados
+> ##### Recursos privados
 
 
 
-### Licença
+> ### Licença
 
 Esta biblioteca segue os termos de uso da [Apache-2.0](https://github.com/discovery-tecnologia/dsc-mercado-livre/blob/master/LICENSE)
