@@ -9,9 +9,10 @@ namespace Dsc\MercadoLivre\Requests\Product;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Dsc\MercadoLivre\Announcement\Announcement;
 use JMS\Serializer\Annotation as JMS;
 
-class Product
+class Product implements Announcement
 {
     /**
      * @var string
@@ -234,6 +235,12 @@ class Product
      * @JMS\Type("DateTime<'Y-m-d\TH:i:s.u\Z'>")
      */
     private $lastUpdated;
+
+    /**
+     * @var array
+     * @JMS\Type("array")
+     */
+    private $tags;
 
     //TODO mapping others fields
 
@@ -936,6 +943,24 @@ class Product
     public function setLastUpdated($lastUpdated)
     {
         $this->lastUpdated = $lastUpdated;
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getTags()
+    {
+        return $this->tags;
+    }
+
+    /**
+     * @param array $tags
+     * @return Product
+     */
+    public function setTags($tags)
+    {
+        $this->tags = $tags;
         return $this;
     }
 }

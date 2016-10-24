@@ -8,6 +8,8 @@ Develop:
 
 Biblioteca de integração com a API do Mercado Livre.
 
+**OBS: Esta biblioteca ainda está em fase de desenvolvimento! Contribua!!**
+
 > ### Funcionalidades
 
 - Autenticação e Autorização
@@ -39,8 +41,6 @@ ou utilizando o .phar
 php composer.phar test
 ```
 
-**OBS:** Esta biblioteca está em fase de desenvolvimento
-
 > ### Utilização
 Para utilizar esta biblioteca, primeiramente você deve ter uma [aplicação](http://applications.mercadolibre.com/) configurada no Mercado Livre. 
 Caso não esteja habituado com estas funcionalidades, você pode conferir no [Getting Started](http://developers.mercadolibre.com/getting-started/) 
@@ -48,6 +48,83 @@ da página do manual do desenvolvedor.
 
 Após a criação da aplicação você terá as informações do **App ID (client-id)** e **Secret Key (client-secret)** disponibilizados pelo Mercado Livre. Estas informações
 serão utilizadas quando você acessar algum recurso que necessita de autorização. 
+
+> ##### Publicando um anúncio
+Para publicar o seu anúncio será necessário ter em mãos as informações da sua **App ID** e **Secret Key**
+```php
+<?php
+// Consideramos que já existe um autoloader compatível com a PSR-4 registrado
+
+use Dsc\MercadoLivre\Meli;
+use Dsc\MercadoLivre\Announcement\Item;
+use Dsc\MercadoLivre\Announcement\Picture;
+use Dsc\MercadoLivre\Announcement;
+
+$meli = new Meli('APP-ID', 'SECRET-ID');
+
+$item = new Item();
+$item->setTitle('Test item - no offer')
+     ->setCategoryId('MLB46585')
+     ->setPrice(100)
+     ->setCurrencyId('BRL')
+     ->setAvailableQuantity(10)
+     ->setBuyingMode('buy_it_now')
+     ->setListingTypeId('gold_especial')
+     ->setCondition('new')
+     ->setDescription('Test item - no offer')
+     ->setWarranty('12 months');
+
+// Imagem do Produto        
+$picture = new Picture();
+$picture->setSource('http://mla-s2-p.mlstatic.com/968521-MLA20805195516_072016-O.jpg');
+$item->addPicture($picture); // collection de imagens
+
+$service = new Announcement($meli);
+$response = $service->create($item);
+
+// Link do produto publicado
+echo $response->getPermalink();
+```
+
+> ##### Alterando um anúncio
+Para alterar o seu anúncio, você pode recuperá-lo por meio de um serviço público.
+```php
+<?php
+// Consideramos que já existe um autoloader compatível com a PSR-4 registrado
+
+use Dsc\MercadoLivre\Meli;
+use Dsc\MercadoLivre\Announcement;
+use Dsc\MercadoLivre\Requests\Product\ProductService;
+
+$meli = new Meli('APP-ID', 'SECRET-ID');
+
+$service = new ProductService();
+// Recuperando os dados do produto
+$product = $service->findProduct('CODE');
+
+$product->setDescription('New description item');
+
+$service  = new Announcement($meli);
+$response = $service->update($product);
+
+// Link do produto
+echo $response->getPermalink();
+```
+
+> ##### Removendo um anúncio
+Para remover, basta informar o código do produto. Para realizar esta ação o anúncio tem que estar com o status **finalizado**.
+```php
+<?php
+// Consideramos que já existe um autoloader compatível com a PSR-4 registrado
+
+use Dsc\MercadoLivre\Meli;
+use Dsc\MercadoLivre\Announcement;
+
+$meli = new Meli('APP-ID', 'SECRET-ID');
+
+$service  = new Announcement($meli);
+$service->delete('CODE');
+```
 
 > ##### Recursos públicos
 O Mercado Livre disponibiliza algumas consultas públicas, portanto, não é necessário passar o seu **App ID** e **Secret Key** 
