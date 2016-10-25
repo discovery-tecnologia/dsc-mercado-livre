@@ -143,6 +143,11 @@ $service  = new Announcement($meli);
 $service->delete('CODE');
 ```
 
+> ##### Recursos públicos e privados
+
+O Mercado Livre disponibiliza recursos públicos e privados. Os recursos públicos são aqueles que qualquer pessoa que conheça a URL de um determinado 
+recurso pode acessar. Por exemplo, ao acessar o recurso “sites”, você verá todos os países nos quais o Mercado Livre atua.
+
 > ##### Recursos públicos
 
 O Mercado Livre disponibiliza algumas consultas públicas, portanto, não é necessário passar o seu **App ID** e **Secret Key** 
@@ -190,7 +195,7 @@ $currencies = $service->findCurrencies();
 > ##### Recursos privados
 
 Os recursos privados podem ser acessados somente mediante autorização, portanto, para que você
-acesse estas informações é necessário que o usuário esteja logado (ou concedeu a autorização anteriormente) no Mercado Livre.
+acesse estas informações é necessário que o usuário esteja logado (ou tenha passado pelo fluxo de autorização anteriormente) no Mercado Livre.
 
 - Dados do usuário logado
 ```php
@@ -225,6 +230,30 @@ $service = new OrderService($meli);
 $order = $service->findOrder('ORDER-ID');
 
 ```
+
+> ##### Alterando o site
+
+Por padrão, esta biblioteca está configurada para aplicações no Brasil, mas se você precisar,
+esta configuração poderá ser alterada no momento em que informa suas credenciais, seguindo o exemplo:
+
+```php
+<?php
+// Consideramos que já existe um autoloader compatível com a PSR-4 registrado
+
+use Dsc\MercadoLivre\Meli;
+use Dsc\MercadoLivre\Environments\Site;
+use Dsc\MercadoLivre\Environments\Production;
+
+// Acessando os recursos da Argentina
+$meli = new Meli(
+            'APP-ID', 
+            'SECRET-ID',
+            new Production(Site::ARGENTINA)
+        );
+
+```
+
+Neste [link](https://github.com/discovery-tecnologia/dsc-mercado-livre/blob/master/src/Environments/Site.php) você pode verficar a lista de sites disponíveis.
 
 > ### Licença
 
