@@ -31,9 +31,25 @@ Biblioteca de integração com a API do Mercado Livre.
 - Doctrine Collections
 - Doctrine Cache
 
+> ### Instalação
+
+Para instalar a biblioteca basta adicioná-la via [composer](https://getcomposer.org/download/)
+
+```composer
+composer require dsc/mercado-livre
+```
+
+Ou no composer.json
+
+```json
+{
+    "dsc/mercado-livre": "dev-master"
+}
+```
+
 > ### Testes
 
-Para rodar os testes, você pode usar o [composer](https://getcomposer.org/download/):
+Podemos usar o composer para rodar os testes:
 
 ```composer
 composer test
@@ -143,14 +159,11 @@ $service  = new Announcement($meli);
 $service->delete('CODE');
 ```
 
-> ##### Recursos públicos e privados
-
-O Mercado Livre disponibiliza recursos públicos e privados. Os recursos públicos são aqueles que qualquer pessoa que conheça a URL de um determinado 
-recurso pode acessar. Por exemplo, ao acessar o recurso “sites”, você verá todos os países nos quais o Mercado Livre atua.
-
 > ##### Recursos públicos
 
-O Mercado Livre disponibiliza algumas consultas públicas, portanto, não é necessário passar o seu **App ID** e **Secret Key** 
+ O Mercado Livre disponibiliza recursos públicos e privados. Os recursos públicos são aqueles que qualquer pessoa que conheça a URL de um determinado 
+ recurso pode acessar, ou seja, não é necessário passar sua **App-ID** e **Secret Key**. Por exemplo, ao acessar o recurso “[sites](https://api.mercadolibre.com/sites#json)”, 
+ você verá todos os países nos quais o Mercado Livre atua.
 
 > ##### Exemplos de consultas públicas
 
