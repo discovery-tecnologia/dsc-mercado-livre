@@ -189,7 +189,42 @@ $currencies = $service->findCurrencies();
 
 > ##### Recursos privados
 
+Os recursos privados podem ser acessados somente mediante autorização, portanto, para que você
+acesse estas informações é necessário que o usuário esteja logado (ou concedeu a autorização anteriormente) no Mercado Livre.
 
+- Dados do usuário logado
+```php
+<?php
+// Consideramos que já existe um autoloader compatível com a PSR-4 registrado
+
+use Dsc\MercadoLivre\Meli;
+use Dsc\MercadoLivre\Resources\User\UserService;
+
+$meli = new Meli('APP-ID', 'SECRET-ID');
+
+$service = new UserService($meli);
+
+// Consulta dados do usuário
+$information = $service->getInformationAuthenticatedUser();
+
+```
+
+- Consulta de pedido
+```php
+<?php
+// Consideramos que já existe um autoloader compatível com a PSR-4 registrado
+
+use Dsc\MercadoLivre\Meli;
+use Dsc\MercadoLivre\Resources\Order\OrderService;
+
+$meli = new Meli('APP-ID', 'SECRET-ID');
+
+$service = new OrderService($meli);
+
+// Consulta um pedido
+$order = $service->findOrder('ORDER-ID');
+
+```
 
 > ### Licença
 
