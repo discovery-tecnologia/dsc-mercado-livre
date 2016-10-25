@@ -53,9 +53,16 @@ da página do manual do desenvolvedor.
 Após a criação da aplicação você terá as informações do **App ID (client-id)** e **Secret Key (client-secret)** disponibilizados pelo Mercado Livre. Estas informações
 serão utilizadas quando você acessar algum recurso que necessita de autorização. 
 
+Atualmente o Mercado Livre não possui um ambiente de `Sandbox` para realização de testes. Todas as publicações serão executadas na sua conta real, conforme
+descrito no [manual](http://developers.mercadolibre.com/start-testing/). 
+
+Você também pode criar um [usuário de teste](http://developers.mercadolibre.com/start-testing/#Create-a-test-user) se achar necessário.
+Com o usuário de teste criado, é possível configurar outra aplicação e ter a **App ID (client-id)** e **Secret Key (client-secret)** para o usuário de teste.
+Lembrando novamente que mesmo com o usuário de teste, os dados aparecerão no ambiente de **produção** do Mercado Livre.
+
 > ##### Publicando um anúncio
 
-Para publicar o seu anúncio será necessário ter as informações da sua **App ID** e **Secret Key**
+Com aplicação configurada, será possível realizar a publicação de um anúncio no Mercado Livre, portanto, você precisa ter as informações da sua **App ID** e **Secret Key** criada anteriormente.
 
 ```php
 <?php
