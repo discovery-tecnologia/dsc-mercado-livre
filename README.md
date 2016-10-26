@@ -43,7 +43,7 @@ Ou no composer.json
 
 ```json
 {
-    "dsc/mercado-livre": "dev-master"
+    "dsc/mercado-livre": "0.0.8-rc"
 }
 ```
 
