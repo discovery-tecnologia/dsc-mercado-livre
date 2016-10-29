@@ -76,9 +76,37 @@ Você também pode criar um [usuário de teste](http://developers.mercadolibre.c
 Com o usuário de teste criado, é possível configurar outra aplicação e ter a **App ID (client-id)** e **Secret Key (client-secret)** para o usuário de teste.
 Lembrando novamente que mesmo com o usuário de teste, os dados aparecerão no ambiente de **produção** do Mercado Livre.
 
+> ##### Exemplo de autenticação e autorização
+
+No manual do desenvolvedor você encontra mais detalhes sobre o fluxo de como funciona a 
+[autenticação e autorização server side](http://developers.mercadolibre.com/server-side/) do Mercado Livre.
+
+A seguir um pequeno exemplo de como é feita a autenticação usando esta biblioteca.
+
+```php
+<?php
+// Consideramos que já existe um autoloader compatível com a PSR-4 registrado
+
+use Dsc\MercadoLivre\Meli;
+use Dsc\MercadoLivre\Resources\Authorization\AuthorizationService;
+
+$meli = new Meli('APP-ID', 'SECRET-ID');
+$service = new AuthorizationService($meli);
+
+if(isset($_GET['code'])) {
+   $service->authorize($_GET['code'], 'https://your-domain.com/login.php');
+   header('Location: https://your-domain.com');
+}
+
+echo '<br><br><a href="' . $service->getOAuthUrl('https://your-domain/login.php') . '">Login using MercadoLibre oAuth 2.0</a>';
+```
+
+Com o usuário autenticado já podemos publicar nosso primeiro anúncio.
+
 > ##### Publicando um anúncio
 
-Com aplicação configurada, será possível realizar a publicação de um anúncio no Mercado Livre, portanto, você precisa ter as informações da sua **App ID** e **Secret Key** criada anteriormente.
+Com aplicação configurada e o usuário autenticado, será possível realizar a publicação de um anúncio no Mercado Livre, 
+portanto, você precisa ter as informações da sua **App ID** e **Secret Key** criada na aplicação.
 
 ```php
 <?php
