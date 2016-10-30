@@ -349,17 +349,17 @@ class Item implements Announcement
     }
 
     /**
-     * @param Picture $picture
+     * @param Image $picture
      */
-    public function addPicture(Picture $picture)
+    public function addPicture(Image $picture)
     {
         $this->pictures->add($picture);
     }
 
     /**
-     * @param Picture $picture
+     * @param Image $picture
      */
-    public function removePicture(Picture $picture)
+    public function removePicture(Image $picture)
     {
         $this->pictures->remove($picture);
     }

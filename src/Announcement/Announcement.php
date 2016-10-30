@@ -1,4 +1,10 @@
 <?php
+/**
+ * Interface Announcement
+ *
+ * @author Diego Wagner <diegowagner4@gmail.com>
+ * http://www.discoverytecnologia.com.br
+ */
 namespace Dsc\MercadoLivre\Announcement;
 
 use Doctrine\Common\Collections\Collection;
@@ -154,14 +160,14 @@ interface Announcement
     public function getPictures();
 
     /**
-     * @param Picture $picture
+     * @param Image $picture
      */
-    public function addPicture(Picture $picture);
+    public function addPicture(Image $picture);
 
     /**
-     * @param Picture $picture
+     * @param Image $picture
      */
-    public function removePicture(Picture $picture);
+    public function removePicture(Image $picture);
 
     /**
      * @param Collection $pictures
