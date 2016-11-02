@@ -9,7 +9,7 @@ namespace Dsc\MercadoLivre\Announcement;
 
 use JMS\Serializer\Annotation as JMS;
 
-class Picture implements Image
+class Picture
 {
     /**
      * @var string

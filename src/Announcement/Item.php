@@ -93,6 +93,12 @@ class Item implements Announcement
     private $warranty;
 
     /**
+     * @var string
+     * @JMS\Type("string")
+     */
+    private $status;
+
+    /**
      * @var ArrayCollection
      * @JMS\Type("ArrayCollection<Dsc\MercadoLivre\Announcement\Picture>")
      */
@@ -341,6 +347,22 @@ class Item implements Announcement
     }
 
     /**
+     * @return string
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * @param string $status
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+    }
+
+    /**
      * @return ArrayCollection
      */
     public function getPictures()
@@ -349,17 +371,17 @@ class Item implements Announcement
     }
 
     /**
-     * @param Image $picture
+     * @param Picture $picture
      */
-    public function addPicture(Image $picture)
+    public function addPicture(Picture $picture)
     {
         $this->pictures->add($picture);
     }
 
     /**
-     * @param Image $picture
+     * @param Picture $picture
      */
-    public function removePicture(Image $picture)
+    public function removePicture(Picture $picture)
     {
         $this->pictures->remove($picture);
     }

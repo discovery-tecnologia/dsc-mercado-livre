@@ -9,11 +9,9 @@ namespace Dsc\MercadoLivre\Requests\Product;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Dsc\MercadoLivre\Announcement\Announcement;
-use Dsc\MercadoLivre\Announcement\Image;
 use JMS\Serializer\Annotation as JMS;
 
-class Product implements Announcement
+class Product
 {
     /**
      * @var string
@@ -650,19 +648,19 @@ class Product implements Announcement
     }
 
     /**
-     * @param Image $picture
+     * @param Picture $picture
      * @return Product
      */
-    public function addPicture(Image $picture)
+    public function addPicture(Picture $picture)
     {
         $this->pictures->add($picture);
         return $this;
     }
 
     /**
-     * @param Image $picture
+     * @param Picture $picture
      */
-    public function removePicture(Image $picture)
+    public function removePicture(Picture $picture)
     {
         $this->pictures->remove($picture);
     }
