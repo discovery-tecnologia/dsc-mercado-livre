@@ -145,7 +145,7 @@ echo $response->getPermalink();
 
 > ##### Alterando um anúncio
 
-Para alterar o seu anúncio, você pode recuperá-lo por meio de um serviço público.
+Para alterar o seu anúncio...
 
 ```php
 <?php
@@ -153,14 +153,11 @@ Para alterar o seu anúncio, você pode recuperá-lo por meio de um serviço pú
 
 use Dsc\MercadoLivre\Meli;
 use Dsc\MercadoLivre\Announcement;
-use Dsc\MercadoLivre\Requests\Product\ProductService;
 
 $meli = new Meli('APP-ID', 'SECRET-ID');
 
-$service = new ProductService();
-// Recuperando os dados do produto
-$product = $service->findProduct('CODE');
-
+// Produto recuperado de alguma base de dados
+$product->setTitle('New title');
 $product->setDescription('New description item');
 
 $service  = new Announcement($meli);
