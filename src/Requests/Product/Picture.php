@@ -7,10 +7,9 @@
  */
 namespace Dsc\MercadoLivre\Requests\Product;
 
-use Dsc\MercadoLivre\Announcement\Image;
 use JMS\Serializer\Annotation as JMS;
 
-class Picture implements Image
+class Picture
 {
     /**
      * @var string
@@ -47,12 +46,6 @@ class Picture implements Image
      * @JMS\Type("integer")
      */
     private $quality;
-
-    /**
-     * @var string
-     * @JMS\Type("string")
-     */
-    private $source;
 
     /**
      * @return string
@@ -159,24 +152,6 @@ class Picture implements Image
     public function setQuality($quality)
     {
         $this->quality = $quality;
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getSource()
-    {
-        return $this->source;
-    }
-
-    /**
-     * @param string $source
-     * @return Picture
-     */
-    public function setSource($source)
-    {
-        $this->source = $source;
         return $this;
     }
 }

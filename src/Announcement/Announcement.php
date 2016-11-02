@@ -155,19 +155,30 @@ interface Announcement
     public function setWarranty($warranty);
 
     /**
+     * @return string
+     */
+    public function getStatus();
+
+    /**
+     * @param string $status
+     * @return Announcement
+     */
+    public function setStatus($status);
+
+    /**
      * @return Collection
      */
     public function getPictures();
 
     /**
-     * @param Image $picture
+     * @param Picture $picture
      */
-    public function addPicture(Image $picture);
+    public function addPicture(Picture $picture);
 
     /**
-     * @param Image $picture
+     * @param Picture $picture
      */
-    public function removePicture(Image $picture);
+    public function removePicture(Picture $picture);
 
     /**
      * @param Collection $pictures
