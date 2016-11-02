@@ -1,6 +1,6 @@
 <?php
 /**
- * Interface Status
+ * Class Status
  *
  * @author Diego Wagner <diegowagner4@gmail.com>
  * http://www.discoverytecnologia.com.br
@@ -23,4 +23,19 @@ final class Status
      * @var string
      */
     const ACTIVE = 'active';
+
+    private static $status = [
+        self::CLOSED,
+        self::PAUSED,
+        self::ACTIVE
+    ];
+
+    /**
+     * @param $value
+     * @return bool
+     */
+    public static function isValid($value)
+    {
+        return in_array($value, static::$status);
+    }
 }

@@ -136,8 +136,8 @@ $picture = new Picture();
 $picture->setSource('http://mla-s2-p.mlstatic.com/968521-MLA20805195516_072016-O.jpg');
 $item->addPicture($picture); // collection de imagens
 
-$service = new Announcement($meli);
-$response = $service->create($item);
+$announcement = new Announcement($meli);
+$response = $announcement->create($item);
 
 // Link do produto publicado
 echo $response->getPermalink();
@@ -145,7 +145,20 @@ echo $response->getPermalink();
 
 > ##### Alterando um anúncio
 
-Para alterar o seu anúncio...
+Para alterar o seu anúncio... 
+
+Isso irá variar se o produto já tiver vendas ou não. Além disso, 
+lembre-se de que para poder alterar um produto, ele deve estar **ativo**. 
+Você pode alterar valores para:
+- Title
+- Available_quantity
+- Price
+- Video
+- Pictures
+- Description
+- Shipping
+
+Segue [link do manual](http://developers.mercadolibre.com/products-sync-listings/#Considerations)
 
 ```php
 <?php
@@ -156,12 +169,13 @@ use Dsc\MercadoLivre\Announcement;
 
 $meli = new Meli('APP-ID', 'SECRET-ID');
 
-// Produto recuperado de alguma base de dados
-$product->setTitle('New title');
-$product->setDescription('New description item');
+$data = [
+    'title'       => 'New title',
+    'description' => 'New description item'
+];
 
-$service  = new Announcement($meli);
-$response = $service->update($product);
+$announcement = new Announcement($meli);
+$response = $announcement->update('ITEM-CODE', $data);
 
 // Link do produto
 echo $response->getPermalink();
@@ -180,8 +194,8 @@ use Dsc\MercadoLivre\Announcement;
 
 $meli = new Meli('APP-ID', 'SECRET-ID');
 
-$service  = new Announcement($meli);
-$service->delete('CODE');
+$announcement = new Announcement($meli);
+$announcement->delete('ITEM-CODE');
 ```
 
 > ##### Recursos públicos
