@@ -10,7 +10,6 @@ namespace Dsc\MercadoLivre;
 use Dsc\MercadoLivre\Announcement\Announcement as AnnouncementInterface;
 use Dsc\MercadoLivre\Announcement\AnnouncementManager;
 use Dsc\MercadoLivre\Announcement\ItemResponse;
-use Dsc\MercadoLivre\Announcement\ItemResponseBuilder;
 
 class Announcement extends BaseService implements AnnouncementManager
 {
@@ -21,10 +20,10 @@ class Announcement extends BaseService implements AnnouncementManager
      */
     public function create(AnnouncementInterface $announcement)
     {
-        $builder = new ItemResponseBuilder(
-            $this->post('/items', $announcement)
+        return $this->getResponse(
+            $this->post('/items', $announcement),
+            ItemResponse::class
         );
-        return $builder->getResponse();
     }
 
     /**
@@ -35,10 +34,10 @@ class Announcement extends BaseService implements AnnouncementManager
      */
     public function update($code, $data)
     {
-        $builder = new ItemResponseBuilder(
-            $this->put('/items/' . $code, $data)
+        return $this->getResponse(
+            $this->put('/items/' . $code, $data),
+            ItemResponse::class
         );
-        return $builder->getResponse();
     }
 
     /**
@@ -49,10 +48,10 @@ class Announcement extends BaseService implements AnnouncementManager
     public function delete($code)
     {
         $data = ['deleted' => "true"];
-        $builder = new ItemResponseBuilder(
-            $this->put('/items/' . $code, $data)
+        return $this->getResponse(
+            $this->put('/items/' . $code, $data),
+            ItemResponse::class
         );
-        return $builder->getResponse();
     }
 
     /**
@@ -64,9 +63,24 @@ class Announcement extends BaseService implements AnnouncementManager
     public function changeStatus($code, $status)
     {
         $data = ['status' => $status];
-        $builder = new ItemResponseBuilder(
-            $this->put('/items/' . $code, $data)
+        return $this->getResponse(
+            $this->put('/items/' . $code, $data),
+            ItemResponse::class
         );
-        return $builder->getResponse();
+    }
+
+    /**
+     * @param string $code
+     * @param string $description
+     * @return ItemResponse
+     * @link http://developers.mercadolibre.com/item-description-2
+     */
+    public function changeDescription($code, $description)
+    {
+        $data = ['text' => $description];
+        return $this->getResponse(
+            $this->put('/items/' . $code . '/description', $data),
+            ItemResponse::class
+        );
     }
 }

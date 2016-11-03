@@ -32,10 +32,10 @@ class CurrencyService extends BaseService implements RequestService
      */
     public function findCurrencies()
     {
-        $builder = new CurrencyResponseBuilder(
-            $this->get('/currencies')
+        return $this->getResponse(
+            $this->get('/currencies'),
+            Currency::class
         );
-        return $builder->getResponse();
     }
 
     /**
@@ -44,9 +44,9 @@ class CurrencyService extends BaseService implements RequestService
      */
     public function findCurrency($code)
     {
-        $builder = new CurrencyResponseBuilder(
-            $this->get(sprintf('/currencies/%s', $code))
+        return $this->getResponse(
+            $this->get('/currencies/' . $code),
+            Currency::class
         );
-        return $builder->getResponse();
     }
 }

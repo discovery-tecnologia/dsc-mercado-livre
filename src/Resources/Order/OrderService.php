@@ -18,9 +18,9 @@ class OrderService extends BaseService implements ResourceService
      */
     public function findOrder($orderId)
     {
-        $builder = new OrderResponseBuilder(
-            $this->get(sprintf('/orders/%s', $orderId))
+        return $this->getResponse(
+            $this->get('/orders/' . $orderId),
+            Order::class
         );
-        return $builder->getResponse();
     }
 }

@@ -155,7 +155,6 @@ Você pode alterar valores para:
 - Price
 - Video
 - Pictures
-- Description
 - Shipping
 
 Segue [link do manual](http://developers.mercadolibre.com/products-sync-listings/#Considerations)
@@ -170,14 +169,80 @@ use Dsc\MercadoLivre\Announcement;
 $meli = new Meli('APP-ID', 'SECRET-ID');
 
 $data = [
-    'title'       => 'New title',
-    'description' => 'New description item'
+    'title' => 'New title',
+    'available_quantity' => 10,
+    'price' => 100
 ];
 
 $announcement = new Announcement($meli);
 $response = $announcement->update('ITEM-CODE', $data);
 
 // Link do produto
+echo $response->getPermalink();
+```
+
+> ##### Adição ou substituição de uma descrição existente
+
+A descrição de um produto contém informações personalizadas sobre o produto que você está vendendo. 
+Você escolhe a quantidade de informações que vai adicionar à descrição do produto e como elas serão exibidas. 
+Você pode escolher entre uma descrição simples, em texto sem formatação ou pode montar um modelo HTML personalizado.
+As informações exibidas na descrição devem ser um complemento dos atributos do produto que já estamos exibindo 
+na página de descrição do produto. Por exemplo, você pode adicionar especificações, imagens, detalhes da venda, 
+anúncios promocionais e tudo que achar útil e atrativo para que os compradores escolham seu produto, 
+reduzindo a necessidade de fazer mais perguntas antes de fazer uma oferta.
+
+Elementos que devem ser evitados:
+- Iframes
+- Scripts
+- Forms
+- Inputs
+- Meta
+- Object
+- Embed
+
+Caso você não tenha enviado nada na descrição no momento de publicar o produto, você pode usar o 
+seguinte tutorial para adicioná-la depois. Siga o exemplo a seguir:
+
+```php
+<?php
+// Consideramos que já existe um autoloader compatível com a PSR-4 registrado
+
+use Dsc\MercadoLivre\Meli;
+use Dsc\MercadoLivre\Announcement;
+
+$meli = new Meli('APP-ID', 'SECRET-ID');
+
+$description = '<p>New description item</p>';
+
+$announcement = new Announcement($meli);
+$response = $announcement->changeDescription('ITEM-CODE', $description);
+
+echo $response->getPermalink();
+```
+> ##### Alterando o status de um anúncio
+
+Qualquer produto publicado no Mercado Livre pode ter diferentes status; a seguir, analise a descrição de cada um deles:
+
+- **CLOSED**: finaliza sua publicação. Uma vez encerrada, a publicação não poderá ser ativada novamente, mas pode ser publicada novamente.
+- **PAUSED**: pausa sua publicação. Uma vez pausado, o produto não poderá ser visualizado pelos outros usuários do Mercado Livre, mas não será encerrado e poderá ser reativado depois.
+- **ACTIVE**: reativa um produto previamente pausado.
+
+Se você precisar fazer alterações no status do produto, deverá enviar um desses valores para o campo “status”. Lembre de que o valor diferencia entre letras maiúsculas e minúsculas e deve ser enviado em letras minúsculas.
+Para pausar um produto ativo, veja o exemplo a seguir:
+
+```php
+<?php
+// Consideramos que já existe um autoloader compatível com a PSR-4 registrado
+
+use Dsc\MercadoLivre\Meli;
+use Dsc\MercadoLivre\Announcement;
+use Dsc\MercadoLivre\Announcement\Status;
+
+$meli = new Meli('APP-ID', 'SECRET-ID');
+
+$announcement = new Announcement($meli);
+$response = $announcement->changeStatus('ITEM-CODE', Status::PAUSED); // pausa o anúncio
+
 echo $response->getPermalink();
 ```
 

@@ -8,6 +8,7 @@
 namespace Dsc\MercadoLivre\Resources\User;
 
 use Dsc\MercadoLivre\Environments\Site;
+use Dsc\MercadoLivre\Http\ResponseBuilder;
 use Dsc\MercadoLivre\MeliException;
 use Dsc\MercadoLivre\Resources\ResourceService;
 use Dsc\MercadoLivre\BaseService;
@@ -21,10 +22,10 @@ class UserService extends BaseService implements ResourceService
      */
     public function getInformationAuthenticatedUser()
     {
-        $builder = new UserResponseBuilder(
-            $this->get('/users/me')
+        return $this->getResponse(
+            $this->get('/users/me'),
+            User::class
         );
-        return $builder->getResponse();
     }
 
     /**
@@ -42,8 +43,10 @@ class UserService extends BaseService implements ResourceService
         }
 
         $data = ['site_id' => $site];
-        $builder = new UserResponseBuilder(
-            $this->post('/users/test_user', $data)
+        $builder = new ResponseBuilder(
+            $this->post('/users/test_user', $data),
+            User::class,
+            $this->getSerializer()
         );
         return $builder->json();
     }

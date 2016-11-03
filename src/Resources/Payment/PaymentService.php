@@ -18,9 +18,9 @@ class PaymentService extends BaseService implements ResourceService
      */
     public function findPayment($code)
     {
-        $builder = new PaymentResponseBuilder(
-            $this->get(sprintf('/payments/%s', $code))
+        return $this->getResponse(
+            $this->get('/payments/' . $code),
+            Payment::class
         );
-        return $builder->getResponse();
     }
 }
