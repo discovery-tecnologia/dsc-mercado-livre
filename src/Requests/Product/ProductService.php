@@ -32,9 +32,9 @@ class ProductService extends BaseService implements RequestService
      */
     public function findProduct($code)
     {
-        $builder = new ProductResponseBuilder(
-            $this->get('/items/' . $code)
+        return $this->getResponse(
+            $this->get('/items/' . $code),
+            Product::class
         );
-        return $builder->getResponse();
     }
 }

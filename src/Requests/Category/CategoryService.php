@@ -33,10 +33,10 @@ class CategoryService extends BaseService implements RequestService
      */
     public function findCategories($site)
     {
-        $builder = new CategoryResponseBuilder(
-            $this->get(sprintf('/sites/%s/categories', $site))
+        return $this->getResponse(
+            $this->get('/sites/' . $site . '/categories'),
+            Category::class
         );
-        return $builder->getResponse();
     }
 
     /**
@@ -45,10 +45,10 @@ class CategoryService extends BaseService implements RequestService
      */
     public function findCategory($code)
     {
-        $builder = new CategoryResponseBuilder(
-            $this->get(sprintf('/categories/%s', $code))
+        return $this->getResponse(
+            $this->get('/categories/' . $code),
+            Category::class
         );
-        return $builder->getResponse();
     }
 
     /**
@@ -57,9 +57,9 @@ class CategoryService extends BaseService implements RequestService
      */
     public function findCategoryAttributes($code)
     {
-        $builder = new AttributesResponseBuilder(
-            $this->get(sprintf('/categories/%s/attributes', $code))
+        return $this->getResponse(
+            $this->get('/categories/' . $code . '/attributes'),
+            Attributes::class
         );
-        return $builder->getResponse();
     }
 }

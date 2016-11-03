@@ -33,10 +33,10 @@ class AddressService extends BaseService implements RequestService
      */
     public function findCity($code)
     {
-        $builder = new CityResponseBuilder(
-            $this->get(sprintf('/cities/%s', $code))
+        return $this->getResponse(
+            $this->get('/cities/' . $code),
+            City::class
         );
-        return $builder->getResponse();
     }
 
     /**
@@ -45,10 +45,10 @@ class AddressService extends BaseService implements RequestService
      */
     public function findState($code)
     {
-        $builder = new StateResponseBuilder(
-            $this->get(sprintf('/states/%s', $code))
+        return $this->getResponse(
+            $this->get('/states/' . $code),
+            State::class
         );
-        return $builder->getResponse();
     }
 
     /**
@@ -56,10 +56,10 @@ class AddressService extends BaseService implements RequestService
      */
     public function findCountries()
     {
-        $builder = new CountryResponseBuilder(
-            $this->get('/countries')
+        return $this->getResponse(
+            $this->get('/countries'),
+            Country::class
         );
-        return $builder->getResponse();
     }
 
     /**
@@ -68,9 +68,9 @@ class AddressService extends BaseService implements RequestService
      */
     public function findCountry($code)
     {
-        $builder = new CountryResponseBuilder(
-            $this->get(sprintf('/countries/%s', $code))
+        return $this->getResponse(
+            $this->get('/countries/' . $code),
+            Country::class
         );
-        return $builder->getResponse();
     }
 }

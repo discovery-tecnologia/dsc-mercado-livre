@@ -7,16 +7,20 @@
  */
 namespace Dsc\MercadoLivre\Http;
 
-use Dsc\MercadoLivre\Parser\ParserSerializer;
 use Dsc\MercadoLivre\Parser\SerializerInterface;
 use Psr\Http\Message\StreamInterface;
 
-abstract class ResponseBuilder
+class ResponseBuilder
 {
     /**
      * @var StreamInterface
      */
     protected $response;
+
+    /**
+     * @var string
+     */
+    protected $target;
 
     /**
      * @var SerializerInterface
@@ -26,12 +30,14 @@ abstract class ResponseBuilder
     /**
      * ResponseBuilder constructor.
      * @param StreamInterface $response
+     * @param string $target
      * @param SerializerInterface $serializer
      */
-    public function __construct(StreamInterface $response, SerializerInterface $serializer = null)
+    public function __construct(StreamInterface $response, $target, SerializerInterface $serializer)
     {
         $this->response   = $response;
-        $this->serializer = $serializer ?: new ParserSerializer();
+        $this->target     = $target;
+        $this->serializer = $serializer;
     }
 
     /**
@@ -61,5 +67,8 @@ abstract class ResponseBuilder
     /**
      * @return mixed
      */
-    abstract public function getResponse();
+    public function getResponse()
+    {
+        return $this->serializer->deserialize($this->response->getContents(), $this->target);
+    }
 }

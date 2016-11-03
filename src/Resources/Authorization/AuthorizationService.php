@@ -8,6 +8,7 @@
 namespace Dsc\MercadoLivre\Resources\Authorization;
 
 use Dsc\MercadoLivre\AccessToken;
+use Dsc\MercadoLivre\Http\ResponseBuilder;
 use Dsc\MercadoLivre\MeliException;
 use Dsc\MercadoLivre\Resources\ResourceService;
 use Dsc\MercadoLivre\BaseService;
@@ -49,8 +50,10 @@ class AuthorizationService extends BaseService implements ResourceService
             'redirect_uri' => $redirectUri
         ];
 
-        $builder = new AuthorizationResponseBuilder(
-            $this->get($uri, $params)
+        $builder = new ResponseBuilder(
+            $this->get($uri, $params),
+            Authorization::class,
+            $this->getSerializer()
         );
         return $builder->json();
     }
@@ -73,10 +76,10 @@ class AuthorizationService extends BaseService implements ResourceService
             'redirect_uri'  => $redirectUri
         ];
 
-        $builder = new AuthorizationResponseBuilder(
-            $this->post($uri, $data, ['skipOAuth' => true])
+        $authorization = $this->getResponse(
+            $this->post($uri, $data, ['skipOAuth' => true]),
+            Authorization::class
         );
-        $authorization = $builder->getResponse();
 
         $accessToken = new AccessToken();
         $accessToken->setToken($authorization->getAccessToken());

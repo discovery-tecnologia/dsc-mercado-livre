@@ -34,4 +34,11 @@ interface AnnouncementManager
      * @return mixed
      */
     public function changeStatus($code, $status);
+
+    /**
+     * @param string $code
+     * @param string $description
+     * @return mixed
+     */
+    public function changeDescription($code, $description);
 }

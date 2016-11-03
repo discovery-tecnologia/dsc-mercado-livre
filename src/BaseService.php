@@ -8,8 +8,10 @@
 namespace Dsc\MercadoLivre;
 
 use Dsc\MercadoLivre\Http\RequestBuilder;
+use Dsc\MercadoLivre\Http\ResponseBuilder;
 use Dsc\MercadoLivre\Parser\ParserSerializer;
 use Dsc\MercadoLivre\Parser\SerializerInterface;
+use Psr\Http\Message\StreamInterface;
 
 abstract class BaseService
 {
@@ -96,5 +98,15 @@ abstract class BaseService
                     ->getConfiguration()
                     ->getSerializer()
             : new ParserSerializer();
+    }
+
+    /**
+     * @param StreamInterface $response
+     * @param $target
+     * @return mixed
+     */
+    protected function getResponse(StreamInterface $response, $target)
+    {
+        return (new ResponseBuilder($response, $target, $this->getSerializer()))->getResponse();
     }
 }
