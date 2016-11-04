@@ -17,7 +17,6 @@ use GuzzleHttp\Psr7\Response;
 class UserService extends BaseService implements ResourceService
 {
     /**
-     * @param $accessToken
      * @return User
      */
     public function getInformationAuthenticatedUser()
@@ -25,6 +24,30 @@ class UserService extends BaseService implements ResourceService
         return $this->getResponse(
             $this->get('/users/me'),
             User::class
+        );
+    }
+
+    /**
+     * @param int $id
+     * @return User
+     */
+    public function getInformationUserById($userId)
+    {
+        return $this->getResponse(
+            $this->get('/users/' . $userId),
+            User::class
+        );
+    }
+
+    /**
+     * @param int $id
+     * @return User
+     */
+    public function verifyShippingModesByUserAndCategory($userId, $categoryId)
+    {
+        return $this->getResponse(
+            $this->get('/users/' . $userId . '/shipping_modes', ['category_id' => $categoryId]),
+            ShippingModes::class
         );
     }
 

@@ -108,6 +108,48 @@ class User
     private $permalink;
 
     /**
+     * @var array
+     * @JMS\Type("array")
+     */
+    private $shippingModes;
+
+    /**
+     * @var string
+     * @JMS\Type("string")
+     */
+    private $sellerExperience;
+
+    /**
+     * @var SellerReputation
+     * @JMS\Type("Dsc\MercadoLivre\Resources\User\SellerReputation")
+     */
+    private $sellerReputation;
+
+    /**
+     * @var BuyerReputation
+     * @JMS\Type("Dsc\MercadoLivre\Resources\User\BuyerReputation")
+     */
+    private $buyerReputation;
+
+    /**
+     * @var Status
+     * @JMS\Type("Dsc\MercadoLivre\Resources\User\Status")
+     */
+    private $status;
+
+    /**
+     * @var string
+     * @JMS\Type("string")
+     */
+    private $secureEmail;
+
+    /**
+     * @var Credit
+     * @JMS\Type("Dsc\MercadoLivre\Resources\User\Credit")
+     */
+    private $credit;
+
+    /**
      * @return int
      */
     public function getId()
@@ -263,7 +305,7 @@ class User
      * @param Address $address
      * @return User
      */
-    public function setAddress($address)
+    public function setAddress(Address $address)
     {
         $this->address = $address;
         return $this;
@@ -281,7 +323,7 @@ class User
      * @param Phone $phone
      * @return User
      */
-    public function setPhone($phone)
+    public function setPhone(Phone $phone)
     {
         $this->phone = $phone;
         return $this;
@@ -392,6 +434,132 @@ class User
     public function setPermalink($permalink)
     {
         $this->permalink = $permalink;
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getShippingModes()
+    {
+        return $this->shippingModes;
+    }
+
+    /**
+     * @param array $shippingModes
+     * @return User
+     */
+    public function setShippingModes($shippingModes)
+    {
+        $this->shippingModes = $shippingModes;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSellerExperience()
+    {
+        return $this->sellerExperience;
+    }
+
+    /**
+     * @param string $sellerExperience
+     * @return User
+     */
+    public function setSellerExperience($sellerExperience)
+    {
+        $this->sellerExperience = $sellerExperience;
+        return $this;
+    }
+
+    /**
+     * @return SellerReputation
+     */
+    public function getSellerReputation()
+    {
+        return $this->sellerReputation;
+    }
+
+    /**
+     * @param SellerReputation $sellerReputation
+     * @return User
+     */
+    public function setSellerReputation(SellerReputation $sellerReputation)
+    {
+        $this->sellerReputation = $sellerReputation;
+        return $this;
+    }
+
+    /**
+     * @return BuyerReputation
+     */
+    public function getBuyerReputation()
+    {
+        return $this->buyerReputation;
+    }
+
+    /**
+     * @param BuyerReputation $buyerReputation
+     * @return User
+     */
+    public function setBuyerReputation(BuyerReputation $buyerReputation)
+    {
+        $this->buyerReputation = $buyerReputation;
+        return $this;
+    }
+
+    /**
+     * @return Status
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * @param Status $status
+     * @return User
+     */
+    public function setStatus(Status $status)
+    {
+        $this->status = $status;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSecureEmail()
+    {
+        return $this->secureEmail;
+    }
+
+    /**
+     * @param string $secureEmail
+     * @return User
+     */
+    public function setSecureEmail($secureEmail)
+    {
+        $this->secureEmail = $secureEmail;
+        return $this;
+    }
+
+    /**
+     * @return Credit
+     */
+    public function getCredit()
+    {
+        return $this->credit;
+    }
+
+    /**
+     * @param Credit $credit
+     * @return User
+     */
+    public function setCredit(Credit $credit)
+    {
+        $this->credit = $credit;
         return $this;
     }
 }
