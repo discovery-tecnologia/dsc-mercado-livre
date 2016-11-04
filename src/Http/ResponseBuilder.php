@@ -67,7 +67,7 @@ class ResponseBuilder
     /**
      * @return mixed
      */
-    public function getResponse()
+    public function toObject()
     {
         return $this->serializer->deserialize($this->response->getContents(), $this->target);
     }

@@ -34,7 +34,7 @@ class RequestBuilder
     /**
      * @return mixed|string
      */
-    public function getRequest()
+    public function toJson()
     {
         if(is_array($this->data)) {
             return \GuzzleHttp\json_encode($this->data);
