@@ -112,7 +112,7 @@ class Client
     {
         try {
 
-            return $this->client->request($method, $uri, $data);
+            return $this->client->request($method, $uri, $data)->getBody();
 
         } catch(RequestException $re) {
             $this->handleError($re);

@@ -35,15 +35,10 @@ class OrderTest extends \PHPUnit_Framework_TestCase
              ->method('getEnvironment')
              ->willReturn($this->getMockForAbstractClass(Environment::class));
 
-        $response = $this->createMock(Response::class);
-        $response->expects($this->any())
-                 ->method('getBody')
-                 ->willReturn($data);
-
         $client = $this->createMock(Client::class);
         $client->expects($this->any())
                ->method('get')
-               ->willReturn($response);
+               ->willReturn($data);
 
         /** @var OrderService $service */
         $service = $this->getMockForAbstractClass(OrderService::class, [$meli, $client]);

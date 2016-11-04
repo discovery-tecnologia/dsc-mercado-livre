@@ -103,7 +103,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
              )->willReturn($this->response);
 
         $response = $client->post('/test', $data);
-        $this->assertEquals(['result' => true], $response->getBody());
+        $this->assertEquals(['result' => true], $response);
     }
 
     /**
@@ -118,6 +118,6 @@ class ClientTest extends \PHPUnit_Framework_TestCase
              ->willReturn($this->response);
 
         $response = $client->get('/test?name=Test');
-        $this->assertEquals(['result' => true], $response->getBody());
+        $this->assertEquals(['result' => true], $response);
     }
 }

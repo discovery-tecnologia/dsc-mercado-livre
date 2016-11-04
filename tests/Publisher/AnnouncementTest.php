@@ -34,7 +34,7 @@ class AnnouncementTest extends \PHPUnit_Framework_TestCase
 
         $requestBuilder = new RequestBuilder($Announcement, new ParserSerializer());
 
-        $this->assertEquals($expected, $requestBuilder->getRequest());
+        $this->assertEquals($expected, $requestBuilder->toJson());
     }
 
     /**

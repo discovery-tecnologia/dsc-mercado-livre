@@ -7,25 +7,10 @@
  */
 namespace Dsc\MercadoLivre\Requests\Product;
 
-use Dsc\MercadoLivre\Client;
-use Dsc\MercadoLivre\Meli;
-use Dsc\MercadoLivre\MeliInterface;
-use Dsc\MercadoLivre\Requests\RequestService;
-use Dsc\MercadoLivre\BaseService;
+use Dsc\MercadoLivre\Requests\Service;
 
-class ProductService extends BaseService implements RequestService
+class ProductService extends Service
 {
-    /**
-     * CategoryService constructor.
-     * @param MeliInterface|null $meli
-     * @param Client|null $client
-     */
-    public function __construct(MeliInterface $meli = null, Client $client = null)
-    {
-        $credential = $meli ? $meli : new Meli(static::CLIENT_ID, static::CLIENT_SECRET);
-        parent::__construct($credential, $client);
-    }
-
     /**
      * @param $code
      * @return Product

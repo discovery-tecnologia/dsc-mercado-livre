@@ -51,7 +51,7 @@ abstract class BaseService
      */
     protected function get($uri, $params = [])
     {
-        return $this->client->get($uri, $params)->getBody();
+        return $this->client->get($uri, $params);
     }
 
     /**
@@ -59,11 +59,9 @@ abstract class BaseService
      * @param $data
      * @param $params
      */
-    protected function post($uri, $data, $params = [], SerializerInterface $serializer = null)
+    protected function post($uri, $data, $params = [])
     {
-        $serializer = $serializer ?: $this->getSerializer();
-        $request = new RequestBuilder($data, $serializer);
-        return $this->client->post($uri, $request->getRequest(), $params)->getBody();
+        return $this->client->post($uri, $this->getRequest($data), $params);
     }
 
     /**
@@ -71,11 +69,9 @@ abstract class BaseService
      * @param $data
      * @param array $params
      */
-    protected function put($uri, $data, $params = [], SerializerInterface $serializer = null)
+    protected function put($uri, $data, $params = [])
     {
-        $serializer = $serializer ?: $this->getSerializer();
-        $request = new RequestBuilder($data, $serializer);
-        return $this->client->put($uri, $request->getRequest(), $params)->getBody();
+        return $this->client->put($uri, $this->getRequest($data), $params);
     }
 
     /**
@@ -84,7 +80,7 @@ abstract class BaseService
      */
     protected function delete($uri, $params = [])
     {
-        return $this->client->delete($uri, $params)->getBody();
+        return $this->client->delete($uri, $params);
     }
 
     /**
@@ -101,12 +97,21 @@ abstract class BaseService
     }
 
     /**
+     * @param mixed $data
+     * @return mixed
+     */
+    protected function getRequest($data)
+    {
+        return (new RequestBuilder($data, $this->getSerializer()))->toJson();
+    }
+
+    /**
      * @param StreamInterface $response
      * @param $target
      * @return mixed
      */
     protected function getResponse(StreamInterface $response, $target)
     {
-        return (new ResponseBuilder($response, $target, $this->getSerializer()))->getResponse();
+        return (new ResponseBuilder($response, $target, $this->getSerializer()))->toObject();
     }
 }
