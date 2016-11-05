@@ -8,15 +8,13 @@ Develop:
 
 Biblioteca de integração com a API do Mercado Livre.
 
-**OBS: Esta biblioteca ainda está em fase de desenvolvimento! Contribua!!**
-
 > ### Funcionalidades
 
 - Autenticação e Autorização
 - Consulta dos dados do usuário
 - Consulta de categorias
 - Consulta de moedas
-- Consulta e cadastro de produtos
+- Consulta e publicação de anúncios
 - Consulta de pedidos
 
 > ### Requisitos
@@ -36,14 +34,14 @@ Biblioteca de integração com a API do Mercado Livre.
 Para instalar a biblioteca basta adicioná-la via [composer](https://getcomposer.org/download/)
 
 ```composer
-composer require dsc/mercado-livre
+composer require dsc/mercado-livre 1.0.0
 ```
 
 Ou no composer.json
 
 ```json
 {
-    "dsc/mercado-livre": "dev-master"
+    "dsc/mercado-livre": "1.0.0"
 }
 ```
 
@@ -371,6 +369,8 @@ $meli = new Meli(
 ```
 
 Neste [link](https://github.com/discovery-tecnologia/dsc-mercado-livre/blob/master/src/Environments/Site.php) você pode verficar a lista de sites disponíveis.
+
+**OBS: Com esta biblioteca você já conseguirá publicar um anúncio básico no mercado livre! Mas tem muita coisa a ser feita ainda, contribua para que ela se torne completa!!**
 
 > ### Licença
 
