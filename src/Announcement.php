@@ -47,7 +47,7 @@ class Announcement extends BaseService implements AnnouncementManager
      */
     public function delete($code)
     {
-        $data = ['deleted' => "true"];
+        $data = ['deleted' => 'true'];
         return $this->getResponse(
             $this->put('/items/' . $code, $data),
             ItemResponse::class
