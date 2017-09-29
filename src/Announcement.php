@@ -42,10 +42,11 @@ class Announcement extends BaseService implements AnnouncementManager
 
     /**
      * @param string $code
+     * @param array $params
      * @return ItemResponse
      * @link http://developers.mercadolibre.com/products-sync-listings/#Delete-listing
      */
-    public function delete($code)
+    public function delete($code, $params = [])
     {
         $data = ['deleted' => 'true'];
         return $this->getResponse(

@@ -34,14 +34,14 @@ Biblioteca de integração com a API do Mercado Livre.
 Para instalar a biblioteca basta adicioná-la via [composer](https://getcomposer.org/download/)
 
 ```composer
-composer require dsc/mercado-livre 1.0.0
+composer require dsc/mercado-livre 1.0.1
 ```
 
 Ou no composer.json
 
 ```json
 {
-    "dsc/mercado-livre": "1.0.0"
+    "dsc/mercado-livre": "1.0.1"
 }
 ```
 
