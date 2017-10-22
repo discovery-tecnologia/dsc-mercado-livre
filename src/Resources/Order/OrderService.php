@@ -25,7 +25,7 @@ class OrderService extends BaseService implements ResourceService
     }
 
     /**
-     * @param $orderId
+     * @param $sellerId
      * @return OrdersList
      */
     public function findOrdersBySeller($sellerId, $limit = 50, $offset = 0, $sort = 'date_desc')
@@ -33,6 +33,23 @@ class OrderService extends BaseService implements ResourceService
         return $this->getResponse(
             $this->get('/orders/search', [
                 'seller' => $sellerId,
+                'limit'  => $limit,
+                'offset' => $offset,
+                'sort'   => $sort
+            ]),
+            OrdersList::class
+        );
+    }
+
+    /**
+     * @param $buyerId
+     * @return OrdersList
+     */
+    public function findOrdersByBuyer($buyerId, $limit = 50, $offset = 0, $sort = 'date_desc')
+    {
+        return $this->getResponse(
+            $this->get('/orders/search', [
+                'buyer'  => $buyerId,
                 'limit'  => $limit,
                 'offset' => $offset,
                 'sort'   => $sort
