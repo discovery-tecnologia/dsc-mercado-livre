@@ -34,14 +34,14 @@ Biblioteca de integração com a API do Mercado Livre.
 Para instalar a biblioteca basta adicioná-la via [composer](https://getcomposer.org/download/)
 
 ```composer
-composer require dsc/mercado-livre 1.0.1
+composer require dsc/mercado-livre 1.1.0
 ```
 
 Ou no composer.json
 
 ```json
 {
-    "dsc/mercado-livre": "1.0.1"
+    "dsc/mercado-livre": "1.1.0"
 }
 ```
 
@@ -344,6 +344,30 @@ $service = new OrderService($meli);
 // Consulta um pedido
 $order = $service->findOrder('ORDER-ID');
 
+```
+
+- Consulta de vários pedidos
+```php
+<?php
+// Consideramos que já existe um autoloader compatível com a PSR-4 registrado
+
+use Dsc\MercadoLivre\Meli;
+use Dsc\MercadoLivre\Resources\Order\OrderService;
+
+$meli = new Meli('APP-ID', 'SECRET-ID');
+
+$service = new OrderService($meli);
+// Consulta de pedidos de um vendedor
+$orders = $service->findOrdersBySeller('SELLER-ID');
+// Ou Consulta de pedidos de um comprador
+$orders = $service->findOrdersByBuyer('BUYER-ID');
+
+// Nesses métodos você tem a opção de passar alguns parâmetros adicionais
+// para paginação ou ordenação
+$limit = 50;
+$offset = 0;
+$sort = 'date_desc';
+$orders = $service->findOrdersBySeller('SELLER-ID', $limit, $offset, $sort);
 ```
 
 > ##### Alterando o site
