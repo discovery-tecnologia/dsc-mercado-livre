@@ -62,7 +62,7 @@ class Order
 
     /**
      * @var \DateTime
-     * @JMS\Type("DateTime<'Y-m-d\TH:i:s.457Z'>")
+     * @JMS\Type("DateTime<'Y-m-d\TH:i:s.973Z'>")
      */
     private $dateLastUpdated;
 
