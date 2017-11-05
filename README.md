@@ -6,6 +6,9 @@ Master:
 Develop:
 [![Build Status](https://travis-ci.org/discovery-tecnologia/dsc-mercado-livre.svg?branch=develop)](http://travis-ci.org/#!/discovery-tecnologia/dsc-mercado-livre)
 
+Packagist:
+[![Packagist](https://img.shields.io/packagist/v/dsc/mercado-livre.svg)](https://github.com/discovery-tecnologia/dsc-mercado-livre)
+
 Biblioteca de integração com a API do Mercado Livre.
 
 > ### Funcionalidades
