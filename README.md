@@ -397,8 +397,6 @@ $meli = new Meli(
 
 Neste [link](https://github.com/discovery-tecnologia/dsc-mercado-livre/blob/master/src/Environments/Site.php) você pode verficar a lista de sites disponíveis.
 
-**OBS: Com esta biblioteca você já conseguirá publicar um anúncio básico no mercado livre! Mas tem muita coisa a ser feita ainda, contribua para que ela se torne completa!!**
-
 > ### Licença
 
 Esta biblioteca segue os termos de uso da [Apache-2.0](https://github.com/discovery-tecnologia/dsc-mercado-livre/blob/master/LICENSE)
