@@ -186,7 +186,7 @@ echo $response->getPermalink();
 
 A descrição de um produto contém informações personalizadas sobre o produto que você está vendendo. 
 Você escolhe a quantidade de informações que vai adicionar à descrição do produto e como elas serão exibidas. 
-Você pode escolher entre uma descrição simples, em texto sem formatação ou pode montar um modelo HTML personalizado.
+Você pode escolher entre uma descrição simples ou um texto sem formatação.
 As informações exibidas na descrição devem ser um complemento dos atributos do produto que já estamos exibindo 
 na página de descrição do produto. Por exemplo, você pode adicionar especificações, imagens, detalhes da venda, 
 anúncios promocionais e tudo que achar útil e atrativo para que os compradores escolham seu produto, 
