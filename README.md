@@ -397,6 +397,10 @@ $meli = new Meli(
 
 Neste [link](https://github.com/discovery-tecnologia/dsc-mercado-livre/blob/master/src/Environments/Site.php) você pode verficar a lista de sites disponíveis.
 
+> ### Contribua!
+
+Quer contribuir? [clique aqui](https://github.com/discovery-tecnologia/dsc-mercado-livre/blob/master/CONTRIBUTING.md)
+
 > ### Licença
 
 Esta biblioteca segue os termos de uso da [Apache-2.0](https://github.com/discovery-tecnologia/dsc-mercado-livre/blob/master/LICENSE)
