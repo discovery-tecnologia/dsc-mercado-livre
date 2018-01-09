@@ -9,11 +9,11 @@
   "results": [
     {
       "id": 1068825849,
-      "comments": null,
+      "comments": "test comment",
       "status": "paid",
       "status_detail": {
-        "description": null,
-        "code": null
+        "description": "just paid",
+        "code": "123"
       },
       "date_created": "2016-02-25T15:53:38.000-04:00",
       "date_closed": "2016-02-25T15:53:37.000-04:00",

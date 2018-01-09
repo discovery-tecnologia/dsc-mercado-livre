@@ -67,7 +67,11 @@ class OrdersSearchTest extends \PHPUnit_Framework_TestCase
         $order = $this->orders->getResults()->first();
         $this->assertInstanceOf(Order::class, $order);
         $this->assertEquals(1068825849, $order->getId());
+        $this->assertEquals("test comment", $order->getComments());
         $this->assertEquals("paid", $order->getStatus());
+        // Status Detail
+        $this->assertEquals("just paid", $order->getStatusDetail()->getDescription());
+        $this->assertEquals("123", $order->getStatusDetail()->getCode());
         $this->assertEquals("2016-02-25", $order->getDateCreated()->format("Y-m-d"));
         $this->assertEquals("2016-02-25", $order->getDateClosed()->format("Y-m-d"));
         $this->assertEquals(10, $order->getTotalAmount());
