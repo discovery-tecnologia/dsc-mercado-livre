@@ -101,6 +101,7 @@ if(isset($_GET['code'])) {
 
 echo '<br><br><a href="' . $service->getOAuthUrl('https://your-domain/login.php') . '">Login using MercadoLibre oAuth 2.0</a>';
 ```
+**Importante:** a lib irá armazenar o access_token e o refresh_token para utilizar nas requisiçōes que necessitarão de autenticação. Ou seja, quando o access_token estiver expirado, ele será atualizado automaticamente pela lib, utilizando o refresh_token.
 
 Com o usuário autenticado já podemos publicar nosso primeiro anúncio.
 
