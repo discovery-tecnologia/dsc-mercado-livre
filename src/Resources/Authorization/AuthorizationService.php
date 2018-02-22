@@ -34,7 +34,7 @@ class AuthorizationService extends BaseService implements ResourceService
         ];
         return $environment->getAuthUrl('/authorization') . "?" . http_build_query($params);
     }
-    
+
     /**
      * @param $region
      * @param null $redirectUri
@@ -66,8 +66,10 @@ class AuthorizationService extends BaseService implements ResourceService
      */
     public function authorize($code, $redirectUri)
     {
-        $meli = $this->getMeli();
-        $uri  = $meli->getEnvironment()->getOAuthUri();
+        $meli    = $this->getMeli();
+        $uri     = $meli->getEnvironment()->getOAuthUri();
+        $storage = $meli->getEnvironment()->getConfiguration()->getStorage();
+
         $data = [
             'grant_type'    => 'authorization_code',
             'client_id'     => $meli->getClientId(),
@@ -81,7 +83,7 @@ class AuthorizationService extends BaseService implements ResourceService
             Authorization::class
         );
 
-        $accessToken = new AccessToken();
+        $accessToken = new AccessToken($storage);
         $accessToken->setToken($authorization->getAccessToken());
         $accessToken->setRefreshToken($authorization->getRefreshToken());
         $accessToken->setExpireIn($authorization->getExpiresIn());
@@ -94,7 +96,11 @@ class AuthorizationService extends BaseService implements ResourceService
      */
     public function isAuthorized()
     {
-        $accessToken = new AccessToken();
+        $meli    = $this->getMeli();
+        $storage = $meli->getEnvironment()->getConfiguration()->getStorage();
+
+        $accessToken = new AccessToken($storage);
+
         return $accessToken->isValid();
     }
 }
