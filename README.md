@@ -80,9 +80,9 @@ Lembrando novamente que mesmo com o usuário de teste, os dados aparecerão no a
 > ##### Exemplo de autenticação e autorização
 
 No manual do desenvolvedor você encontra mais detalhes sobre o fluxo de como funciona a 
-[autenticação e autorização server side](http://developers.mercadolibre.com/server-side/) do Mercado Livre.
+[autenticação e autorização](http://developers.mercadolibre.com/products-authentication-authorization/) do Mercado Livre.
 
-A seguir um pequeno exemplo de como é feita a autenticação usando esta biblioteca.
+A seguir um pequeno exemplo de como é feita a autenticação usando OAuth com esta biblioteca.
 
 ```php
 <?php
@@ -101,6 +101,29 @@ if(isset($_GET['code'])) {
 
 echo '<br><br><a href="' . $service->getOAuthUrl('https://your-domain/login.php') . '">Login using MercadoLibre oAuth 2.0</a>';
 ```
+
+> ##### Exemplo de autenticação Server Side
+
+Outra forma de conseguir o AccessToken é realizando a consulta via client_credentials. Esta forma, é recomendada para scripts que rodam em rotinas automáticas (via cron, ou tarefas agendadas). **OBS:** para conseguir utilizar, você precisa ter configurado em sua APP, o **Scope offline access** marcado.
+
+```php
+<?php
+// Consideramos que já existe um autoloader compatível com a PSR-4 registrado
+
+// seu script background
+
+use Dsc\MercadoLivre\Meli;
+use Dsc\MercadoLivre\Resources\Authorization\AuthorizationService;
+
+$meli = new Meli('APP-ID', 'SECRET-ID');
+$service = new AuthorizationService($meli);
+
+$token = $service->getAccessToken();
+
+// seu script background
+
+```
+
 **Importante:** a lib irá armazenar o access_token e o refresh_token para utilizar nas requisiçōes que necessitarão de autenticação. Ou seja, quando o access_token estiver expirado, ele será atualizado automaticamente pela lib, utilizando o refresh_token.
 
 Com o usuário autenticado já podemos publicar nosso primeiro anúncio.
