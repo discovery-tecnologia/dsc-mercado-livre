@@ -66,10 +66,7 @@ class AuthorizationService extends BaseService implements ResourceService
      */
     public function authorize($code, $redirectUri)
     {
-        $meli    = $this->getMeli();
-        $uri     = $meli->getEnvironment()->getOAuthUri();
-        $storage = $meli->getEnvironment()->getConfiguration()->getStorage();
-
+        $meli = $this->getMeli();
         $data = [
             'grant_type'    => 'authorization_code',
             'client_id'     => $meli->getClientId(),
@@ -77,6 +74,34 @@ class AuthorizationService extends BaseService implements ResourceService
             'code'          => $code,
             'redirect_uri'  => $redirectUri
         ];
+        return $this->getToken($data);
+    }
+
+    /**
+     * @return string
+     * @throws MeliException
+     */
+    public function getAccessToken()
+    {
+        $meli = $this->getMeli();
+        $data = [
+            'grant_type'    => 'client_credentials',
+            'client_id'     => $meli->getClientId(),
+            'client_secret' => $meli->getClientSecret()
+        ];
+        return $this->getToken($data);
+    }
+
+    /**
+     * @param array $data
+     * @return string
+     * @throws MeliException
+     */
+    private function getToken($data)
+    {
+        $environment = $this->getMeli()->getEnvironment(); 
+        $uri     = $environment->getOAuthUri();
+        $storage = $environment->getConfiguration()->getStorage();
 
         $authorization = $this->getResponse(
             $this->post($uri, $data, ['skipOAuth' => true]),
