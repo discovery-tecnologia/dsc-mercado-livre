@@ -20,6 +20,6 @@
 
         public function testIsValidReturnTrueWhenStatusExists()
         {
-            $this->assertTrue(OrderStatus::PAID);
+            $this->assertTrue(OrderStatus::isValid(OrderStatus::PAID));
         }
     }
