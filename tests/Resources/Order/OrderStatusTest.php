@@ -6,9 +6,9 @@
      * Time: 12:08 PM
      */
 
-    namespace Dsc\MercadoLivre\Publisher;
+    namespace Dsc\MercadoLivre\Resources\Order;
 
-    use Dsc\MercadoLivre\Announcement\OrderStatus;
+    use Dsc\MercadoLivre\Resources\Order\OrderStatus;
 
     class OrderStatusTest extends \PHPUnit_Framework_TestCase
     {

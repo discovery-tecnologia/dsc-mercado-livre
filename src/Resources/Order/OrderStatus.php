@@ -6,8 +6,7 @@
      * Time: 12:05 PM
      */
 
-    namespace Dsc\MercadoLivre\Announcement;
-
+    namespace Dsc\MercadoLivre\Resources\Order;
 
     final class OrderStatus
     {
