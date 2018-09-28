@@ -1,12 +1,6 @@
 # dsc-mercado-livre - Biblioteca de integração com o Mercado Livre
 
-Master:
 [![Build Status](https://travis-ci.org/discovery-tecnologia/dsc-mercado-livre.svg?branch=master)](http://travis-ci.org/#!/discovery-tecnologia/dsc-mercado-livre)
-
-Develop:
-[![Build Status](https://travis-ci.org/discovery-tecnologia/dsc-mercado-livre.svg?branch=develop)](http://travis-ci.org/#!/discovery-tecnologia/dsc-mercado-livre)
-
-Packagist:
 [![Packagist](https://img.shields.io/packagist/v/dsc/mercado-livre.svg)](https://github.com/discovery-tecnologia/dsc-mercado-livre)
 
 Biblioteca de integração com a API do Mercado Livre.
@@ -109,11 +103,10 @@ Outra forma de conseguir o AccessToken é realizando a consulta via client_crede
 ```php
 <?php
 // Consideramos que já existe um autoloader compatível com a PSR-4 registrado
-
-// seu script background
-
 use Dsc\MercadoLivre\Meli;
 use Dsc\MercadoLivre\Resources\Authorization\AuthorizationService;
+
+// seu script background
 
 $meli = new Meli('APP-ID', 'SECRET-ID');
 $service = new AuthorizationService($meli);
