@@ -29,7 +29,7 @@ class Attributes
      * @var string
      * @JMS\Type("string")
      */
-    private $type;
+    private $hierarchy;
 
     /**
      * @var string
@@ -92,17 +92,17 @@ class Attributes
     /**
      * @return string
      */
-    public function getType()
+    public function getHierarchy()
     {
-        return $this->type;
+        return $this->tyhierarchype;
     }
 
     /**
-     * @param string $type
+     * @param string $hierarchy
      */
-    public function setType($type)
+    public function setHierarchy($hierarchy)
     {
-        $this->type = $type;
+        $this->hierarchy = $hierarchy;
     }
 
     /**
@@ -126,7 +126,7 @@ class Attributes
      */
     public function getTags()
     {
-        return $this->pictures;
+        return $this->tags;
     }
 
     /**

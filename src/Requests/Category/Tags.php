@@ -21,6 +21,18 @@ class Tags
      * @var boolean
      * @JMS\Type("boolean")
      */
+    private $definesPicture;
+
+    /**
+     * @var boolean
+     * @JMS\Type("boolean")
+     */
+    private $fixed;
+
+    /**
+     * @var boolean
+     * @JMS\Type("boolean")
+     */
     private $hidden;
 
     /**
@@ -28,7 +40,7 @@ class Tags
      */
     public function isAllowVariations()
     {
-        return $this->allowVariations;
+        return ($this->allowVariations === null) ? false : $this->allowVariations;
     }
 
     /**
@@ -44,9 +56,45 @@ class Tags
     /**
      * @return boolean
      */
+    public function isDefinesPicture()
+    {
+        return ($this->definesPicture === null) ? false : $this->definesPicture;
+    }
+
+    /**
+     * @param boolean $definesPicture
+     * @return Tags
+     */
+    public function setDefinesPicture($definesPicture)
+    {
+        $this->definesPicture = $definesPicture;
+        return $this;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isFixed()
+    {
+        return ($this->fixed === null) ? false : $this->fixed;
+    }
+
+    /**
+     * @param boolean $fixed
+     * @return Tags
+     */
+    public function setFixed($fixed)
+    {
+        $this->fixed = $fixed;
+        return $this;
+    }
+
+    /**
+     * @return boolean
+     */
     public function isHidden()
     {
-        return $this->hidden;
+        return ($this->hidden === null) ? false : $this->hidden;
     }
 
     /**
