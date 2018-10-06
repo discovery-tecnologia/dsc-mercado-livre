@@ -29,20 +29,32 @@ class Attributes
      * @var string
      * @JMS\Type("string")
      */
+    private $type;
+
+    /**
+     * @var string
+     * @JMS\Type("string")
+     */
     private $valueType;
 
     /**
-     * @var ArrayCollection
-     * @JMS\Type("ArrayCollection<Dsc\MercadoLivre\Requests\Category\Tags>")
+     * @var Tags
+     * @JMS\Type("Dsc\MercadoLivre\Requests\Category\Tags")
      */
     private $tags;
+
+    /**
+     * @var ArrayCollection
+     * @JMS\Type("ArrayCollection<Dsc\MercadoLivre\Requests\Category\AttributeValue>")
+     */
+    private $values;
 
     /**
      * Attributes constructor.
      */
     public function __construct()
     {
-        $this->tags = new ArrayCollection();
+        $this->values = new ArrayCollection();
     }
 
     /**
@@ -80,6 +92,22 @@ class Attributes
     /**
      * @return string
      */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
+     * @param string $type
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+    }
+
+    /**
+     * @return string
+     */
     public function getValueType()
     {
         return $this->valueType;
@@ -94,7 +122,7 @@ class Attributes
     }
 
     /**
-     * @return ArrayCollection
+     * @return Tags
      */
     public function getTags()
     {
@@ -102,28 +130,46 @@ class Attributes
     }
 
     /**
-     * @param Tags $tag
-     */
-    public function addTags(Tags $tag)
-    {
-        $this->tags->add($tag);
-    }
-
-    /**
-     * @param Tags $tag
-     */
-    public function removeTag(Tags $tag)
-    {
-        $this->tags->remove($tag);
-    }
-
-    /**
-     * @param ArrayCollection $tags
+     * @param Tags $tags
      * @return Attributes
      */
-    public function setTags(Collection $tags)
+    public function setTags(Tags $tags)
     {
         $this->tags = $tags;
+        return $this;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getValues()
+    {
+        return $this->values;
+    }
+
+    /**
+     * @param AttributeValue $value
+     */
+    public function addValue(AttributeValue $value)
+    {
+        $this->values->add($value);
+    }
+
+    /**
+     * @param AttributeValue $value
+     */
+    public function removeValue(AttributeValue $value)
+    {
+        $this->values->remove($value);
+    }
+
+    /**
+     * @param ArrayCollection $values
+     * @return Attributes
+     */
+    public function setValues(Collection $values)
+    {
+        $this->values = $values;
         return $this;
     }
 
