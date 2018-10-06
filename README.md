@@ -1,13 +1,8 @@
 # dsc-mercado-livre - Biblioteca de integração com o Mercado Livre
 
-Master:
 [![Build Status](https://travis-ci.org/discovery-tecnologia/dsc-mercado-livre.svg?branch=master)](http://travis-ci.org/#!/discovery-tecnologia/dsc-mercado-livre)
-
-Develop:
-[![Build Status](https://travis-ci.org/discovery-tecnologia/dsc-mercado-livre.svg?branch=develop)](http://travis-ci.org/#!/discovery-tecnologia/dsc-mercado-livre)
-
-Packagist:
 [![Packagist](https://img.shields.io/packagist/v/dsc/mercado-livre.svg)](https://github.com/discovery-tecnologia/dsc-mercado-livre)
+[![Hex.pm](https://img.shields.io/hexpm/l/plug.svg?style=flat-square)](https://github.com/discovery-tecnologia/dsc-mercado-livre/blob/master/LICENSE)
 
 Biblioteca de integração com a API do Mercado Livre.
 
