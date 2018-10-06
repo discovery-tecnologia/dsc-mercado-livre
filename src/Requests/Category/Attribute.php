@@ -1,7 +1,9 @@
 <?php
 /**
- * Class Attributes
+ * Class Attribute
  *
+ * Atributos da Categoria
+ * 
  * @author Diego Wagner <diegowagner4@gmail.com>
  * http://www.discoverytecnologia.com.br
  */
@@ -11,7 +13,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use JMS\Serializer\Annotation as JMS;
 
-class Attributes
+class Attribute
 {
     /**
      * @var string
@@ -29,7 +31,7 @@ class Attributes
      * @var string
      * @JMS\Type("string")
      */
-    private $type;
+    private $hierarchy;
 
     /**
      * @var string
@@ -92,17 +94,17 @@ class Attributes
     /**
      * @return string
      */
-    public function getType()
+    public function getHierarchy()
     {
-        return $this->type;
+        return $this->tyhierarchype;
     }
 
     /**
-     * @param string $type
+     * @param string $hierarchy
      */
-    public function setType($type)
+    public function setHierarchy($hierarchy)
     {
-        $this->type = $type;
+        $this->hierarchy = $hierarchy;
     }
 
     /**
@@ -126,7 +128,7 @@ class Attributes
      */
     public function getTags()
     {
-        return $this->pictures;
+        return $this->tags;
     }
 
     /**

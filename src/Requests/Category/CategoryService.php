@@ -44,7 +44,7 @@ class CategoryService extends Service
     {
         return $this->getResponse(
             $this->get('/categories/' . $code . '/attributes'),
-            Attributes::class
+            Attribute::class
         );
     }
 }

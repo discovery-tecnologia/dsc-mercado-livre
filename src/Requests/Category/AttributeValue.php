@@ -24,12 +24,6 @@ class AttributeValue
     private $name;
 
     /**
-     * @var Metadata
-     * @JMS\Type("Dsc\MercadoLivre\Requests\Category\Metadata")
-     */
-    private $metadata;
-
-    /**
      * @return string
      */
     public function getId()
@@ -62,24 +56,6 @@ class AttributeValue
     public function setName($name)
     {
         $this->name = $name;
-        return $this;
-    }
-
-    /**
-     * @return Metadata
-     */
-    public function getMetadata()
-    {
-        return $this->metadata;
-    }
-
-    /**
-     * @param Metadata $metadata
-     * @return AttributeValue
-     */
-    public function setMetadata(Metadata $metadata)
-    {
-        $this->metadata = $metadata;
         return $this;
     }
 }
