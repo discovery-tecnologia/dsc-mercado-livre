@@ -1,7 +1,9 @@
 <?php
 /**
- * Class Attributes
+ * Class Attribute
  *
+ * Atributos da Categoria
+ * 
  * @author Diego Wagner <diegowagner4@gmail.com>
  * http://www.discoverytecnologia.com.br
  */
@@ -11,7 +13,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use JMS\Serializer\Annotation as JMS;
 
-class Attributes
+class Attribute
 {
     /**
      * @var string
