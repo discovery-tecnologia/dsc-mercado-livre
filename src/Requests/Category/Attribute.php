@@ -6,6 +6,10 @@
  * 
  * @author Diego Wagner <diegowagner4@gmail.com>
  * http://www.discoverytecnologia.com.br
+ * 
+ * @docs
+ * https://api.mercadolibre.com/categories/MLA126186/attributes#options
+ * 
  */
 namespace Dsc\MercadoLivre\Requests\Category;
 
