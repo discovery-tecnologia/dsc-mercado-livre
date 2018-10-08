@@ -40,8 +40,8 @@ class Attribute
     private $valueType;
 
     /**
-     * @var Tags
-     * @JMS\Type("Dsc\MercadoLivre\Requests\Category\Tags")
+     * @var Tag
+     * @JMS\Type("Dsc\MercadoLivre\Requests\Category\Tag")
      */
     private $tags;
 
@@ -124,7 +124,7 @@ class Attribute
     }
 
     /**
-     * @return Tags
+     * @return Tag
      */
     public function getTags()
     {
@@ -132,12 +132,12 @@ class Attribute
     }
 
     /**
-     * @param Tags $tags
-     * @return Attributes
+     * @param Tag $tag
+     * @return Attribute
      */
-    public function setTags(Tags $tags)
+    public function setTags(Tag $tag)
     {
-        $this->tags = $tags;
+        $this->tags = $tag;
         return $this;
     }
 

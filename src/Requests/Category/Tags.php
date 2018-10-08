@@ -1,6 +1,6 @@
 <?php
 /**
- * Class Tags
+ * Class Tag
  *
  * @author Diego Wagner <diegowagner4@gmail.com>
  * http://www.discoverytecnologia.com.br
@@ -9,7 +9,7 @@ namespace Dsc\MercadoLivre\Requests\Category;
 
 use JMS\Serializer\Annotation as JMS;
 
-class Tags
+class Tag
 {
     /**
      * @var boolean
@@ -22,6 +22,12 @@ class Tags
      * @JMS\Type("boolean")
      */
     private $definesPicture;
+
+    /**
+     * @var boolean
+     * @JMS\Type("boolean")
+     */
+    private $catalogRequired;
 
     /**
      * @var boolean
@@ -45,7 +51,7 @@ class Tags
 
     /**
      * @param boolean $allowVariations
-     * @return Tags
+     * @return Tag
      */
     public function setAllowVariations($allowVariations)
     {
@@ -63,11 +69,29 @@ class Tags
 
     /**
      * @param boolean $definesPicture
-     * @return Tags
+     * @return Tag
      */
     public function setDefinesPicture($definesPicture)
     {
         $this->definesPicture = $definesPicture;
+        return $this;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isCatalogRequired()
+    {
+        return ($this->catalogRequired === null) ? false : $this->catalogRequired;
+    }
+
+    /**
+     * @param boolean $catalogRequired
+     * @return Tag
+     */
+    public function setCatalogRequired($catalogRequired)
+    {
+        $this->catalogRequired = $catalogRequired;
         return $this;
     }
 
@@ -81,7 +105,7 @@ class Tags
 
     /**
      * @param boolean $fixed
-     * @return Tags
+     * @return Tag
      */
     public function setFixed($fixed)
     {
@@ -99,7 +123,7 @@ class Tags
 
     /**
      * @param boolean $hidden
-     * @return Tags
+     * @return Tag
      */
     public function setHidden($hidden)
     {
