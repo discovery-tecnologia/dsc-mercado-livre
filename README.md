@@ -136,6 +136,8 @@ use Dsc\MercadoLivre\Announcement\Item;
 use Dsc\MercadoLivre\Announcement\Picture;
 use Dsc\MercadoLivre\Announcement;
 
+// E NECESSARIO ESTAR AUTENTICADO...
+
 $meli = new Meli('APP-ID', 'SECRET-ID');
 
 $item = new Item();
@@ -155,6 +157,69 @@ $picture = new Picture();
 $picture->setSource('http://mla-s2-p.mlstatic.com/968521-MLA20805195516_072016-O.jpg');
 $item->addPicture($picture); // collection de imagens
 
+$announcement = new Announcement($meli);
+$response = $announcement->create($item);
+
+// Link do produto publicado
+echo $response->getPermalink();
+```
+
+> ##### Publicando um anúncio com Variações
+
+Mais detalhes em [Variações](https://developers.mercadolibre.com/pt_br/variacoes) 
+
+```php
+<?php
+// Consideramos que já existe um autoloader compatível com a PSR-4 registrado
+
+use Dsc\MercadoLivre\Meli;
+use Dsc\MercadoLivre\Requests\Category\CategoryService;
+use Dsc\MercadoLivre\Environments\Site;
+use Dsc\MercadoLivre\Announcement\Item;
+use Dsc\MercadoLivre\Announcement\Picture;
+use Dsc\MercadoLivre\Announcement\Variation;
+use Dsc\MercadoLivre\Announcement;
+use Dsc\MercadoLivre\Requests\Category\AttributeCombination;
+
+// E NECESSARIO ESTAR AUTENTICADO...
+
+$meli = new Meli('APP-ID', 'SECRET-ID');
+
+$item = new Item();
+$item->setTitle('Test item - no offer')
+     ->setCategoryId('MLB46585')
+     ->setCurrencyId('BRL')
+     ->setAvailableQuantity(10)
+     ->setBuyingMode('buy_it_now')
+     ->setListingTypeId('gold_especial')
+     ->setCondition('new')
+     ->setDescription('Test item - no offer')
+     ->setWarranty('12 months');
+
+// Imagem do Produto        
+$picture = new Picture();
+$picture->setSource('http://mla-s2-p.mlstatic.com/968521-MLA20805195516_072016-O.jpg');
+$item->addPicture($picture); // collection de imagens
+
+// Consulta os atributos de uma determinada categoria
+$service = new CategoryService();
+$attributes = $service->findCategoryAttributes('MLB46585');
+
+$attributeCombination = new AttributeCombination();
+// E necessario selecionar os atributos da Categoria e setar no AttributeCombination
+
+// Primeira variacao
+$variation = new Variation();
+$variation->setPrice(120);
+$variation->setAvailableQuantity(10);
+$variation->addAttributeCombination($attributeCombination);
+$variation->setPictureIds([
+    'http://mla-s2-p.mlstatic.com/968521-MLA20805195516_072016-O.jpg'
+]);
+
+$item->addVariation($variation);
+
+// Criando um Anuncio...
 $announcement = new Announcement($meli);
 $response = $announcement->create($item);
 

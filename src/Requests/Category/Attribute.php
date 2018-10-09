@@ -6,6 +6,10 @@
  * 
  * @author Diego Wagner <diegowagner4@gmail.com>
  * http://www.discoverytecnologia.com.br
+ * 
+ * @docs
+ * https://api.mercadolibre.com/categories/MLA126186/attributes#options
+ * 
  */
 namespace Dsc\MercadoLivre\Requests\Category;
 
@@ -38,6 +42,12 @@ class Attribute
      * @JMS\Type("string")
      */
     private $valueType;
+
+    /**
+     * @var string
+     * @JMS\Type("string")
+     */
+    private $valueName;
 
     /**
      * @var Tag
@@ -121,6 +131,22 @@ class Attribute
     public function setValueType($valueType)
     {
         $this->valueType = $valueType;
+    }
+
+    /**
+     * @return string
+     */
+    public function getValueName()
+    {
+        return $this->valueName;
+    }
+
+    /**
+     * @param string $valueName
+     */
+    public function setValueName($valueName)
+    {
+        $this->valueName = $valueName;
     }
 
     /**
