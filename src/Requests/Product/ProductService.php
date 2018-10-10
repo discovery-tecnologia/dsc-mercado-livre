@@ -44,7 +44,7 @@ class ProductService extends Service
      * @return Variation
      * @link https://developers.mercadolibre.com/pt_br/variacoes#Consultar-varia%C3%A7%C3%B5es
      */
-    public function getVariation($code, $id)
+    public function findVariation($code, $id)
     {
         return $this->getResponse(
             $this->get("/items/$code/variations/$id"),
