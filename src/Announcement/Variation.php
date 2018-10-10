@@ -19,6 +19,12 @@ use Dsc\MercadoLivre\Requests\Category\Attribute;
 class Variation
 {
     /**
+     * @var integer
+     * @JMS\Type("integer")
+     */
+    private $id;
+
+    /**
      * @var ArrayCollection
      * @JMS\Type("ArrayCollection<Dsc\MercadoLivre\Requests\Category\AttributeCombination>")
      */
@@ -61,6 +67,22 @@ class Variation
     {
         $this->attributeCombinations = new ArrayCollection();
         $this->attributes = new ArrayCollection();
+    }
+
+    /**
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param integer $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
     }
 
     /**
