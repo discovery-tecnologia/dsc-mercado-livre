@@ -5,8 +5,7 @@
  * @author Diego Wagner <diegowagner4@gmail.com>
  * http://www.discoverytecnologia.com.br
  * 
- * @docs
- * https://developers.mercadolibre.com/pt_br/variacoes
+ * @link https://developers.mercadolibre.com/pt_br/variacoes
  */
 namespace Dsc\MercadoLivre\Announcement;
 

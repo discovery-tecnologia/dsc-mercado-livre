@@ -41,4 +41,17 @@ interface AnnouncementManager
      * @return mixed
      */
     public function changeDescription($code, $description);
+
+    /**
+     * @param string $code
+     * @return mixed
+     */
+    public function findVariations($code);
+
+    /**
+     * @param string $code
+     * @param integer $id
+     * @return mixed
+     */
+    public function getVariation($code, $id);
 }
