@@ -241,7 +241,22 @@ class Product
      */
     private $tags;
 
-    //TODO mapping others fields
+    /**
+     * @var ArrayCollection
+     * @JMS\Type("ArrayCollection<Dsc\MercadoLivre\Requests\Product\Variation>")
+     */
+    private $variations;
+
+    //TODO mapping others fields    
+
+    /**
+     * Product constructor.
+     */
+    public function __construct()
+    {
+        $this->pictures = new ArrayCollection();
+        $this->variations = new ArrayCollection();
+    }
 
     /**
      * @return string
@@ -960,6 +975,40 @@ class Product
     public function setTags($tags)
     {
         $this->tags = $tags;
+        return $this;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getVariations()
+    {
+        return $this->variations;
+    }
+
+    /**
+     * @param Variation $value
+     */
+    public function addVariation(Variation $value)
+    {
+        $this->variations->add($value);
+    }
+
+    /**
+     * @param Variation $value
+     */
+    public function removeVariation(Variation $value)
+    {
+        $this->variations->remove($value);
+    }
+
+    /**
+     * @param ArrayCollection $values
+     * @return Item
+     */
+    public function setVariations(Collection $values)
+    {
+        $this->variations = $values;
         return $this;
     }
 }
