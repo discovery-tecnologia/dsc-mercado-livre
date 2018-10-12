@@ -22,7 +22,7 @@ interface AnnouncementManager
      * @param array $data
      * @return mixed
      */
-    public function update($code, $data);
+    public function update($code, array $data);
 
     /**
      * @param string $code
@@ -50,4 +50,11 @@ interface AnnouncementManager
      * @return mixed
      */
     public function addVariation($code, Variation $variation);
+
+    /**
+     * @param string $code
+     * @param array $variations
+     * @return mixed
+     */
+    public function changeVariation($code, array $variations);
 }

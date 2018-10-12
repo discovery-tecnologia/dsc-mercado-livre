@@ -98,4 +98,25 @@ class Announcement extends BaseService implements AnnouncementManager
             Variation::class
         );
     }
+
+    /**
+     * @param string $code
+     * @param array $variations
+     * [
+     *   'variations' => [
+     *      Variation::class
+     *   ]
+     * ]
+     * Voce tambem podera utilizar o metodo update pra realizar essa alteracao
+     * 
+     * @return Variation
+     * @link https://developers.mercadolibre.com/pt_br/variacoes#Modificar-varia%C3%A7%C3%B5es
+     */
+    public function changeVariation($code, array $variations)
+    {
+        return $this->getResponse(
+            $this->put("/items/$code", $variations),
+            Variation::class
+        );
+    }
 }
