@@ -57,4 +57,11 @@ interface AnnouncementManager
      * @return mixed
      */
     public function changeVariation($code, array $variations);
+
+    /**
+     * @param string $code
+     * @param string $variationCode
+     * @return mixed
+     */
+    public function deleteVariation($code, $variationCode);
 }

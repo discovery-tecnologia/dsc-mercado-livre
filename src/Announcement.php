@@ -119,4 +119,18 @@ class Announcement extends BaseService implements AnnouncementManager
             Variation::class
         );
     }
+
+    /**
+     * @param string $code
+     * @param string $variationCode
+     * @return ItemResponse
+     * @link https://developers.mercadolibre.com/pt_br/variacoes#Remover-varia%C3%A7%C3%B5es
+     */
+    public function deleteVariation($code, $variationCode)
+    {
+        return $this->getResponse(
+            $this->delete("/items/$code/variations/$variationCode"),
+            ItemResponse::class
+        );
+    }
 }
