@@ -10,6 +10,7 @@ namespace Dsc\MercadoLivre;
 use Dsc\MercadoLivre\Announcement\Announcement as AnnouncementInterface;
 use Dsc\MercadoLivre\Announcement\AnnouncementManager;
 use Dsc\MercadoLivre\Announcement\ItemResponse;
+use Dsc\MercadoLivre\Requests\Product\Variation;
 
 class Announcement extends BaseService implements AnnouncementManager
 {
