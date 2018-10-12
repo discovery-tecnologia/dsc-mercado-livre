@@ -11,6 +11,7 @@ namespace Dsc\MercadoLivre\Announcement;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use JMS\Serializer\Annotation as JMS;
+use Dsc\MercadoLivre\Requests\Product\Variation;
 
 class Item implements Announcement
 {
@@ -106,7 +107,7 @@ class Item implements Announcement
 
     /**
      * @var ArrayCollection
-     * @JMS\Type("ArrayCollection<Dsc\MercadoLivre\Announcement\Variation>")
+     * @JMS\Type("ArrayCollection<Dsc\MercadoLivre\Requests\Product\Variation>")
      */
     private $variations;
 
@@ -404,7 +405,7 @@ class Item implements Announcement
     }
 
     /**
-     * @return ArrayCollection
+     * @return Collection
      */
     public function getVariations()
     {
@@ -428,7 +429,7 @@ class Item implements Announcement
     }
 
     /**
-     * @param ArrayCollection $values
+     * @param Collection $values
      * @return Item
      */
     public function setVariations(Collection $values)

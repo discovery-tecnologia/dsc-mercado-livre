@@ -7,6 +7,8 @@
  */
 namespace Dsc\MercadoLivre\Announcement;
 
+use Dsc\MercadoLivre\Requests\Product\Variation;
+
 interface AnnouncementManager
 {
     /**
@@ -20,7 +22,7 @@ interface AnnouncementManager
      * @param array $data
      * @return mixed
      */
-    public function update($code, $data);
+    public function update($code, array $data);
 
     /**
      * @param string $code
@@ -41,4 +43,25 @@ interface AnnouncementManager
      * @return mixed
      */
     public function changeDescription($code, $description);
+
+    /**
+     * @param string $code
+     * @param Variation $variation
+     * @return mixed
+     */
+    public function addVariation($code, Variation $variation);
+
+    /**
+     * @param string $code
+     * @param array $variations
+     * @return mixed
+     */
+    public function changeVariation($code, array $variations);
+
+    /**
+     * @param string $code
+     * @param string $variationCode
+     * @return mixed
+     */
+    public function deleteVariation($code, $variationCode);
 }

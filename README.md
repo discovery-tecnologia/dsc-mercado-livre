@@ -177,9 +177,9 @@ use Dsc\MercadoLivre\Requests\Category\CategoryService;
 use Dsc\MercadoLivre\Environments\Site;
 use Dsc\MercadoLivre\Announcement\Item;
 use Dsc\MercadoLivre\Announcement\Picture;
-use Dsc\MercadoLivre\Announcement\Variation;
 use Dsc\MercadoLivre\Announcement;
 use Dsc\MercadoLivre\Requests\Category\AttributeCombination;
+use Dsc\MercadoLivre\Requests\Product\Variation;
 
 // E NECESSARIO ESTAR AUTENTICADO...
 

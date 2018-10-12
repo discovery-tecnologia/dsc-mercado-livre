@@ -35,7 +35,7 @@ class Announcement extends BaseService implements AnnouncementManager
     public function update($code, $data)
     {
         return $this->getResponse(
-            $this->put('/items/' . $code, $data),
+            $this->put("/items/$code", $data),
             ItemResponse::class
         );
     }
@@ -50,7 +50,7 @@ class Announcement extends BaseService implements AnnouncementManager
     {
         $data = ['deleted' => 'true'];
         return $this->getResponse(
-            $this->put('/items/' . $code, $data),
+            $this->put("/items/$code", $data),
             ItemResponse::class
         );
     }
@@ -65,7 +65,7 @@ class Announcement extends BaseService implements AnnouncementManager
     {
         $data = ['status' => $status];
         return $this->getResponse(
-            $this->put('/items/' . $code, $data),
+            $this->put("/items/$code", $data),
             ItemResponse::class
         );
     }
@@ -80,7 +80,56 @@ class Announcement extends BaseService implements AnnouncementManager
     {
         $data = ['text' => $description];
         return $this->getResponse(
-            $this->put('/items/' . $code . '/description', $data),
+            $this->put("/items/$code/description", $data),
+            ItemResponse::class
+        );
+    }
+
+    /**
+     * @param string $code
+     * @param Variation $variation
+     * @return Variation
+     * @link https://developers.mercadolibre.com/pt_br/variacoes#Adicionar-novas-varia%C3%A7%C3%B5es
+     */
+    public function addVariation($code, Variation $variation)
+    {
+        return $this->getResponse(
+            $this->post("/items/$code/variations", $variation),
+            Variation::class
+        );
+    }
+
+    /**
+     * @param string $code
+     * @param array $variations
+     * [
+     *   'variations' => [
+     *      Variation::class
+     *   ]
+     * ]
+     * Voce tambem podera utilizar o metodo update pra realizar essa alteracao
+     * 
+     * @return Variation
+     * @link https://developers.mercadolibre.com/pt_br/variacoes#Modificar-varia%C3%A7%C3%B5es
+     */
+    public function changeVariation($code, array $variations)
+    {
+        return $this->getResponse(
+            $this->put("/items/$code", $variations),
+            Variation::class
+        );
+    }
+
+    /**
+     * @param string $code
+     * @param string $variationCode
+     * @return ItemResponse
+     * @link https://developers.mercadolibre.com/pt_br/variacoes#Remover-varia%C3%A7%C3%B5es
+     */
+    public function deleteVariation($code, $variationCode)
+    {
+        return $this->getResponse(
+            $this->delete("/items/$code/variations/$variationCode"),
             ItemResponse::class
         );
     }

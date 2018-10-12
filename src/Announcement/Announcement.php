@@ -8,6 +8,7 @@
 namespace Dsc\MercadoLivre\Announcement;
 
 use Doctrine\Common\Collections\Collection;
+use Dsc\MercadoLivre\Requests\Product\Variation;
 
 interface Announcement
 {
@@ -185,4 +186,25 @@ interface Announcement
      * @return Announcement
      */
     public function setPictures(Collection $pictures);
+
+    /**
+     * @return Collection
+     */
+    public function getVariations();
+
+    /**
+     * @param Variation $value
+     */
+    public function addVariation(Variation $value);
+
+    /**
+     * @param Variation $value
+     */
+    public function removeVariation(Variation $value);
+
+    /**
+     * @param Collection $values
+     * @return Item
+     */
+    public function setVariations(Collection $values);
 }
