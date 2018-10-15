@@ -166,7 +166,7 @@ echo $response->getPermalink();
 
 > ##### Publicando um anúncio com Variações
 
-Mais detalhes em [Variações](https://developers.mercadolibre.com/pt_br/variacoes) 
+Mais detalhes em: [Manual de Variações](https://developers.mercadolibre.com/pt_br/variacoes) 
 
 ```php
 <?php
