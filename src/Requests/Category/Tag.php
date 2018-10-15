@@ -42,6 +42,18 @@ class Tag
     private $hidden;
 
     /**
+     * @var boolean
+     * @JMS\Type("boolean")
+     */
+    private $inferred;
+
+    /**
+     * @var boolean
+     * @JMS\Type("boolean")
+     */
+    private $multivalued;
+
+    /**
      * @return boolean
      */
     public function isAllowVariations()
@@ -128,6 +140,42 @@ class Tag
     public function setHidden($hidden)
     {
         $this->hidden = $hidden;
+        return $this;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isInferred()
+    {
+        return ($this->inferred === null) ? false : $this->inferred;
+    }
+
+    /**
+     * @param boolean $inferred
+     * @return Tag
+     */
+    public function setInferred($inferred)
+    {
+        $this->inferred = $inferred;
+        return $this;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isMultivalued()
+    {
+        return ($this->multivalued === null) ? false : $this->multivalued;
+    }
+
+    /**
+     * @param boolean $multivalued
+     * @return Tag
+     */
+    public function setMultivalued($multivalued)
+    {
+        $this->multivalued = $multivalued;
         return $this;
     }
 }
