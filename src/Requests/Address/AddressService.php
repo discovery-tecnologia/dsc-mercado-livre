@@ -19,7 +19,7 @@ class AddressService extends Service
     public function findCity($code)
     {
         return $this->getResponse(
-            $this->get('/cities/' . $code),
+            $this->get("/cities/$code"),
             City::class
         );
     }
@@ -31,7 +31,7 @@ class AddressService extends Service
     public function findState($code)
     {
         return $this->getResponse(
-            $this->get('/states/' . $code),
+            $this->get("/states/$code"),
             State::class
         );
     }
@@ -54,7 +54,7 @@ class AddressService extends Service
     public function findCountry($code)
     {
         return $this->getResponse(
-            $this->get('/countries/' . $code),
+            $this->get("/countries/$code"),
             Country::class
         );
     }

@@ -30,7 +30,7 @@ class CurrencyService extends Service
     public function findCurrency($code)
     {
         return $this->getResponse(
-            $this->get('/currencies/' . $code),
+            $this->get("/currencies/$code"),
             Currency::class
         );
     }
