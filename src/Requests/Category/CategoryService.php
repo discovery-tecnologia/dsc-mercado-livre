@@ -19,7 +19,7 @@ class CategoryService extends Service
     public function findCategories($site)
     {
         return $this->getResponse(
-            $this->get('/sites/' . $site . '/categories'),
+            $this->get("/sites/$site/categories"),
             Category::class
         );
     }
@@ -31,7 +31,7 @@ class CategoryService extends Service
     public function findCategory($code)
     {
         return $this->getResponse(
-            $this->get('/categories/' . $code),
+            $this->get("/categories/$code"),
             Category::class
         );
     }
@@ -43,7 +43,7 @@ class CategoryService extends Service
     public function findCategoryAttributes($code)
     {
         return $this->getResponse(
-            $this->get('/categories/' . $code . '/attributes'),
+            $this->get("/categories/$code/attributes"),
             Attribute::class
         );
     }
