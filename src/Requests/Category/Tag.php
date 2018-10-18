@@ -54,6 +54,42 @@ class Tag
     private $multivalued;
 
     /**
+     * @var boolean
+     * @JMS\Type("boolean")
+     */
+    private $others;
+
+    /**
+     * @var boolean
+     * @JMS\Type("boolean")
+     */
+    private $productPk;
+
+    /**
+     * @var boolean
+     * @JMS\Type("boolean")
+     */
+    private $readOnly;
+
+    /**
+     * @var boolean
+     * @JMS\Type("boolean")
+     */
+    private $required;
+
+    /**
+     * @var boolean
+     * @JMS\Type("boolean")
+     */
+    private $restrictedValues;
+
+    /**
+     * @var boolean
+     * @JMS\Type("boolean")
+     */
+    private $variationAttribute;
+
+    /**
      * @return boolean
      */
     public function isAllowVariations()
@@ -176,6 +212,114 @@ class Tag
     public function setMultivalued($multivalued)
     {
         $this->multivalued = $multivalued;
+        return $this;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isOthers()
+    {
+        return ($this->others === null) ? false : $this->others;
+    }
+
+    /**
+     * @param boolean $others
+     * @return Tag
+     */
+    public function setOthers($others)
+    {
+        $this->others = $others;
+        return $this;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isProductPk()
+    {
+        return ($this->productPk === null) ? false : $this->productPk;
+    }
+
+    /**
+     * @param boolean $productPk
+     * @return Tag
+     */
+    public function setProductPk($productPk)
+    {
+        $this->productPk = $productPk;
+        return $this;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isReadOnly()
+    {
+        return ($this->readOnly === null) ? false : $this->readOnly;
+    }
+
+    /**
+     * @param boolean $readOnly
+     * @return Tag
+     */
+    public function setReadOnly($readOnly)
+    {
+        $this->readOnly = $readOnly;
+        return $this;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isRequired()
+    {
+        return ($this->required === null) ? false : $this->required;
+    }
+
+    /**
+     * @param boolean $required
+     * @return Tag
+     */
+    public function setRequired($required)
+    {
+        $this->required = $required;
+        return $this;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isRestrictedValues()
+    {
+        return ($this->restrictedValues === null) ? false : $this->restrictedValues;
+    }
+
+    /**
+     * @param boolean $restrictedValues
+     * @return Tag
+     */
+    public function setRestrictedValues($restrictedValues)
+    {
+        $this->restrictedValues = $restrictedValues;
+        return $this;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isVariationAttribute()
+    {
+        return ($this->variationAttribute === null) ? false : $this->variationAttribute;
+    }
+
+    /**
+     * @param boolean $variationAttribute
+     * @return Tag
+     */
+    public function setVariationAttribute($variationAttribute)
+    {
+        $this->variationAttribute = $variationAttribute;
         return $this;
     }
 }
