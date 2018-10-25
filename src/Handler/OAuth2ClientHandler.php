@@ -96,10 +96,13 @@ class OAuth2ClientHandler extends Client implements HandlerInterface
     {
         $uri  = $this->meli->getEnvironment()->getOAuthUri();
         $data = [
-            'grant_type'    => 'refresh_token',
-            'client_id'     => $this->meli->getClientId(),
-            'client_secret' => $this->meli->getClientSecret(),
-            'refresh_token' => $refreshToken
+            'base_uri' => $this->meli->getEnvironment()->getWsHost(),
+            'form_params' => [
+                'grant_type'    => 'refresh_token',
+                'client_id'     => $this->meli->getClientId(),
+                'client_secret' => $this->meli->getClientSecret(),
+                'refresh_token' => $refreshToken
+            ]
         ];
         $response = $this->post($uri, $data);
 
