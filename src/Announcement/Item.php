@@ -12,6 +12,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use JMS\Serializer\Annotation as JMS;
 use Dsc\MercadoLivre\Requests\Product\Variation;
+use Dsc\MercadoLivre\Requests\Category\Attribute;
 
 class Item implements Announcement
 {
@@ -107,6 +108,12 @@ class Item implements Announcement
 
     /**
      * @var ArrayCollection
+     * @JMS\Type("ArrayCollection<Dsc\MercadoLivre\Requests\Category\Attribute>")
+     */
+    private $attributes;
+
+    /**
+     * @var ArrayCollection
      * @JMS\Type("ArrayCollection<Dsc\MercadoLivre\Requests\Product\Variation>")
      */
     private $variations;
@@ -116,7 +123,8 @@ class Item implements Announcement
      */
     public function __construct()
     {
-        $this->pictures = new ArrayCollection();
+        $this->pictures   = new ArrayCollection();
+        $this->attributes = new ArrayCollection();
         $this->variations = new ArrayCollection();
     }
 
@@ -401,6 +409,40 @@ class Item implements Announcement
     public function setPictures(Collection $pictures)
     {
         $this->pictures = $pictures;
+        return $this;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getAttributes()
+    {
+        return $this->attributes;
+    }
+
+    /**
+     * @param Attribute $value
+     */
+    public function addAttribute(Attribute $value)
+    {
+        $this->attributes->add($value);
+    }
+
+    /**
+     * @param Attribute $value
+     */
+    public function removeAttribute(Attribute $value)
+    {
+        $this->attributes->remove($value);
+    }
+
+    /**
+     * @param ArrayCollection $values
+     * @return Variation
+     */
+    public function setAttributes(Collection $values)
+    {
+        $this->attributes = $values;
         return $this;
     }
 
