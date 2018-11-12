@@ -13,6 +13,7 @@ use Doctrine\Common\Collections\Collection;
 use JMS\Serializer\Annotation as JMS;
 use Dsc\MercadoLivre\Requests\Product\Variation;
 use Dsc\MercadoLivre\Requests\Category\Attribute;
+use Dsc\MercadoLivre\Requests\Product\Description;
 
 class Item implements Announcement
 {
@@ -71,8 +72,8 @@ class Item implements Announcement
     private $condition;
 
     /**
-     * @var string
-     * @JMS\Type("string")
+     * @var Description
+     * @JMS\Type("Dsc\MercadoLivre\Requests\Product\Description")
      */
     private $description;
 
@@ -291,6 +292,10 @@ class Item implements Announcement
     }
 
     /**
+     * @deprecated
+     * Use o servico ProductService metodo findDescription 
+     * para recuperar os dados da descricao dos Anuncios
+     * 
      * @return string
      */
     public function getDescription()
@@ -304,7 +309,8 @@ class Item implements Announcement
      */
     public function setDescription($description)
     {
-        $this->description = $description;
+        $desc = new Description($description);
+        $this->description = $desc;
         return $this;
     }
 

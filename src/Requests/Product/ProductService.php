@@ -26,6 +26,18 @@ class ProductService extends Service
     }
 
     /**
+     * @param $code
+     * @return Description
+     */
+    public function findDescription($code)
+    {
+        return $this->getResponse(
+            $this->get("/items/$code/description"),
+            Description::class
+        );
+    }
+
+    /**
      * @param string $code
      * @return Collection
      * @link https://developers.mercadolibre.com/pt_br/variacoes#Consultar-varia%C3%A7%C3%B5es
