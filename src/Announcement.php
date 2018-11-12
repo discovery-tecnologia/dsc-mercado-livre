@@ -33,7 +33,7 @@ class Announcement extends BaseService implements AnnouncementManager
      * @return ItemResponse
      * @link http://developers.mercadolibre.com/products-sync-listings/#Update-your-item
      */
-    public function update($code, $data)
+    public function update($code, array $data)
     {
         return $this->getResponse(
             $this->put("/items/$code", $data),
@@ -79,7 +79,7 @@ class Announcement extends BaseService implements AnnouncementManager
      */
     public function changeDescription($code, $description)
     {
-        $data = ['text' => $description];
+        $data = ['plain_text' => $description];
         return $this->getResponse(
             $this->put("/items/$code/description", $data),
             ItemResponse::class
