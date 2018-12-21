@@ -1,6 +1,6 @@
 <?php
 /**
- * Class Order
+ * Class Question
  *
  * @author Diego Wagner <diegowagner4@gmail.com>
  * http://www.discoverytecnologia.com.br
