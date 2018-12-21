@@ -55,7 +55,12 @@ class Question
 
     /**
      * @var string
-     * ACTIVE e DISABLED
+     * 
+     * answered: Question was answered.
+     * closed_unanswered: The item is closed and the question was never answered.
+     * unanswered: Question is not answered yet.
+     * under_review: The item is under review and the question too.
+     * 
      * @JMS\Type("string")
      */
     private $status;
