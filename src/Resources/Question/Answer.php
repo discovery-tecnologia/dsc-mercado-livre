@@ -7,8 +7,6 @@
  */
 namespace Dsc\MercadoLivre\Resources\Question;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use JMS\Serializer\Annotation as JMS;
 
 class Answer        
