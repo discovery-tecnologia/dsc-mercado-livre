@@ -14,6 +14,8 @@ use JMS\Serializer\Annotation as JMS;
 use Dsc\MercadoLivre\Requests\Product\Variation;
 use Dsc\MercadoLivre\Requests\Category\Attribute;
 use Dsc\MercadoLivre\Requests\Product\Description;
+use Dsc\MercadoLivre\Requests\Product\Shipping;
+use Dsc\MercadoLivre\Requests\Product\SellerAddress;
 
 class Item implements Announcement
 {
@@ -100,6 +102,18 @@ class Item implements Announcement
      * @JMS\Type("string")
      */
     private $status;
+
+    /**
+     * @var Shipping
+     * @JMS\Type("Dsc\MercadoLivre\Requests\Product\Shipping")
+     */
+    private $shipping;
+
+    /**
+     * @var SellerAddress
+     * @JMS\Type("Dsc\MercadoLivre\Requests\Product\SellerAddress")
+     */
+    private $sellerAddress;
 
     /**
      * @var ArrayCollection
@@ -390,6 +404,42 @@ class Item implements Announcement
     public function getPictures()
     {
         return $this->pictures;
+    }
+
+    /**
+     * @return Shipping
+     */
+    public function getShipping()
+    {
+        return $this->shipping;
+    }
+
+    /**
+     * @param Shipping $shipping
+     * @return Item
+     */
+    public function setShipping(Shipping $shipping)
+    {
+        $this->shipping = $shipping;
+        return $this;
+    }
+
+    /**
+     * @return SellerAddress
+     */
+    public function getSellerAddress()
+    {
+        return $this->sellerAddress;
+    }
+
+    /**
+     * @param SellerAddress $sellerAddress
+     * @return Item
+     */
+    public function setSellerAddress(SellerAddress $sellerAddress)
+    {
+        $this->sellerAddress = $sellerAddress;
+        return $this;
     }
 
     /**

@@ -9,6 +9,8 @@ namespace Dsc\MercadoLivre\Announcement;
 
 use Doctrine\Common\Collections\Collection;
 use Dsc\MercadoLivre\Requests\Product\Variation;
+use Dsc\MercadoLivre\Requests\Product\Shipping;
+use Dsc\MercadoLivre\Requests\Product\SellerAddress;
 
 interface Announcement
 {
@@ -207,4 +209,26 @@ interface Announcement
      * @return Item
      */
     public function setVariations(Collection $values);
+
+    /**
+     * @return Shipping
+     */
+    public function getShipping();
+
+    /**
+     * @param Shipping $shipping
+     * @return Item
+     */
+    public function setShipping(Shipping $shipping);
+
+    /**
+     * @return SellerAddress
+     */
+    public function getSellerAddress();
+
+    /**
+     * @param SellerAddress $sellerAddress
+     * @return Item
+     */
+    public function setSellerAddress(SellerAddress $sellerAddress);
 }

@@ -8,6 +8,9 @@
 namespace Dsc\MercadoLivre\Requests\Product;
 
 use JMS\Serializer\Annotation as JMS;
+use Dsc\MercadoLivre\Requests\Address\City;
+use Dsc\MercadoLivre\Requests\Address\State;
+use Dsc\MercadoLivre\Requests\Address\Country;
 
 class SellerAddress
 {
@@ -35,11 +38,23 @@ class SellerAddress
      */
     private $zipCode;
 
-    //TODO mapping City
+    /**
+     * @var City
+     * @JMS\Type("Dsc\MercadoLivre\Requests\Address\City")
+     */
+    private $city;
 
-    //TODO mapping State
+    /**
+     * @var State
+     * @JMS\Type("Dsc\MercadoLivre\Requests\Address\State")
+     */
+    private $state;
 
-    //TODO mapping Country
+    /**
+     * @var Country
+     * @JMS\Type("Dsc\MercadoLivre\Requests\Address\Country")
+     */
+    private $country;
 
     /**
      * @var double
@@ -124,6 +139,60 @@ class SellerAddress
     public function setZipCode($zipCode)
     {
         $this->zipCode = $zipCode;
+        return $this;
+    }
+
+    /**
+     * @return City
+     */
+    public function getCity()
+    {
+        return $this->city;
+    }
+
+    /**
+     * @param City $city
+     * @return SellerAddress
+     */
+    public function setCity(City $city)
+    {
+        $this->city = $city;
+        return $this;
+    }
+
+    /**
+     * @return State
+     */
+    public function getState()
+    {
+        return $this->state;
+    }
+
+    /**
+     * @param State $state
+     * @return SellerAddress
+     */
+    public function setState(State $state)
+    {
+        $this->state = $state;
+        return $this;
+    }
+
+    /**
+     * @return Country
+     */
+    public function getCountry()
+    {
+        return $this->country;
+    }
+
+    /**
+     * @param Country $country
+     * @return SellerAddress
+     */
+    public function setCountry(Country $country)
+    {
+        $this->country = $country;
         return $this;
     }
 
