@@ -16,6 +16,7 @@ use Dsc\MercadoLivre\Requests\Category\Attribute;
 use Dsc\MercadoLivre\Requests\Product\Description;
 use Dsc\MercadoLivre\Requests\Product\Shipping;
 use Dsc\MercadoLivre\Requests\Product\SellerAddress;
+use Dsc\MercadoLivre\Requests\Product\Location;
 
 class Item implements Announcement
 {
@@ -114,6 +115,12 @@ class Item implements Announcement
      * @JMS\Type("Dsc\MercadoLivre\Requests\Product\SellerAddress")
      */
     private $sellerAddress;
+
+    /**
+     * @var Location
+     * @JMS\Type("Dsc\MercadoLivre\Requests\Product\Location")
+     */
+    private $location;
 
     /**
      * @var ArrayCollection
@@ -439,6 +446,24 @@ class Item implements Announcement
     public function setSellerAddress(SellerAddress $sellerAddress)
     {
         $this->sellerAddress = $sellerAddress;
+        return $this;
+    }
+
+    /**
+     * @return Location
+     */
+    public function getLocation()
+    {
+        return $this->location;
+    }
+
+    /**
+     * @param Location $location
+     * @return Item
+     */
+    public function setLocation(Location $location)
+    {
+        $this->location = $location;
         return $this;
     }
 

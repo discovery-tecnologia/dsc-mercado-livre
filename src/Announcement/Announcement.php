@@ -11,6 +11,7 @@ use Doctrine\Common\Collections\Collection;
 use Dsc\MercadoLivre\Requests\Product\Variation;
 use Dsc\MercadoLivre\Requests\Product\Shipping;
 use Dsc\MercadoLivre\Requests\Product\SellerAddress;
+use Dsc\MercadoLivre\Requests\Product\Location;
 
 interface Announcement
 {
@@ -231,4 +232,15 @@ interface Announcement
      * @return Item
      */
     public function setSellerAddress(SellerAddress $sellerAddress);
+
+    /**
+     * @return Location
+     */
+    public function getLocation();
+
+    /**
+     * @param Location $location
+     * @return Item
+     */
+    public function setLocation(Location $location);
 }
