@@ -7,6 +7,8 @@
  */
 namespace Dsc\MercadoLivre\Requests\Address;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use JMS\Serializer\Annotation as JMS;
 
 class State
@@ -35,7 +37,19 @@ class State
      */
     private $country;
 
-    //TODO Mapear as cidades se necessário
+    /**
+     * @var ArrayCollection
+     * @JMS\Type("ArrayCollection<Dsc\MercadoLivre\Requests\Address\City>")
+     */
+    private $cities;
+
+    /**
+     * State constructor.
+     */
+    public function __construct()
+    {
+        $this->cities = new ArrayCollection();
+    }
 
     /**
      * @return string
@@ -106,6 +120,44 @@ class State
     public function setCountry(Country $country)
     {
         $this->country = $country;
+        return $this;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getCities()
+    {
+        return $this->cities;
+    }
+
+    /**
+     * @param City $city
+     * @return $this
+     */
+    public function addCity(City $city)
+    {
+        $this->cities->add($city);
+        return $this;
+    }
+
+    /**
+     * @param City $city
+     * @return $this
+     */
+    public function removeCity(City $city)
+    {
+        $this->cities->remove($city);
+        return $this;
+    }
+
+    /**
+     * @param Collection $cities
+     * @return State
+     */
+    public function setCities(Collection $cities)
+    {
+        $this->cities = $cities;
         return $this;
     }
 }
