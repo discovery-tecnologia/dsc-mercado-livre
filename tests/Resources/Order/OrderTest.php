@@ -12,6 +12,8 @@ use Dsc\MercadoLivre\Resources\Buyer\BillingInfo;
 use Dsc\MercadoLivre\Resources\Buyer\Buyer;
 use Dsc\MercadoLivre\Resources\Buyer\Phone as PhoneBuyer;
 use Dsc\MercadoLivre\Resources\Feedback\Feedback;
+use Dsc\MercadoLivre\Resources\Feedback\Purchase;
+use Dsc\MercadoLivre\Resources\Feedback\Sale;
 use Dsc\MercadoLivre\Resources\Payment\Payment;
 use Dsc\MercadoLivre\Resources\Seller\Phone as PhoneSeller;
 use Dsc\MercadoLivre\Resources\Seller\Seller;
@@ -151,8 +153,12 @@ class OrderTest extends \PHPUnit_Framework_TestCase
     public function assertingFeedbackInOrderMappingAttributes()
     {
         $this->assertInstanceOf(Feedback::class, $this->order->getFeedback());
-        $this->assertEquals("purchase", $this->order->getFeedback()->getPurchase());
-        $this->assertEquals("sale", $this->order->getFeedback()->getSale());
+        $this->assertInstanceOf(Purchase::class, $this->order->getFeedback()->getPurchase());
+        $this->assertInstanceOf(Sale::class, $this->order->getFeedback()->getSale());
+        $this->assertEquals(123, $this->order->getFeedback()->getPurchase()->getId());
+        $this->assertEquals("created", $this->order->getFeedback()->getPurchase()->getStatus());
+        $this->assertEquals(123, $this->order->getFeedback()->getSale()->getId());
+        $this->assertEquals("created", $this->order->getFeedback()->getSale()->getStatus());
     }
 
     /**

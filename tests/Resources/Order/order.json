@@ -59,8 +59,14 @@
   "date_created": "2013-05-27T10:01:50.000-04:00"
 }],
 "feedback": {
-  "purchase": "purchase",
-  "sale": "sale"
+  "purchase": {
+    "id": 123,
+    "status": "created"
+  },
+  "sale": {
+    "id": 123,
+    "status": "created"
+  }
 },
 "shipping": {
   "id": 20676482441,
