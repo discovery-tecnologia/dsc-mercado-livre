@@ -12,19 +12,19 @@ use JMS\Serializer\Annotation as JMS;
 class Feedback
 {
     /**
-     * @var string
-     * @JMS\Type("string")
+     * @var Purchase
+     * @JMS\Type("Dsc\MercadoLivre\Resources\Feedback\Purchase")
      */
     private $purchase;
 
     /**
-     * @var string
-     * @JMS\Type("string")
+     * @var Sale
+     * @JMS\Type("Dsc\MercadoLivre\Resources\Feedback\Sale")
      */
     private $sale;
 
     /**
-     * @return string
+     * @return Purchase
      */
     public function getPurchase()
     {
@@ -32,17 +32,17 @@ class Feedback
     }
 
     /**
-     * @param string $purchase
+     * @param Purchase $purchase
      * @return Feedback
      */
-    public function setPurchase($purchase)
+    public function setPurchase(Purchase $purchase)
     {
         $this->purchase = $purchase;
         return $this;
     }
 
     /**
-     * @return string
+     * @return Sale
      */
     public function getSale()
     {
@@ -50,10 +50,10 @@ class Feedback
     }
 
     /**
-     * @param string $sale
+     * @param Sale $sale
      * @return Feedback
      */
-    public function setSale($sale)
+    public function setSale(Sale $sale)
     {
         $this->sale = $sale;
         return $this;
