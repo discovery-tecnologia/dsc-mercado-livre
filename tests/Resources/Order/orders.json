@@ -138,8 +138,14 @@
         "last_name": "Test"
       },
       "feedback": {
-        "sale": null,
-        "purchase": null
+        "purchase": {
+          "id": 123,
+          "status": "created"
+        },
+        "sale": {
+          "id": 123,
+          "status": "created"
+        }
       },
       "tags": [
         "not_delivered",
