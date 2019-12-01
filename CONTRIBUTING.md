@@ -10,11 +10,11 @@ Sempre verifique no branch **master** - para ver se o bug relatado ainda não fo
 
 ## Issues
 
-Encontrou algum problema? Nós aceitamos suas sugestões ou relatos de bugs criados [aqui](https://github.com/totalvoice/totalvoice-php/issues). 
+Encontrou algum problema? Nós aceitamos suas sugestões ou relatos de bugs criados [aqui](https://github.com/discovery-tecnologia/dsc-mercado-livre/issues).
 
 ## Pull Requests
 
-Todas as solicitações de melhoria serão muito bem vindas, se você deseja contribuir para que a biblioteca se torne cada vez melhor, abra um Pull Request [aqui](https://github.com/totalvoice/totalvoice-php/pulls).
+Todas as solicitações de melhoria serão muito bem vindas, se você deseja contribuir para que a biblioteca se torne cada vez melhor, abra um Pull Request [aqui](https://github.com/discovery-tecnologia/dsc-mercado-livre/pulls).
 
 - Seguindo [PSR-2 coding standards](http://www.php-fig.org/psr/psr-2);
 - Seguindo [PSR-4 autoloading standards](http://www.php-fig.org/psr/psr-4);
