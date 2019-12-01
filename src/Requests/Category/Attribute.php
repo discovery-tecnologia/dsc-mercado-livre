@@ -61,6 +61,12 @@ class Attribute
     private $values;
 
     /**
+     * @var ArrayCollection
+     * @JMS\Type("ArrayCollection<Dsc\MercadoLivre\Requests\Category\AllowedUnit>")
+     */
+    private $allowedUnits;
+
+    /**
      * Attributes constructor.
      */
     public function __construct()
@@ -105,7 +111,7 @@ class Attribute
      */
     public function getHierarchy()
     {
-        return $this->tyhierarchype;
+        return $this->hierarchy;
     }
 
     /**
@@ -197,6 +203,24 @@ class Attribute
     public function setValues(Collection $values)
     {
         $this->values = $values;
+        return $this;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getAllowedUnits()
+    {
+        return $this->allowedUnits;
+    }
+
+    /**
+     * @param ArrayCollection $allowedUnits
+     * @return Attributes
+     */
+    public function setAllowedUnits(Collection $allowedUnits)
+    {
+        $this->allowedUnits = $allowedUnits;
         return $this;
     }
 

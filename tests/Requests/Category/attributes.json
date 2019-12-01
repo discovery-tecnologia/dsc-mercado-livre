@@ -1,0 +1,60 @@
+[
+    {
+        "id": "PRODUCT_FEATURES",
+        "name": "Características do produto",
+        "tags": {
+            "hidden": true,
+            "multivalued": true,
+            "read_only": true
+        },
+        "hierarchy": "ITEM",
+        "relevance": 2,
+        "value_type": "list",
+        "values": [
+            {
+                "id": "7435885",
+                "name": "Contém líquido"
+            },
+            {
+                "id": "7435883",
+                "name": "Frágil"
+            },
+            {
+                "id": "7435888",
+                "name": "Com validade"
+            },
+            {
+                "id": "7575917",
+                "name": "Desinfetante e saneante"
+            },
+            {
+                "id": "7575924",
+                "name": "MAPA"
+            },
+            {
+                "id": "7575923",
+                "name": "Saúde e correlatos"
+            }
+        ],
+        "attribute_group_id": "OTHERS",
+        "attribute_group_name": "Outros"
+    },
+    {
+        "id": "LENGTH",
+        "name": "Comprimento",
+        "tags": {},
+        "hierarchy": "FAMILY",
+        "relevance": 1,
+        "value_type": "number_unit",
+        "value_max_length": 255,
+        "allowed_units": [
+            {
+                "id": "cm",
+                "name": "cm"
+            }
+        ],
+        "default_unit": "cm",
+        "attribute_group_id": "OTHERS",
+        "attribute_group_name": "Outros"
+    }
+]
