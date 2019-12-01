@@ -105,7 +105,7 @@ class Attribute
      */
     public function getHierarchy()
     {
-        return $this->tyhierarchype;
+        return $this->hierarchy;
     }
 
     /**
