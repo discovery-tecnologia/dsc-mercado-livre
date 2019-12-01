@@ -54,6 +54,7 @@ class AttributeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('Características do produto', $attribute->getName());
         $this->assertEquals('ITEM', $attribute->getHierarchy());
         $this->assertEquals('list', $attribute->getValueType());
+        $this->assertNull($attribute->getValueId());
         $this->assertNull($attribute->getValueName());
     }
 

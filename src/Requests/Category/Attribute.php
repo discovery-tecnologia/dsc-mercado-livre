@@ -49,6 +49,12 @@ class Attribute
     private $valueName;
 
     /**
+     * @var string
+     * @JMS\Type("string")
+     */
+    private $valueId;
+
+    /**
      * @var Tag
      * @JMS\Type("Dsc\MercadoLivre\Requests\Category\Tag")
      */
@@ -152,6 +158,22 @@ class Attribute
     public function setValueName($valueName)
     {
         $this->valueName = $valueName;
+    }
+
+    /**
+     * @return string
+     */
+    public function getValueId()
+    {
+        return $this->valueId;
+    }
+
+    /**
+     * @param string $valueId
+     */
+    public function setValueId($valueId)
+    {
+        $this->valueId = $valueId;
     }
 
     /**
