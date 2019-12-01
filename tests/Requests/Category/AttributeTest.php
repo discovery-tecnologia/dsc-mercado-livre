@@ -97,6 +97,21 @@ class AttributeTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @test
+     */
+    public function assertingAllowedUnitsMappingAttributes()
+    {
+        $allowedUnits = $this->attributes->last()->getAllowedUnits();
+        $this->assertInstanceOf(Collection::class, $allowedUnits);
+        $this->assertContainsOnlyInstancesOf(AllowedUnit::class, $allowedUnits->toArray());
+
+        /** @var AllowedUnit $item */
+        $item = $allowedUnits->first();
+        $this->assertEquals('cm', $item->getId());
+        $this->assertEquals('cm', $item->getName());
+    }
+
+    /**
      * @return Stream
      */
     public function getData()
