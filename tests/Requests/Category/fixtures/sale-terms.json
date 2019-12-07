@@ -1,0 +1,345 @@
+[
+    {
+        "id": "INVOICE",
+        "name": "Faturamento",
+        "tags": {
+            "hidden": true,
+            "multivalued": true
+        },
+        "hierarchy": "SALE_TERMS",
+        "relevance": 1,
+        "value_type": "list",
+        "values": [
+            {
+                "id": "6891885",
+                "name": "Factura A"
+            },
+            {
+                "id": "6891886",
+                "name": "Factura B"
+            },
+            {
+                "id": "6891887",
+                "name": "Factura C"
+            },
+            {
+                "id": "6891888",
+                "name": "Não factura"
+            }
+        ],
+        "attribute_group_id": "OTHERS",
+        "attribute_group_name": "Outros"
+    },
+    {
+        "id": "SUBSCRIBABLE",
+        "name": "Aceita compra recorrente",
+        "tags": {},
+        "hierarchy": "SALE_TERMS",
+        "relevance": 2,
+        "value_type": "boolean",
+        "values": [
+            {
+                "id": "242084",
+                "name": "Não",
+                "metadata": {
+                    "value": false
+                }
+            },
+            {
+                "id": "242085",
+                "name": "Sim",
+                "metadata": {
+                    "value": true
+                }
+            }
+        ],
+        "attribute_group_id": "OTHERS",
+        "attribute_group_name": "Outros"
+    },
+    {
+        "id": "PRICE_SUBSCRIPTION",
+        "name": "Preço por compra recorrente",
+        "tags": {},
+        "hierarchy": "SALE_TERMS",
+        "relevance": 2,
+        "value_type": "number_unit",
+        "value_max_length": 255,
+        "allowed_units": [
+            {
+                "id": "USD",
+                "name": "USD"
+            },
+            {
+                "id": "BRL",
+                "name": "BRL"
+            }
+        ],
+        "default_unit": "USD",
+        "attribute_group_id": "OTHERS",
+        "attribute_group_name": "Outros"
+    },
+    {
+        "id": "SUBSCRIPTION_FREE_SHIPPING",
+        "name": "Envio gratis por compra recorrente",
+        "tags": {},
+        "hierarchy": "SALE_TERMS",
+        "relevance": 2,
+        "value_type": "boolean",
+        "values": [
+            {
+                "id": "242084",
+                "name": "Não",
+                "metadata": {
+                    "value": false
+                }
+            },
+            {
+                "id": "242085",
+                "name": "Sim",
+                "metadata": {
+                    "value": true
+                }
+            }
+        ],
+        "attribute_group_id": "OTHERS",
+        "attribute_group_name": "Outros"
+    },
+    {
+        "id": "LOYALTY_LEVEL_1",
+        "name": "Preço por ser nível 1 do loyalty",
+        "tags": {},
+        "hierarchy": "SALE_TERMS",
+        "relevance": 2,
+        "value_type": "number_unit",
+        "value_max_length": 255,
+        "allowed_units": [
+            {
+                "id": "USD",
+                "name": "USD"
+            },
+            {
+                "id": "BRL",
+                "name": "BRL"
+            }
+        ],
+        "default_unit": "USD",
+        "attribute_group_id": "OTHERS",
+        "attribute_group_name": "Outros"
+    },
+    {
+        "id": "LOYALTY_LEVEL_2",
+        "name": "Preço por ser nível 2 do loyalty",
+        "tags": {},
+        "hierarchy": "SALE_TERMS",
+        "relevance": 2,
+        "value_type": "number_unit",
+        "value_max_length": 255,
+        "allowed_units": [
+            {
+                "id": "USD",
+                "name": "USD"
+            },
+            {
+                "id": "BRL",
+                "name": "BRL"
+            }
+        ],
+        "default_unit": "USD",
+        "attribute_group_id": "OTHERS",
+        "attribute_group_name": "Outros"
+    },
+    {
+        "id": "LOYALTY_LEVEL_3",
+        "name": "Preço por ser nível 3 do loyalty",
+        "tags": {},
+        "hierarchy": "SALE_TERMS",
+        "relevance": 2,
+        "value_type": "number_unit",
+        "value_max_length": 255,
+        "allowed_units": [
+            {
+                "id": "USD",
+                "name": "USD"
+            },
+            {
+                "id": "BRL",
+                "name": "BRL"
+            }
+        ],
+        "default_unit": "USD",
+        "attribute_group_id": "OTHERS",
+        "attribute_group_name": "Outros"
+    },
+    {
+        "id": "LOYALTY_LEVEL_4",
+        "name": "Preço por ser nível 4 do loyalty",
+        "tags": {},
+        "hierarchy": "SALE_TERMS",
+        "relevance": 2,
+        "value_type": "number_unit",
+        "value_max_length": 255,
+        "allowed_units": [
+            {
+                "id": "USD",
+                "name": "USD"
+            },
+            {
+                "id": "BRL",
+                "name": "BRL"
+            }
+        ],
+        "default_unit": "USD",
+        "attribute_group_id": "OTHERS",
+        "attribute_group_name": "Outros"
+    },
+    {
+        "id": "LOYALTY_LEVEL_5",
+        "name": "Preço por ser nível 5 do loyalty",
+        "tags": {},
+        "hierarchy": "SALE_TERMS",
+        "relevance": 2,
+        "value_type": "number_unit",
+        "value_max_length": 255,
+        "allowed_units": [
+            {
+                "id": "USD",
+                "name": "USD"
+            },
+            {
+                "id": "BRL",
+                "name": "BRL"
+            }
+        ],
+        "default_unit": "USD",
+        "attribute_group_id": "OTHERS",
+        "attribute_group_name": "Outros"
+    },
+    {
+        "id": "LOYALTY_LEVEL_6",
+        "name": "Preço por ser nível 6 do loyalty",
+        "tags": {},
+        "hierarchy": "SALE_TERMS",
+        "relevance": 2,
+        "value_type": "number_unit",
+        "value_max_length": 255,
+        "allowed_units": [
+            {
+                "id": "USD",
+                "name": "USD"
+            },
+            {
+                "id": "BRL",
+                "name": "BRL"
+            }
+        ],
+        "default_unit": "USD",
+        "attribute_group_id": "OTHERS",
+        "attribute_group_name": "Outros"
+    },
+    {
+        "id": "CHECKOUT_EXCHANGE_RATE",
+        "name": "Taxa de câmbio para checkout",
+        "tags": {},
+        "hierarchy": "SALE_TERMS",
+        "relevance": 2,
+        "value_type": "number_unit",
+        "value_max_length": 255,
+        "allowed_units": [
+            {
+                "id": "BRL/USD",
+                "name": "BRL/USD"
+            }
+        ],
+        "default_unit": "BRL/USD",
+        "attribute_group_id": "OTHERS",
+        "attribute_group_name": "Outros"
+    },
+    {
+        "id": "DISCOUNT_SUBSCRIPTION",
+        "name": "Desconto por compra recorrente",
+        "tags": {},
+        "hierarchy": "SALE_TERMS",
+        "relevance": 2,
+        "value_type": "number_unit",
+        "value_max_length": 255,
+        "allowed_units": [
+            {
+                "id": "%",
+                "name": "%"
+            }
+        ],
+        "default_unit": "%",
+        "attribute_group_id": "OTHERS",
+        "attribute_group_name": "Outros"
+    },
+    {
+        "id": "WARRANTY_TYPE",
+        "name": "Tipo de garantia",
+        "tags": {},
+        "hierarchy": "SALE_TERMS",
+        "relevance": 2,
+        "value_type": "list",
+        "values": [
+            {
+                "id": "2230280",
+                "name": "Garantia do vendedor"
+            },
+            {
+                "id": "2230279",
+                "name": "Garantia de fábrica"
+            },
+            {
+                "id": "6150835",
+                "name": "Sem garantia"
+            }
+        ],
+        "attribute_group_id": "OTHERS",
+        "attribute_group_name": "Outros"
+    },
+    {
+        "id": "WARRANTY_TIME",
+        "name": "Tempo de garantia",
+        "tags": {},
+        "hierarchy": "SALE_TERMS",
+        "relevance": 2,
+        "value_type": "number_unit",
+        "value_max_length": 255,
+        "allowed_units": [
+            {
+                "id": "dias",
+                "name": "dias"
+            },
+            {
+                "id": "meses",
+                "name": "meses"
+            },
+            {
+                "id": "anos",
+                "name": "anos"
+            }
+        ],
+        "default_unit": "meses",
+        "attribute_group_id": "OTHERS",
+        "attribute_group_name": "Outros"
+    },
+    {
+        "id": "MANUFACTURING_TIME",
+        "name": "Tempo de produção",
+        "tags": {
+            "hidden": true
+        },
+        "hierarchy": "SALE_TERMS",
+        "relevance": 2,
+        "value_type": "number_unit",
+        "value_max_length": 255,
+        "allowed_units": [
+            {
+                "id": "dias",
+                "name": "dias"
+            }
+        ],
+        "default_unit": "dias",
+        "attribute_group_id": "OTHERS",
+        "attribute_group_name": "Outros"
+    }
+]

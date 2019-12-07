@@ -47,4 +47,16 @@ class CategoryService extends Service
             Attribute::class
         );
     }
+
+    /**
+     * @param string $code
+     * @return Collection
+     */
+    public function findCategorySaleTerms($code)
+    {
+        return $this->getResponse(
+            $this->get("/categories/$code/sale_terms"),
+            SaleTerm::class
+        );
+    }
 }
