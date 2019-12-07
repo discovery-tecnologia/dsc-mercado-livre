@@ -47,4 +47,16 @@ class CategoryService extends Service
             Attribute::class
         );
     }
+
+    /**
+     * @param string $code
+     * @return Collection
+     */
+    public function findCategoryListingTypes($code)
+    {
+        return $this->getResponse(
+            $this->get("/categories/$code/listing_types"),
+            ListingType::class
+        );
+    }
 }

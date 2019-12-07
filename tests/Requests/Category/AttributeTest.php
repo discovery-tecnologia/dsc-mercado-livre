@@ -117,7 +117,7 @@ class AttributeTest extends \PHPUnit_Framework_TestCase
      */
     public function getData()
     {
-        $json = file_get_contents(__DIR__ . '/attributes.json');
+        $json = file_get_contents(__DIR__ . '/fixtures/attributes.json');
         $stream = fopen('data://text/json,' . $json, 'r');
         return new Stream($stream);
     }
