@@ -87,7 +87,7 @@ class SaleTermTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function assertingAttributeValuesMappingSaleTerms()
+    public function assertingSaleTermValuesMappingSaleTerms()
     {
         $values = $this->saleTerms->first()->getValues();
         $this->assertInstanceOf(Collection::class, $values);
