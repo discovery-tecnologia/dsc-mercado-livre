@@ -57,6 +57,17 @@ class CategoryService extends Service
         return $this->getResponse(
             $this->get("/categories/$code/listing_types"),
             ListingType::class
+    }
+          
+    /**
+     * @param string $code
+     * @return Collection
+     */
+    public function findCategorySaleTerms($code)
+    {
+        return $this->getResponse(
+            $this->get("/categories/$code/sale_terms"),
+            SaleTerm::class
         );
     }
 }
