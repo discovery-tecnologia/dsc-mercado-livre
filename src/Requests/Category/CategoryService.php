@@ -57,6 +57,7 @@ class CategoryService extends Service
         return $this->getResponse(
             $this->get("/categories/$code/listing_types"),
             ListingType::class
+        );
     }
           
     /**
