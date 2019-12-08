@@ -1,0 +1,37 @@
+[
+    {
+        "site_id": "MLB",
+        "id": "gold_pro",
+        "name": "Premium"
+    },
+    {
+        "site_id": "MLB",
+        "id": "gold_premium",
+        "name": "Diamante"
+    },
+    {
+        "site_id": "MLB",
+        "id": "gold_special",
+        "name": "Clássico"
+    },
+    {
+        "site_id": "MLB",
+        "id": "gold",
+        "name": "Ouro"
+    },
+    {
+        "site_id": "MLB",
+        "id": "silver",
+        "name": "Prata"
+    },
+    {
+        "site_id": "MLB",
+        "id": "bronze",
+        "name": "Bronze"
+    },
+    {
+        "site_id": "MLB",
+        "id": "free",
+        "name": "Grátis"
+    }
+]
