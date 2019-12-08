@@ -8,12 +8,12 @@ use Dsc\MercadoLivre\Environment;
 use Dsc\MercadoLivre\MeliInterface;
 use GuzzleHttp\Psr7\Stream;
 
-class AttributeTest extends \PHPUnit_Framework_TestCase
+class SaleTermTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var Collection<Dsc\MercadoLivre\Requests\Category\Attribute>
+     * @var Collection<Dsc\MercadoLivre\Requests\Category\SaleTerm>
      */
-    protected $attributes;
+    protected $saleTerms;
 
     protected function setUp()
     {
@@ -30,41 +30,43 @@ class AttributeTest extends \PHPUnit_Framework_TestCase
 
         /** @var CategoryService $service */
         $service = $this->getMockForAbstractClass(CategoryService::class, [$meli, $client]);
-        $this->attributes = $service->findCategoryAttributes("MLB186150");
+        $this->saleTerms = $service->findCategorySaleTerms("MLB5672");
     }
 
     /**
      * @test
      */
-    public function assertingResultAttributes()
+    public function assertingResultSaleTerms()
     {
-        $this->assertInstanceOf(Collection::class, $this->attributes);
-        $this->assertContainsOnlyInstancesOf(Attribute::class, $this->attributes);
+        $this->assertInstanceOf(Collection::class, $this->saleTerms);
+        $this->assertContainsOnlyInstancesOf(SaleTerm::class, $this->saleTerms);
     }
 
     /**
      * @test
      */
-    public function assertingAttributeMappingAttributes()
+    public function assertingAttributeMappingSaleTerms()
     {
-        $attribute = $this->attributes->first();
+        /** @var SaleTerm $saleTerm */
+        $saleTerm = $this->saleTerms->first();
 
-        $this->assertInstanceOf(Attribute::class, $attribute);
-        $this->assertEquals('PRODUCT_FEATURES', $attribute->getId());
-        $this->assertEquals('Características do produto', $attribute->getName());
-        $this->assertEquals('ITEM', $attribute->getHierarchy());
-        $this->assertEquals('list', $attribute->getValueType());
-        $this->assertNull($attribute->getValueId());
-        $this->assertNull($attribute->getValueName());
+        $this->assertInstanceOf(SaleTerm::class, $saleTerm);
+        $this->assertEquals('INVOICE', $saleTerm->getId());
+        $this->assertEquals('Faturamento', $saleTerm->getName());
+        $this->assertEquals('SALE_TERMS', $saleTerm->getHierarchy());
+        $this->assertEquals(1, $saleTerm->getRelevance());
+        $this->assertEquals('list', $saleTerm->getValueType());
     }
 
     /**
      * @test
      */
-    public function assertingTagMappingAttributes()
+    public function assertingTagMappingSaleTerms()
     {
-        $attribute = $this->attributes->first();
-        $tags = $attribute->getTags();
+        /** @var SaleTerm $saleTerm */
+        $saleTerm = $this->saleTerms->first();
+
+        $tags = $saleTerm->getTags();
 
         $this->assertInstanceOf(Tag::class, $tags);
         $this->assertFalse($tags->isAllowVariations());
@@ -76,7 +78,7 @@ class AttributeTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($tags->isMultivalued());
         $this->assertFalse($tags->isOthers());
         $this->assertFalse($tags->isProductPk());
-        $this->assertTrue($tags->isReadOnly());
+        $this->assertFalse($tags->isReadOnly());
         $this->assertFalse($tags->isRequired());
         $this->assertFalse($tags->isRestrictedValues());
         $this->assertFalse($tags->isVariationAttribute());
@@ -85,31 +87,31 @@ class AttributeTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function assertingAttributeValuesMappingAttributes()
+    public function assertingSaleTermValuesMappingSaleTerms()
     {
-        $items = $this->attributes->first()->getValues();
-        $this->assertInstanceOf(Collection::class, $items);
-        $this->assertContainsOnlyInstancesOf(AttributeValue::class, $items->toArray());
+        $values = $this->saleTerms->first()->getValues();
+        $this->assertInstanceOf(Collection::class, $values);
+        $this->assertContainsOnlyInstancesOf(SaleTermValue::class, $values->toArray());
 
-        /** @var AttributeValue $item */
-        $item = $items->first();
-        $this->assertEquals('7435885', $item->getId());
-        $this->assertEquals('Contém líquido', $item->getName());
+        /** @var SaleTermValue $item */
+        $value = $values->first();
+        $this->assertEquals('6891885', $value->getId());
+        $this->assertEquals('Factura A', $value->getName());
     }
 
     /**
      * @test
      */
-    public function assertingAllowedUnitsMappingAttributes()
+    public function assertingAllowedUnitsMappingSaleTerms()
     {
-        $allowedUnits = $this->attributes->last()->getAllowedUnits();
+        $allowedUnits = $this->saleTerms->last()->getAllowedUnits();
         $this->assertInstanceOf(Collection::class, $allowedUnits);
         $this->assertContainsOnlyInstancesOf(AllowedUnit::class, $allowedUnits->toArray());
 
         /** @var AllowedUnit $item */
         $item = $allowedUnits->first();
-        $this->assertEquals('cm', $item->getId());
-        $this->assertEquals('cm', $item->getName());
+        $this->assertEquals('dias', $item->getId());
+        $this->assertEquals('dias', $item->getName());
     }
 
     /**
@@ -117,7 +119,7 @@ class AttributeTest extends \PHPUnit_Framework_TestCase
      */
     public function getData()
     {
-        $json = file_get_contents(__DIR__ . '/fixtures/attributes.json');
+        $json = file_get_contents(__DIR__ . '/fixtures/sale-terms.json');
         $stream = fopen('data://text/json,' . $json, 'r');
         return new Stream($stream);
     }

@@ -122,7 +122,7 @@ class CategoryTest extends \PHPUnit_Framework_TestCase
      */
     public function getData()
     {
-        $json = file_get_contents(__DIR__ . '/category.json');
+        $json = file_get_contents(__DIR__ . '/fixtures/category.json');
         $stream = fopen('data://text/json,' . $json, 'r');
         return new Stream($stream);
     }
