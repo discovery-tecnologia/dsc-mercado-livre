@@ -15,6 +15,12 @@ class AttributeCombination
      * @var string
      * @JMS\Type("string")
      */
+    private $id;
+
+    /**
+     * @var string
+     * @JMS\Type("string")
+     */
     private $name;
 
     /**
@@ -28,6 +34,24 @@ class AttributeCombination
      * @JMS\Type("string")
      */
     private $valueName;
+
+    /**
+     * @return string
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param string $name
+     * @return AttributeCombination
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+        return $this;
+    }
 
     /**
      * @return string
