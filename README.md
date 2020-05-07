@@ -422,6 +422,9 @@ $category = $service->findCategory('MLA5725');
 // Consulta a lista de categorias de uma determinada região (Site ID)
 $categories = $service->findCategories(Site::BRASIL);
 
+// Consulta a lista de categorias a partir do título de um produto
+$categories = $service->findCategoryPredictor(Site::BRASIL, 'titulo-do-seu-produto');
+
 // Consulta os atributos de uma determinada categoria
 $attributes = $service->findCategoryAttributes('MLA5725');
 
