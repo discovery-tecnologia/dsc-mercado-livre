@@ -59,7 +59,7 @@ class CategoryService extends Service
             ListingType::class
         );
     }
-          
+
     /**
      * @param string $code
      * @return Collection
@@ -69,6 +69,24 @@ class CategoryService extends Service
         return $this->getResponse(
             $this->get("/categories/$code/sale_terms"),
             SaleTerm::class
+        );
+    }
+
+    /**
+     * @param string $site
+     * @param string $title
+     * @return Category
+     */
+    public function findCategoryPredictor($site, $title)
+    {
+        return $this->getResponse(
+            $this->get(
+                "/sites/$site/category_predictor/predict",
+                [
+                    "title" => $title
+                ]
+            ),
+            Category::class
         );
     }
 }
