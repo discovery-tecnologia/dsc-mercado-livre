@@ -23,4 +23,16 @@ class PaymentService extends BaseService implements ResourceService
             Payment::class
         );
     }
+
+    /**
+     * @param $code
+     * @return Payment
+     */
+    public function findPaymentOfSeller($code)
+    {
+        return $this->getResponse(
+            $this->get('/collections/' . $code),
+            Payment::class
+        );
+    }
 }

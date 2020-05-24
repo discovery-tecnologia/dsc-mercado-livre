@@ -1,0 +1,71 @@
+{
+    "id": 6766374002,
+    "site_id": "MLB",
+    "date_created": "2020-05-22T06:55:30.000-04:00",
+    "date_approved": "2020-05-22T06:55:31.000-04:00",
+    "money_release_date": "2020-06-19T06:55:31.000-04:00",
+    "last_modified": "2020-05-22T06:55:31.000-04:00",
+    "reason": "Item Teste Nao Ofertar",
+    "currency_id": "BRL",
+    "transaction_amount": 2550,
+    "total_paid_amount": 2550,
+    "shipping_cost": 0,
+    "coupon_amount": 0,
+    "coupon_id": null,
+    "status": "approved",
+    "status_detail": "accredited",
+    "installment_amount": 2550,
+    "payment_type": "credit_card",
+    "payment_method_id": "elo",
+    "marketplace": "MELI",
+    "operation_type": "regular_payment",
+    "deduction_schema": null,
+    "amount_refunded": 0,
+    "api_version": "2",
+    "concept_id": null,
+    "concept_amount": 0,
+    "sponsor_id": null,
+    "overpaid_amount": 0,
+    "external_reference": "2460122623",
+    "order_id": "2460122623",
+    "merchant_order_id": null,
+    "tags": [],
+    "refunds": [],
+    "deferred_period": null,
+    "status_code": null,
+    "account_money_amount": 0,
+    "transaction_order_id": null,
+    "additional_info": {},
+    "cardholder": {
+        "name": "APRO PEDRO DE LARA",
+        "identification": {
+            "number": "32247633021",
+            "type": "CPF"
+        }
+    },
+    "statement_descriptor": "MERCADOLIVRE",
+    "installments": 1,
+    "authorization_code": "1234567",
+    "issuer_id": 687,
+    "net_received_amount": 2269.5,
+    "mercadopago_fee": 64.98,
+    "marketplace_fee": 215.52,
+    "discount_fee": 0,
+    "coupon_fee": 0,
+    "finance_fee": 0,
+    "released": "no",
+    "collector_id": 567868047,
+    "payer": {
+        "id": 567917311,
+        "email": "ttest.l5k55r2-ogi2dknjyg4ytkojv@mail.mercadolivre.com",
+        "phone": {
+            "area_code": "01",
+            "number": "1111-1111",
+            "extension": null
+        },
+        "identification": {
+            "number": null,
+            "type": null
+        }
+    }
+}

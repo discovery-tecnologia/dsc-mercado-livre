@@ -66,6 +66,13 @@ class Payment
     private $orderId;
 
     /**
+     * @var CardHolder
+     * @JMS\SerializedName("cardholder")
+     * @JMS\Type("Dsc\MercadoLivre\Resources\Payment\CardHolder")
+     */
+    private $cardHolder;
+
+    /**
      * @var string
      * @JMS\Type("string")
      */
@@ -90,20 +97,20 @@ class Payment
     private $currencyId;
 
     /**
-     * @var integer
-     * @JMS\Type("integer")
+     * @var double
+     * @JMS\Type("double")
      */
     private $transactionAmount;
 
     /**
-     * @var integer
-     * @JMS\Type("integer")
+     * @var double
+     * @JMS\Type("double")
      */
     private $totalPaidAmount;
 
     /**
-     * @var integer
-     * @JMS\Type("integer")
+     * @var double
+     * @JMS\Type("double")
      */
     private $shippingCost;
 
@@ -118,6 +125,12 @@ class Payment
      * @JMS\Type("string")
      */
     private $status;
+
+    /**
+     * @var string
+     * @JMS\Type("string")
+     */
+    private $statusDetail;
 
     /**
      * @var string
@@ -154,6 +167,48 @@ class Payment
      * @JMS\Type("integer")
      */
     private $issuerId;
+
+    /**
+     * @var double
+     * @JMS\Type("double")
+     */
+    private $netReceivedAmount;
+
+    /**
+     * @var double
+     * @var @JMS\Type("double")
+     */
+    private $mercadopagoFee;
+
+    /**
+     * @var double
+     * @var @JMS\Type("double")
+     */
+    private $discountFee;
+
+    /**
+     * @var double
+     * @var @JMS\Type("double")
+     */
+    private $couponFee;
+
+    /**
+     * @var double
+     * @var @JMS\Type("double")
+     */
+    private $financeFee;
+
+    /**
+     * @var string
+     * @var @JMS\Type("string")
+     */
+    private $released;
+
+    /**
+     * @var Payer
+     * @JMS\Type("Dsc\MercadoLivre\Resources\Payment\Payer")
+     */
+    private $payer;
 
     /**
      * @var string
@@ -246,8 +301,8 @@ class Payment
     private $marketplace;
 
     /**
-     * @var integer
-     * @JMS\Type("integer")
+     * @var double
+     * @JMS\Type("double")
      */
     private $marketplaceFee;
 
@@ -426,6 +481,24 @@ class Payment
     }
 
     /**
+     * @return CardHolder
+     */
+    public function getCardHolder()
+    {
+        return $this->cardHolder;
+    }
+
+    /**
+     * @param CardHolder $cardHolder
+     * @return Payment
+     */
+    public function setCardHolder(CardHolder $cardHolder)
+    {
+        $this->cardHolder = $cardHolder;
+        return $this;
+    }
+
+    /**
      * @return string
      */
     public function getExternalReference()
@@ -498,7 +571,7 @@ class Payment
     }
 
     /**
-     * @return int
+     * @return float
      */
     public function getTransactionAmount()
     {
@@ -506,7 +579,7 @@ class Payment
     }
 
     /**
-     * @param int $transactionAmount
+     * @param float $transactionAmount
      * @return Payment
      */
     public function setTransactionAmount($transactionAmount)
@@ -516,7 +589,7 @@ class Payment
     }
 
     /**
-     * @return int
+     * @return float
      */
     public function getTotalPaidAmount()
     {
@@ -524,7 +597,7 @@ class Payment
     }
 
     /**
-     * @param int $totalPaidAmount
+     * @param float $totalPaidAmount
      * @return Payment
      */
     public function setTotalPaidAmount($totalPaidAmount)
@@ -534,7 +607,7 @@ class Payment
     }
 
     /**
-     * @return int
+     * @return float
      */
     public function getShippingCost()
     {
@@ -542,7 +615,7 @@ class Payment
     }
 
     /**
-     * @param int $shippingCost
+     * @param float $shippingCost
      * @return Payment
      */
     public function setShippingCost($shippingCost)
@@ -584,6 +657,24 @@ class Payment
     public function setStatus($status)
     {
         $this->status = $status;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getStatusDetail()
+    {
+        return $this->statusDetail;
+    }
+
+    /**
+     * @param string $statusDetail
+     * @return Payment
+     */
+    public function setStatusDetail($statusDetail)
+    {
+        $this->statusDetail = $statusDetail;
         return $this;
     }
 
@@ -692,6 +783,132 @@ class Payment
     public function setIssuerId($issuerId)
     {
         $this->issuerId = $issuerId;
+        return $this;
+    }
+
+    /**
+     * @return float
+     */
+    public function getNetReceivedAmount()
+    {
+        return $this->netReceivedAmount;
+    }
+
+    /**
+     * @param float $netReceivedAmount
+     * @return Payment
+     */
+    public function setNetReceivedAmount($netReceivedAmount)
+    {
+        $this->netReceivedAmount = $netReceivedAmount;
+        return $this;
+    }
+
+    /**
+     * @return float
+     */
+    public function getMercadopagoFee()
+    {
+        return $this->mercadopagoFee;
+    }
+
+    /**
+     * @param float $mercadopagoFee
+     * @return Payment
+     */
+    public function setMercadopagoFee($mercadopagoFee)
+    {
+        $this->mercadopagoFee = $mercadopagoFee;
+        return $this;
+    }
+
+    /**
+     * @return float
+     */
+    public function getDiscountFee()
+    {
+        return $this->discountFee;
+    }
+
+    /**
+     * @param float $discountFee
+     * @return Payment
+     */
+    public function setDiscountFee($discountFee)
+    {
+        $this->discountFee = $discountFee;
+        return $this;
+    }
+
+    /**
+     * @return float
+     */
+    public function getCouponFee()
+    {
+        return $this->couponFee;
+    }
+
+    /**
+     * @param float $couponFee
+     * @return Payment
+     */
+    public function setCouponFee($couponFee)
+    {
+        $this->couponFee = $couponFee;
+        return $this;
+    }
+
+    /**
+     * @return float
+     */
+    public function getFinanceFee()
+    {
+        return $this->financeFee;
+    }
+
+    /**
+     * @param float $financeFee
+     * @return Payment
+     */
+    public function setFinanceFee($financeFee)
+    {
+        $this->financeFee = $financeFee;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getReleased()
+    {
+        return $this->released;
+    }
+
+    /**
+     * @param string $released
+     * @return Payment
+     */
+    public function setReleased($released)
+    {
+        $this->released = $released;
+        return $this;
+    }
+
+    /**
+     * @return Payer
+     */
+    public function getPayer()
+    {
+        return $this->payer;
+    }
+
+    /**
+     * @param Payer $payer
+     * @return Payment
+     */
+    public function setPayer($payer)
+    {
+        $this->payer = $payer;
         return $this;
     }
 
@@ -966,7 +1183,7 @@ class Payment
     }
 
     /**
-     * @return int
+     * @return float
      */
     public function getMarketplaceFee()
     {
@@ -974,7 +1191,7 @@ class Payment
     }
 
     /**
-     * @param int $marketplaceFee
+     * @param float $marketplaceFee
      * @return Payment
      */
     public function setMarketplaceFee($marketplaceFee)

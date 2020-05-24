@@ -14,6 +14,7 @@ Biblioteca de integração com a API do Mercado Livre.
 - Consulta de moedas
 - Consulta e publicação de anúncios
 - Consulta de pedidos
+- Consulta de pagamentos
 
 > ### Requisitos
 
@@ -508,6 +509,25 @@ $limit = 50;
 $offset = 0;
 $sort = 'date_desc';
 $orders = $service->findOrdersBySeller('SELLER-ID', $limit, $offset, $sort);
+```
+
+- Consulta de pagamentos
+```php
+<?php
+// Consideramos que já existe um autoloader compatível com a PSR-4 registrado
+
+use Dsc\MercadoLivre\Meli;
+use Dsc\MercadoLivre\Resources\Order\OrderService;
+
+$meli = new Meli('APP-ID', 'SECRET-ID');
+
+$service = new PaymentService($meli);
+
+// Consulta um pagamento
+$order = $service->findPayment('PAYMENT-ID');
+
+// Consulta um pagamento de vendedor
+$order = $service->findPaymentOfSeller('PAYMENT-ID');
 ```
 
 > ##### Alterando o site
