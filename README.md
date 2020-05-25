@@ -517,7 +517,7 @@ $orders = $service->findOrdersBySeller('SELLER-ID', $limit, $offset, $sort);
 // Consideramos que já existe um autoloader compatível com a PSR-4 registrado
 
 use Dsc\MercadoLivre\Meli;
-use Dsc\MercadoLivre\Resources\Order\OrderService;
+use Dsc\MercadoLivre\Resources\Payment\PaymentService;
 
 $meli = new Meli('APP-ID', 'SECRET-ID');
 
@@ -528,6 +528,22 @@ $order = $service->findPayment('PAYMENT-ID');
 
 // Consulta um pagamento de vendedor
 $order = $service->findPaymentOfSeller('PAYMENT-ID');
+```
+
+- Consulta de dados de envio
+```php
+<?php
+// Consideramos que já existe um autoloader compatível com a PSR-4 registrado
+
+use Dsc\MercadoLivre\Meli;
+use Dsc\MercadoLivre\Resources\Shipment\ShipmentService;
+
+$meli = new Meli('APP-ID', 'SECRET-ID');
+
+$service = new ShipmentService($meli);
+
+// Consulta um envio
+$shipment = $service->findShipment('SHIPMENT-ID');
 ```
 
 > ##### Alterando o site

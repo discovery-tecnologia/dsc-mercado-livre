@@ -19,7 +19,6 @@ use Dsc\MercadoLivre\Resources\Seller\Phone as PhoneSeller;
 use Dsc\MercadoLivre\Resources\Seller\Seller;
 use Dsc\MercadoLivre\Resources\Shipping\ReceiverAddress;
 use Dsc\MercadoLivre\Resources\Shipping\Shipping;
-use GuzzleHttp\Psr7\Response;
 use GuzzleHttp\Psr7\Stream;
 
 class OrderTest extends \PHPUnit_Framework_TestCase
