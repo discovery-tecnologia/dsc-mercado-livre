@@ -1,15 +1,15 @@
 <?php
 /**
- * Class Country
+ * Class Municipality
  *
  * @author Diego Wagner <diegowagner4@gmail.com>
  * http://www.discoverytecnologia.com.br
  */
-namespace Dsc\MercadoLivre\Resources\Shipment\Address;
+namespace Dsc\MercadoLivre\Requests\Address;
 
 use JMS\Serializer\Annotation as JMS;
 
-class Country
+class Municipality
 {
     /**
      * @var string
@@ -33,7 +33,7 @@ class Country
 
     /**
      * @param string $id
-     * @return Country
+     * @return Municipality
      */
     public function setId($id)
     {
@@ -51,7 +51,7 @@ class Country
 
     /**
      * @param string $name
-     * @return Country
+     * @return Municipality
      */
     public function setName($name)
     {

@@ -8,8 +8,7 @@
 namespace Dsc\MercadoLivre\Resources\Shipment;
 
 use Dsc\MercadoLivre\Resources\Shipment\Option\Option;
-use Dsc\MercadoLivre\Resources\Shipping\ReceiverAddress;
-use Dsc\MercadoLivre\Resources\Shipping\SenderAddress;
+use Dsc\MercadoLivre\Resources\Shipping\PersonAddress;
 use JMS\Serializer\Annotation as JMS;
 
 class Shipment
@@ -76,13 +75,13 @@ class Shipment
 
     /**
      * @var \DateTime
-     * @JMS\Type("DateTime<'Y-m-d\TH:i:s.000-04:00'>")
+     * @JMS\Type("DateTime<'Y-m-d\TH:i:s.u-04:00'>")
      */
     private $dateCreated;
 
     /**
      * @var \DateTime
-     * @JMS\Type("DateTime<'Y-m-d\TH:i:s.000-04:00'>")
+     * @JMS\Type("DateTime<'Y-m-d\TH:i:s.u-04:00'>")
      */
     private $lastUpdated;
 
@@ -117,8 +116,8 @@ class Shipment
     private $senderId;
 
     /**
-     * @var SenderAddress
-     * @JMS\Type("Dsc\MercadoLivre\Resources\Shipment\SenderAddress")
+     * @var PersonAddress
+     * @JMS\Type("Dsc\MercadoLivre\Resources\Shipment\PersonAddress")
      */
     private $senderAddress;
 
@@ -129,8 +128,8 @@ class Shipment
     private $receiverId;
 
     /**
-     * @var ReceiverAddress
-     * @JMS\Type("Dsc\MercadoLivre\Resources\Shipment\ReceiverAddress")
+     * @var PersonAddress
+     * @JMS\Type("Dsc\MercadoLivre\Resources\Shipment\PersonAddress")
      */
     private $receiverAddress;
 
@@ -514,7 +513,7 @@ class Shipment
     }
 
     /**
-     * @return SenderAddress
+     * @return PersonAddress
      */
     public function getSenderAddress()
     {
@@ -522,7 +521,7 @@ class Shipment
     }
 
     /**
-     * @param SenderAddress $senderAddress
+     * @param PersonAddress $senderAddress
      * @return Shipment
      */
     public function setSenderAddress($senderAddress)
@@ -550,7 +549,7 @@ class Shipment
     }
 
     /**
-     * @return ReceiverAddress
+     * @return PersonAddress
      */
     public function getReceiverAddress()
     {
@@ -558,7 +557,7 @@ class Shipment
     }
 
     /**
-     * @param ReceiverAddress $receiverAddress
+     * @param PersonAddress $receiverAddress
      * @return Shipment
      */
     public function setReceiverAddress($receiverAddress)
@@ -635,7 +634,7 @@ class Shipment
      */
     public function setMarketPlace($marketPlace)
     {
-        $this->marketplace = $marketplace;
+        $this->marketPlace = $marketPlace;
         return $this;
     }
 

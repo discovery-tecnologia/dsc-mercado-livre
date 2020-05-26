@@ -5,11 +5,11 @@ namespace Dsc\MercadoLivre\Resources\Shipment;
 use Dsc\MercadoLivre\Client;
 use Dsc\MercadoLivre\Environment;
 use Dsc\MercadoLivre\MeliInterface;
-use Dsc\MercadoLivre\Resources\Shipment\Address\City;
-use Dsc\MercadoLivre\Resources\Shipment\Address\Country;
-use Dsc\MercadoLivre\Resources\Shipment\Address\Municipality;
-use Dsc\MercadoLivre\Resources\Shipment\Address\Neighborhood;
-use Dsc\MercadoLivre\Resources\Shipment\Address\State;
+use Dsc\MercadoLivre\Requests\Address\City;
+use Dsc\MercadoLivre\Requests\Address\Country;
+use Dsc\MercadoLivre\Requests\Address\Municipality;
+use Dsc\MercadoLivre\Requests\Address\Neighborhood;
+use Dsc\MercadoLivre\Requests\Address\State;
 use Dsc\MercadoLivre\Resources\Shipment\Option\EstimatedDelivery;
 use Dsc\MercadoLivre\Resources\Shipment\Option\EstimatedDeliveryTime;
 use Dsc\MercadoLivre\Resources\Shipment\Option\Option;
@@ -35,7 +35,7 @@ class ShipmentTest extends \PHPUnit_Framework_TestCase
             ->method('get')
             ->willReturn($data);
 
-        /** @var OrderService $service */
+        /** @var ShipmentService $service */
         $service = $this->getMockForAbstractClass(ShipmentService::class, [$meli, $client]);
         $this->shipment = $service->findShipment('123');
     }
@@ -99,9 +99,9 @@ class ShipmentTest extends \PHPUnit_Framework_TestCase
      */
     public function assertingSenderAddressInShipmentMappingAttributes()
     {
-        $this->assertInstanceOf(SenderAddress::class, $this->shipment->getSenderAddress());
+        $this->assertInstanceOf(PersonAddress::class, $this->shipment->getSenderAddress());
 
-        /** @var SenderAddress */
+        /** @var PersonAddress */
         $senderAddress = $this->shipment->getSenderAddress();
         $this->assertEquals(1105171985, $senderAddress->getId());
         $this->assertEquals("XXXXXXX", $senderAddress->getAddressLine());
@@ -143,9 +143,9 @@ class ShipmentTest extends \PHPUnit_Framework_TestCase
      */
     public function assertingReceiverAddressInShipmentMappingAttributes()
     {
-        $this->assertInstanceOf(ReceiverAddress::class, $this->shipment->getReceiverAddress());
+        $this->assertInstanceOf(PersonAddress::class, $this->shipment->getReceiverAddress());
 
-        /** @var ReceiverAddress */
+        /** @var PersonAddress */
         $receiverAddress = $this->shipment->getReceiverAddress();
         $this->assertEquals(1104239025, $receiverAddress->getId());
         $this->assertEquals("Rua Orxxxea SN", $receiverAddress->getAddressLine());

@@ -1,21 +1,21 @@
 <?php
 /**
- * Class SenderAddress
+ * Class PersonAddress
  *
  * @author Diego Wagner <diegowagner4@gmail.com>
  * http://www.discoverytecnologia.com.br
  */
 namespace Dsc\MercadoLivre\Resources\Shipment;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Dsc\MercadoLivre\Resources\Shipment\Address\City;
-use Dsc\MercadoLivre\Resources\Shipment\Address\Country;
-use Dsc\MercadoLivre\Resources\Shipment\Address\Municipality;
-use Dsc\MercadoLivre\Resources\Shipment\Address\Neighborhood;
-use Dsc\MercadoLivre\Resources\Shipment\Address\State;
+use Dsc\MercadoLivre\Requests\Address\City;
+use Dsc\MercadoLivre\Requests\Address\Country;
+use Dsc\MercadoLivre\Requests\Address\Municipality;
+use Dsc\MercadoLivre\Requests\Address\Neighborhood;
+use Dsc\MercadoLivre\Requests\Address\State;
+
 use JMS\Serializer\Annotation as JMS;
 
-class SenderAddress
+class PersonAddress
 {
     /**
      * @var integer
@@ -55,31 +55,31 @@ class SenderAddress
 
     /**
      * @var City
-     * @JMS\Type("Dsc\MercadoLivre\Resources\Shipment\Address\City")
+     * @JMS\Type("Dsc\MercadoLivre\Requests\Address\City")
      */
     private $city;
 
     /**
      * @var State
-     * @JMS\Type("Dsc\MercadoLivre\Resources\Shipment\Address\State")
+     * @JMS\Type("Dsc\MercadoLivre\Requests\Address\State")
      */
     private $state;
 
     /**
      * @var Country
-     * @JMS\Type("Dsc\MercadoLivre\Resources\Shipment\Address\Country")
+     * @JMS\Type("Dsc\MercadoLivre\Requests\Address\Country")
      */
     private $country;
 
     /**
      * @var Neighborhood
-     * @JMS\Type("Dsc\MercadoLivre\Resources\Shipment\Address\Neighborhood")
+     * @JMS\Type("Dsc\MercadoLivre\Requests\Address\Neighborhood")
      */
     private $neighborhood;
 
     /**
      * @var Municipality
-     * @JMS\Type("Dsc\MercadoLivre\Resources\Shipment\Address\Municipality")
+     * @JMS\Type("Dsc\MercadoLivre\Requests\Address\Municipality")
      */
     private $municipality;
 
@@ -153,7 +153,7 @@ class SenderAddress
 
     /**
      * @param integer $id
-     * @return SenderAddress
+     * @return PersonAddress
      */
     public function setId($id)
     {
@@ -171,7 +171,7 @@ class SenderAddress
 
     /**
      * @param string $addressLine
-     * @return SenderAddress
+     * @return PersonAddress
      */
     public function setAddressLine($addressLine)
     {
@@ -189,7 +189,7 @@ class SenderAddress
 
     /**
      * @param string $streetName
-     * @return SenderAddress
+     * @return PersonAddress
      */
     public function setStreetName($streetName)
     {
@@ -207,7 +207,7 @@ class SenderAddress
 
     /**
      * @param string $streetNumber
-     * @return SenderAddress
+     * @return PersonAddress
      */
     public function setStreetNumber($streetNumber)
     {
@@ -225,7 +225,7 @@ class SenderAddress
 
     /**
      * @param string $comment
-     * @return SenderAddress
+     * @return PersonAddress
      */
     public function setComment($comment)
     {
@@ -243,7 +243,7 @@ class SenderAddress
 
     /**
      * @param string $zipCode
-     * @return SenderAddress
+     * @return PersonAddress
      */
     public function setZipCode($zipCode)
     {
@@ -261,7 +261,7 @@ class SenderAddress
 
     /**
      * @param City $city
-     * @return SenderAddress
+     * @return PersonAddress
      */
     public function setCity($city)
     {
@@ -279,7 +279,7 @@ class SenderAddress
 
     /**
      * @param State $state
-     * @return SenderAddress
+     * @return PersonAddress
      */
     public function setState($state)
     {
@@ -297,7 +297,7 @@ class SenderAddress
 
     /**
      * @param Country $country
-     * @return SenderAddress
+     * @return PersonAddress
      */
     public function setCountry($country)
     {
@@ -315,7 +315,7 @@ class SenderAddress
 
     /**
      * @param Neighborhood $neighborhood
-     * @return SenderAddress
+     * @return PersonAddress
      */
     public function setNeighborhood($neighborhood)
     {
@@ -333,7 +333,7 @@ class SenderAddress
 
     /**
      * @param Municipality $municipality
-     * @return SenderAddress
+     * @return PersonAddress
      */
     public function setMunicipality($municipality)
     {
@@ -351,7 +351,7 @@ class SenderAddress
 
     /**
      * @param string $agency
-     * @return SenderAddress
+     * @return PersonAddress
      */
     public function setAgency($agency)
     {
@@ -360,7 +360,7 @@ class SenderAddress
     }
 
     /**
-     * @return ArrayCollection
+     * @return array
      */
     public function getTypes()
     {
@@ -368,8 +368,8 @@ class SenderAddress
     }
 
     /**
-     * @param ArrayCollection $types
-     * @return SenderAddress
+     * @param array $types
+     * @return PersonAddress
      */
     public function setTypes($types)
     {
@@ -387,7 +387,7 @@ class SenderAddress
 
     /**
      * @param double $latitude
-     * @return SenderAddress
+     * @return PersonAddress
      */
     public function setLatitude($latitude)
     {
@@ -405,7 +405,7 @@ class SenderAddress
 
     /**
      * @param double $longitude
-     * @return SenderAddress
+     * @return PersonAddress
      */
     public function setLongitude($longitude)
     {
@@ -423,7 +423,7 @@ class SenderAddress
 
     /**
      * @param string $geolocationType
-     * @return SenderAddress
+     * @return PersonAddress
      */
     public function setGeolocationType($geolocationType)
     {
@@ -441,7 +441,7 @@ class SenderAddress
 
     /**
      * @param \DateTime $geolocationLastUpdated
-     * @return SenderAddress
+     * @return PersonAddress
      */
     public function setGeolocationLastUpdated($geolocationLastUpdated)
     {
@@ -459,7 +459,7 @@ class SenderAddress
 
     /**
      * @param string $geolocationSource
-     * @return SenderAddress
+     * @return PersonAddress
      */
     public function setGeolocationSource($geolocationSource)
     {
@@ -477,7 +477,7 @@ class SenderAddress
 
     /**
      * @param string $deliveryPreference
-     * @return SenderAddress
+     * @return PersonAddress
      */
     public function setDeliveryPreference($deliveryPreference)
     {
@@ -495,7 +495,7 @@ class SenderAddress
 
     /**
      * @param string $receiverName
-     * @return SenderAddress
+     * @return PersonAddress
      */
     public function setReceiverName($receiverName)
     {
@@ -513,7 +513,7 @@ class SenderAddress
 
     /**
      * @param string $receiverPhone
-     * @return SenderAddress
+     * @return PersonAddress
      */
     public function setReceiverPhone($receiverPhone)
     {
