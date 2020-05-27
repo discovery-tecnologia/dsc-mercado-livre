@@ -25,4 +25,12 @@ Todas as solicitações de melhoria serão muito bem vindas, se você deseja con
 - 1 Pull Request por nova feature;
 - Seja coerente nos commits, facilita a conferência e o entendimento, com isso, a chance de ser aprovado será maior;
 
+## Padrao
+
+Devemos seguir alguns padroes de acordo com a nomenclatura e diretorios. Seguindo a estrutura da [docs do Mercado Livre](https://developers.mercadolivre.com.br/pt_br/api-docs-pt-br)
+
+- O namespace `Requests\*` ficam todas as chamadas publicas da API
+- O namespace `Resources\*` ficam as "privadas" que necessitam de Access-Token
+
+
 ### Contribua :)
