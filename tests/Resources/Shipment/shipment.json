@@ -1,0 +1,186 @@
+{
+    "id": 30024984097,
+    "mode": "me2",
+    "created_by": "receiver",
+    "order_id": 2460122623,
+    "order_cost": 2550,
+    "base_cost": 18.9,
+    "site_id": "MLB",
+    "status": "ready_to_ship",
+    "substatus": "ready_to_print",
+    "status_history": {
+        "date_cancelled": null,
+        "date_delivered": null,
+        "date_first_visit": null,
+        "date_handling": "2020-05-22T06:55:51.000-04:00",
+        "date_not_delivered": null,
+        "date_ready_to_ship": "2020-05-22T06:55:51.000-04:00",
+        "date_shipped": null,
+        "date_returned": null
+    },
+    "substatus_history": [],
+    "date_created": "2020-05-22T06:55:30.000-04:00",
+    "last_updated": "2020-05-22T06:55:52.000-04:00",
+    "tracking_number": "1010101589653",
+    "tracking_method": "Sedex",
+    "service_id": 22,
+    "carrier_info": null,
+    "sender_id": 567868047,
+    "sender_address": {
+        "id": 1105171985,
+        "address_line": "XXXXXXX",
+        "street_name": "XXXXXXX",
+        "street_number": "XXXXXXX",
+        "comment": null,
+        "zip_code": "91569210",
+        "city": {
+            "id": "TUxCQ1BPUjgwZTJl",
+            "name": "Porto Alegre"
+        },
+        "state": {
+            "id": "BR-RS",
+            "name": "Rio Grande do Sul"
+        },
+        "country": {
+            "id": "BR",
+            "name": "Brasil"
+        },
+        "neighborhood": {
+            "id": null,
+            "name": "Lomba do Pinheiro"
+        },
+        "municipality": {
+            "id": null,
+            "name": null
+        },
+        "agency": null,
+        "types": [
+            "billing",
+            "default_selling_address",
+            "shipping"
+        ],
+        "latitude": 0,
+        "longitude": 0,
+        "geolocation_type": "GEOMETRIC_CENTER",
+        "geolocation_last_updated": "2020-05-21T09:57:49Z",
+        "geolocation_source": "google-maps"
+    },
+    "receiver_id": 567917311,
+    "receiver_address": {
+        "id": 1104239025,
+        "address_line": "Rua Orxxxea SN",
+        "street_name": "Rua Orxxxa",
+        "street_number": "SN",
+        "comment": "Proximo A Escola",
+        "zip_code": "91569210",
+        "city": {
+            "id": "TUxCQ1BPUjgwZTJl",
+            "name": "Porto Alegre"
+        },
+        "state": {
+            "id": "BR-RS",
+            "name": "Rio Grande do Sul"
+        },
+        "country": {
+            "id": "BR",
+            "name": "Brasil"
+        },
+        "neighborhood": {
+            "id": null,
+            "name": "Lomba do Pinheiro"
+        },
+        "municipality": {
+            "id": null,
+            "name": null
+        },
+        "agency": null,
+        "types": [
+            "default_buying_address"
+        ],
+        "latitude": -30.117075,
+        "longitude": -51.112478,
+        "geolocation_type": "GEOMETRIC_CENTER",
+        "geolocation_last_updated": "2020-05-17T19:16:23Z",
+        "geolocation_source": "google-maps",
+        "delivery_preference": "business",
+        "receiver_name": "Teste Endereço",
+        "receiver_phone": "11 23456789"
+    },
+    "shipping_items": [
+        {
+            "id": "MLB1530491878",
+            "description": "Item Teste Nao Ofertar",
+            "quantity": 3,
+            "dimensions": "9.0x25.0x36.0,1032.0",
+            "dimensions_source": {
+                "id": "MLB1530491878",
+                "origin": "similarity"
+            }
+        }
+    ],
+    "shipping_option": {
+        "id": 3264369961,
+        "shipping_method_id": 182,
+        "name": "Expresso",
+        "currency_id": "BRL",
+        "list_cost": 62.82,
+        "cost": 0,
+        "delivery_type": "estimated",
+        "estimated_schedule_limit": {
+            "date": null
+        },
+        "estimated_delivery_time": {
+            "type": "known_frame",
+            "date": "2020-05-26T00:00:00.000-03:00",
+            "unit": "hour",
+            "offset": {
+                "date": "2020-05-28T00:00:00.000-03:00",
+                "shipping": 48
+            },
+            "time_frame": {
+                "from": null,
+                "to": null
+            },
+            "pay_before": "2020-05-22T12:00:00.000-03:00",
+            "shipping": 48,
+            "handling": 0,
+            "schedule": null
+        },
+        "estimated_delivery_limit": {
+            "date": "2020-06-12T00:00:00.000-03:00",
+            "offset": 240
+        },
+        "estimated_delivery_final": {
+            "date": "2020-07-13T00:00:00.000-03:00",
+            "offset": 720
+        },
+        "estimated_delivery_extended": {
+            "date": "2020-06-04T00:00:00.000-03:00",
+            "offset": 120
+        },
+        "estimated_handling_limit": {
+            "date": "2020-05-22T00:00:00.000-03:00"
+        }
+    },
+    "comments": null,
+    "date_first_printed": null,
+    "market_place": "MELI",
+    "return_details": null,
+    "tags": [
+        "test_shipment"
+    ],
+    "delay": [
+        "handling_delayed"
+    ],
+    "type": "forward",
+    "logistic_type": "drop_off",
+    "application_id": null,
+    "return_tracking_number": null,
+    "cost_components": {
+        "special_discount": 0,
+        "loyal_discount": 0,
+        "compensation": 0,
+        "gap_discount": 0,
+        "ratio": 81.72
+    }
+}
