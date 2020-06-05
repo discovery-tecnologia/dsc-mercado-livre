@@ -1,0 +1,43 @@
+{
+    "id": "a054f8ebe4644f8dab8ba5e8f53ed07a",
+    "site_id": "MLB",
+    "client_id": 6632837458654806,
+    "from": {
+        "user_id": "567868047",
+        "email": "test_user_9225082@testuser.com",
+        "name": "Test Test"
+    },
+    "to": {
+        "user_id": "567917311",
+        "email": "test_user_69534885@testuser.com",
+        "name": "Test Test"
+    },
+    "status": "available",
+    "subject": null,
+    "text": "Test message ToUserId 2",
+    "message_date": {
+        "received": "2020-05-28T10:10:37.054Z",
+        "available": "2020-05-28T10:10:37.142Z",
+        "notified": null,
+        "created": "2020-05-28T10:10:37.054Z",
+        "read": null
+    },
+    "message_moderation": {
+        "status": "clean",
+        "reason": null,
+        "source": "online",
+        "moderation_date": "2020-05-28T10:10:37.142Z"
+    },
+    "message_attachments": null,
+    "message_resources": [
+        {
+            "id": "2467189254",
+            "name": "packs"
+        },
+        {
+            "id": "567868047",
+            "name": "sellers"
+        }
+    ],
+    "conversation_first_message": false
+}
