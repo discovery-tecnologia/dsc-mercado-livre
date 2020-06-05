@@ -15,6 +15,7 @@ Biblioteca de integração com a API do Mercado Livre.
 - Consulta e publicação de anúncios
 - Consulta de pedidos
 - Consulta de pagamentos
+- Envio de mensagens de pós venda para cliente
 
 > ### Requisitos
 
@@ -524,10 +525,10 @@ $meli = new Meli('APP-ID', 'SECRET-ID');
 $service = new PaymentService($meli);
 
 // Consulta um pagamento
-$order = $service->findPayment('PAYMENT-ID');
+$payment = $service->findPayment('PAYMENT-ID');
 
 // Consulta um pagamento de vendedor
-$order = $service->findPaymentOfSeller('PAYMENT-ID');
+$payment = $service->findPaymentOfSeller('PAYMENT-ID');
 ```
 
 - Consulta de dados de envio
@@ -544,6 +545,38 @@ $service = new ShipmentService($meli);
 
 // Consulta um envio
 $shipment = $service->findShipment('SHIPMENT-ID');
+```
+
+- Envio de mensagens de pós venda para cliente
+```php
+<?php
+// Consideramos que já existe um autoloader compatível com a PSR-4 registrado
+
+use Dsc\MercadoLivre\Meli;
+use Dsc\MercadoLivre\Resources\Message\MessageService;
+use Dsc\MercadoLivre\Resources\Message\From;
+use Dsc\MercadoLivre\Resources\Message\Message;
+use Dsc\MercadoLivre\Resources\Message\To;
+
+$meli = new Meli('APP-ID', 'SECRET-ID');
+
+$service = new MessageService($meli);
+
+// identifica o vendedor
+$from = new From();
+$from->setUserId('SELLER-ID');
+
+// identifica o cliente
+$to = new To();
+$to->setUserId('USER-ID');
+
+$message = new Message();
+$message->setFrom($from);
+$message->setTo($to);
+$message->setText("Text message");
+
+// Consulta um envio
+$messageResponse = $service->send($message, 'ORDER-ID', 'SELLER-ID');
 ```
 
 > ##### Alterando o site
