@@ -74,7 +74,7 @@ class OrdersSearchTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals("123", $order->getStatusDetail()->getCode());
         $this->assertEquals("2020-06-15", $order->getDateCreated()->format("Y-m-d"));
         $this->assertEquals("2020-06-15", $order->getDateClosed()->format("Y-m-d"));
-        $this->assertEquals("2020-06-15UTC13:37:52", $order->getDateLastUpdated()->format("Y-m-dTH:i:s"));
+        $this->assertEquals("2020-06-15 13:37:52", $order->getDateLastUpdated()->format("Y-m-d H:i:s"));
         $this->assertEquals(10, $order->getTotalAmount());
         $this->assertEquals("ARS", $order->getCurrencyId());
         $this->assertEquals(["not_delivered", "paid"], $order->getTags());
