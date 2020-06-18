@@ -36,7 +36,7 @@ class MessageCreateTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function assertingMappingMappingAttributes()
+    public function assertingMappingAttributes()
     {
         $this->assertInstanceOf(MessageResponse::class, $this->messageResponse);
         $this->assertEquals("a054f8ebe4644f8dab8ba5e8f53ed07a", $this->messageResponse->getId());
