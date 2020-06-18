@@ -9,6 +9,8 @@ namespace Dsc\MercadoLivre\Resources\Order;
 
 use Dsc\MercadoLivre\Resources\ResourceService;
 use Dsc\MercadoLivre\BaseService;
+use Dsc\MercadoLivre\Resources\Feedback\FeedbackPost;
+use Dsc\MercadoLivre\Resources\Feedback\FeedbackResponse;
 
 class OrderService extends BaseService implements ResourceService
 {
@@ -55,6 +57,21 @@ class OrderService extends BaseService implements ResourceService
                 'sort'   => $sort
             ]),
             OrdersList::class
+        );
+    }
+
+    /**
+     * @param FeedbackPost $feedback
+     * @param integer $orderId
+     *
+     * @return FeedbackResponse
+     * @link https://developers.mercadolivre.com.br/pt_br/feedback-de-uma-venda
+     */
+    public function publishFeedback(FeedbackPost $feedback, $orderId)
+    {
+        return $this->getResponse(
+            $this->post("orders/$orderId/feedback", $feedback),
+            FeedbackResponse::class
         );
     }
 }

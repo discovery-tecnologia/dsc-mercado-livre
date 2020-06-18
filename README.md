@@ -15,7 +15,8 @@ Biblioteca de integração com a API do Mercado Livre.
 - Consulta e publicação de anúncios
 - Consulta de pedidos
 - Consulta de pagamentos
-- Envio de mensagens de pós venda para cliente
+- Envio de mensagem de pós venda para cliente
+- Publicando feedback para um pedido
 
 > ### Requisitos
 
@@ -547,7 +548,7 @@ $service = new ShipmentService($meli);
 $shipment = $service->findShipment('SHIPMENT-ID');
 ```
 
-- Envio de mensagens de pós venda para cliente
+- Envio de mensagem de pós venda para cliente
 ```php
 <?php
 // Consideramos que já existe um autoloader compatível com a PSR-4 registrado
@@ -575,8 +576,32 @@ $message->setFrom($from);
 $message->setTo($to);
 $message->setText("Text message");
 
-// Consulta um envio
+// Enviando a mensagem
 $messageResponse = $service->send($message, 'ORDER-ID', 'SELLER-ID');
+```
+
+- Publicando feedback para um pedido
+```php
+<?php
+// Consideramos que já existe um autoloader compatível com a PSR-4 registrado
+
+use Dsc\MercadoLivre\Meli;
+use Dsc\MercadoLivre\Resources\Feedback\FeedbackPost;
+use Dsc\MercadoLivre\Resources\Feedback\Rating;
+use Dsc\MercadoLivre\Resources\Order\OrderService;
+
+$meli = new Meli('APP-ID', 'SECRET-ID');
+
+$service = new OrderService($meli);
+
+// Criando o feedback a ser postado
+$feedback = new FeedbackPost();
+$feedback->setFulfilled(true);
+$feedback->setMessage('Test');
+$feedback->setRating(Rating::POSITIVE);
+
+// Publicando o feedback
+$feedbackResponse = $service->publishFeedback($feedback, 'ORDER-ID');
 ```
 
 > ##### Alterando o site
