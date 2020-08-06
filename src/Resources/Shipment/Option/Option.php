@@ -42,8 +42,8 @@ class Option
     private $listCost;
 
     /**
-     * @var integer
-     * @JMS\Type("integer")
+     * @var double
+     * @JMS\Type("double")
      */
     private $cost;
 
