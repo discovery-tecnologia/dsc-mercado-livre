@@ -12,7 +12,7 @@ class CacheFilesystem extends FilesystemCache implements StorageInterface
      */
     public function set($name, $value)
     {
-        $this->set($name, $value);
+        $this->doSave($name, $value);
         return $this;
     }
 
@@ -22,7 +22,7 @@ class CacheFilesystem extends FilesystemCache implements StorageInterface
      */
     public function has($name)
     {
-        return $this->contains($name);
+        return $this->doContains($name);
     }
 
     /**
@@ -31,7 +31,7 @@ class CacheFilesystem extends FilesystemCache implements StorageInterface
      */
     public function get($name)
     {
-        return $this->fetch($name);
+        return $this->doFetch($name);
     }
 
     /**
@@ -40,7 +40,7 @@ class CacheFilesystem extends FilesystemCache implements StorageInterface
      */
     public function remove($name)
     {
-        $this->remove($name);
+        $this->doDelete($name);
         return $this;
     }
 }
