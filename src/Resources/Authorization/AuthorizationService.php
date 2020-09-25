@@ -128,4 +128,22 @@ class AuthorizationService extends BaseService implements ResourceService
 
         return $accessToken->isValid();
     }
+
+    /**
+     * @doc: https://developers.mercadolivre.com.br/pt_br/autenticacao-e-autorizacao#Refresh-token
+     * @param string $refreshCode
+     * @return string
+     */
+    public function refreshToken(string $refreshCode): string
+    {
+        $meli = $this->getMeli();
+        $data = [
+            'grant_type'    => 'refresh_token',
+            'client_id'     => $meli->getClientId(),
+            'client_secret' => $meli->getClientSecret(),
+            'refresh_token' => $refreshCode,
+        ];
+
+        return $this->getToken($data);
+    }
 }
