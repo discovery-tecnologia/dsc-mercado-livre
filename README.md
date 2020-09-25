@@ -20,7 +20,7 @@ Biblioteca de integração com a API do Mercado Livre.
 
 > ### Requisitos
 
-- PHP 5.6+
+- PHP 5.6+ ou PHP 7+
 - Autoloader compatível com a PSR-4
 
 > ### Dependências
@@ -34,6 +34,7 @@ Biblioteca de integração com a API do Mercado Livre.
 
 Para instalar a biblioteca basta adicioná-la via [composer](https://getcomposer.org/download/)
 
+PHP 5.6+ (versao 1.*)
 ```composer
 composer require dsc/mercado-livre 1.*
 ```
@@ -43,6 +44,19 @@ Ou no composer.json
 ```json
 {
     "dsc/mercado-livre": "1.*"
+}
+```
+
+PHP 7+ (versao 2.*)
+```composer
+composer require dsc/mercado-livre 2.*
+```
+
+Ou no composer.json
+
+```json
+{
+    "dsc/mercado-livre": "2.*"
 }
 ```
 
