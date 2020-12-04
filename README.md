@@ -1,10 +1,10 @@
-# dsc-mercado-livre - Biblioteca de integração com o Mercado Livre
+# Biblioteca de integração com o Mercado Livre (não é a oficial!)
 
 [![Build Status](https://travis-ci.org/discovery-tecnologia/dsc-mercado-livre.svg?branch=master)](http://travis-ci.org/#!/discovery-tecnologia/dsc-mercado-livre)
 [![Packagist](https://img.shields.io/packagist/v/dsc/mercado-livre.svg)](https://github.com/discovery-tecnologia/dsc-mercado-livre)
 [![Hex.pm](https://img.shields.io/hexpm/l/plug.svg?style=flat-square)](https://github.com/discovery-tecnologia/dsc-mercado-livre/blob/master/LICENSE)
 
-Biblioteca de integração com a API do Mercado Livre.
+**Obs: essa lib foi construída pela comunidade, se vc deseja utilizar a biblioteca oficial mantida pelo Mercado Livre** - *[clique aqui](https://github.com/mercadolibre/php-sdk)*
 
 > ### Funcionalidades
 
