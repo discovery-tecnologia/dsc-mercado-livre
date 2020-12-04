@@ -22,7 +22,7 @@ class Client
     const DEFAULT_HEADERS = [
         'headers' => [
             'Content-Type' => 'application/json; charset=UTF-8',
-            'User-Agent'   => 'MELI-PHP-SDK-1.1.0'
+            'User-Agent'   => 'MELI-DSC-SDK'
         ],
         'verify'  => true
     ];
