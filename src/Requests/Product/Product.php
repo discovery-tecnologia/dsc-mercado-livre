@@ -224,6 +224,12 @@ class Product
     private $status;
 
     /**
+     * @var string
+     * @JMS\Type("array")
+     */
+    private $subStatus;
+
+    /**
      * @var \DateTime
      * @JMS\Type("DateTime<'Y-m-d\TH:i:s.u\Z'>")
      */
@@ -921,6 +927,24 @@ class Product
     public function setStatus($status)
     {
         $this->status = $status;
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getSubStatus()
+    {
+        return $this->subStatus;
+    }
+
+    /**
+     * @param string $subStatus
+     * @return Product
+     */
+    public function setSubStatus($subStatus)
+    {
+        $this->subStatus = $subStatus;
         return $this;
     }
 
