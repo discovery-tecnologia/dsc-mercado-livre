@@ -75,18 +75,17 @@ class CategoryService extends Service
     /**
      * @param string $site
      * @param string $title
-     * @return Category
+     * @return Predictor
      */
     public function findCategoryPredictor($site, $title)
     {
         return $this->getResponse(
             $this->get(
-                "/sites/$site/category_predictor/predict",
-                [
-                    "title" => $title
+                "/sites/$site/domain_discovery/search", [
+                    "q" => $title
                 ]
             ),
-            Category::class
+            Predictor::class
         );
     }
 }

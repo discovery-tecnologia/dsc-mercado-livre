@@ -12,9 +12,9 @@ use GuzzleHttp\Psr7\Stream;
 class PredictorTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var Category
+     * @var Collection
      */
-    protected $category;
+    protected $predictors;
 
     protected function setUp()
     {
@@ -31,7 +31,7 @@ class PredictorTest extends \PHPUnit_Framework_TestCase
 
         /** @var CategoryService $service */
         $service = $this->getMockForAbstractClass(CategoryService::class, [$meli, $client]);
-        $this->category = $service->findCategoryPredictor(Site::BRASIL, 'porta');
+        $this->predictors = $service->findCategoryPredictor(Site::BRASIL, 'porta');
     }
 
     /**
@@ -39,34 +39,31 @@ class PredictorTest extends \PHPUnit_Framework_TestCase
      */
     public function assertingCategoryMappingAttributes()
     {
-        $this->assertInstanceOf(Category::class, $this->category);
-        $this->assertEquals("MLB179703", $this->category->getId());
-        $this->assertEquals("Portas", $this->category->getName());
-        $this->assertEmpty($this->category->getPicture());
-        $this->assertEmpty($this->category->getPermalink());
-        $this->assertEmpty($this->category->getTotalItemsInThisCategory());
-        $this->assertInstanceOf(Collection::class, $this->category->getPathFromRoot());
-        $this->assertEmpty($this->category->getChildrenCategories());
-        $this->assertEmpty($this->category->getAttributeTypes());
-        $this->assertEmpty($this->category->getSettings());
-        $this->assertEmpty($this->category->getMetaCategId());
-        $this->assertEmpty($this->category->isAttributable());
+        $this->assertInstanceOf(Collection::class, $this->predictors);
+        $predictor = $this->predictors->first();
+        $this->assertInstanceOf(Predictor::class, $predictor);
+        $this->assertEquals("MLA-CELLPHONES", $predictor->getDomainId());
+        $this->assertEquals("Celulares", $predictor->getDomainName());
+        $this->assertEquals("MLA1055", $predictor->getCategoryId());
+        $this->assertEquals("Celulares y Smartphones", $predictor->getCategoryName());
     }
 
     /**
      * @test
      */
-    public function assertingRootPathCategoryMappingAttributes()
+    public function assertingAttributeCombinationCategoryMappingAttributes()
     {
-        $items = $this->category->getPathFromRoot();
+        $predictor = $this->predictors->first();
+        $items = $predictor->getAttributes();
         $this->assertInstanceOf(Collection::class, $items);
-        $this->assertContainsOnlyInstancesOf(PathFromRoot::class, $items->toArray());
+        $this->assertContainsOnlyInstancesOf(AttributeCombination::class, $items->toArray());
 
         /** @var PathFromRoot $item */
         $item = $items->first();
-        $this->assertInstanceOf(PathFromRoot::class, $item);
-        $this->assertEquals("MLB263532", $item->getId());
-        $this->assertEquals("Ferramentas e Construção", $item->getName());
+        $this->assertInstanceOf(AttributeCombination::class, $item);
+        $this->assertEquals("BRAND", $item->getId());
+        $this->assertEquals("9344", $item->getValueId());
+        $this->assertEquals("Apple", $item->getValueName());
     }
 
     /**
