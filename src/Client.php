@@ -9,6 +9,7 @@ namespace Dsc\MercadoLivre;
 
 use Dsc\MercadoLivre\Handler\HandlerInterface;
 use Dsc\MercadoLivre\Handler\OAuth2ClientHandler;
+use Dsc\MercadoLivre\Resources\Authorization\AuthorizationService;
 use GuzzleHttp\Client as HttpClient;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\HandlerStack;
@@ -44,14 +45,14 @@ class Client
         $handler = $handler ?: new OAuth2ClientHandler($meli);
         $stack->push($handler);
 
-        $accessToken = new AccessToken($meli->getEnvironment()->getConfiguration()->getStorage());
+        $authorization = new AuthorizationService($meli);
 
         $this->client = $client ?: new HttpClient([
             'base_uri'      => $meli->getEnvironment()->getWsHost(),
             'handler'       => $stack,
             'timeout'       => static::TIMEOUT,
             'headers'       => [
-                'Authorization' => 'Bearer ' . $accessToken->getToken()
+                'Authorization' => 'Bearer ' . $authorization->getAccessToken()
             ]
         ]);
     }
