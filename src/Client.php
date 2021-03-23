@@ -44,10 +44,15 @@ class Client
         $handler = $handler ?: new OAuth2ClientHandler($meli);
         $stack->push($handler);
 
+        $accessToken = new AccessToken($meli->getEnvironment()->getConfiguration()->getStorage());
+
         $this->client = $client ?: new HttpClient([
-            'base_uri' => $meli->getEnvironment()->getWsHost(),
-            'handler'  => $stack,
-            'timeout'  => static::TIMEOUT
+            'base_uri'      => $meli->getEnvironment()->getWsHost(),
+            'handler'       => $stack,
+            'timeout'       => static::TIMEOUT,
+            'headers'       => [
+                'Authorization' => 'Bearer ' . $accessToken->getToken()
+            ]
         ]);
     }
 
