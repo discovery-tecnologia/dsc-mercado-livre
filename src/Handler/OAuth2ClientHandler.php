@@ -59,8 +59,12 @@ class OAuth2ClientHandler extends Client implements HandlerInterface
      */
     private function authorize(RequestInterface $request)
     {
-        $storage = $this->meli->getEnvironment()->getConfiguration()->getStorage();
-        $accessToken = new AccessToken($storage);
+        $meli = $this->getMeli();
+        $environment = $meli->getEnvironment();
+        $storage = $environment->getConfiguration()->getStorage();
+        $tenant = $meli->getClientId();
+
+        $accessToken = new AccessToken($storage, $tenant);
         $token = $accessToken->getToken();
         if(! $token) {
             $this->throwNoAuthorizeException();

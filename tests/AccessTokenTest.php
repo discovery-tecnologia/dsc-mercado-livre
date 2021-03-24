@@ -111,4 +111,19 @@ class AccessTokenTest extends \PHPUnit_Framework_TestCase
         $this->accessToken->setExpireIn(time() + 1000);
         $this->assertTrue($this->accessToken->isValid());
     }
+
+    /**
+     * @test
+     */
+    public function returnTrueWhenNotExistsValue()
+    {
+        $meli = $this->createMock(MeliInterface::class);
+        $meli->expects($this->any())
+             ->method('getClientId')
+             ->willReturn('123456789');
+
+        $accessToken = new AccessToken(null, $meli->getClientId());
+        $accessToken->setToken('bar-foo');
+        $this->assertEquals('bar-foo', $accessToken->getToken());
+    }
 }
