@@ -99,7 +99,8 @@ class AuthorizationService extends BaseService implements ResourceService
      */
     private function getToken($data)
     {
-        $environment = $this->getMeli()->getEnvironment(); 
+        $meli = $this->getMeli();
+        $environment = $meli->getEnvironment(); 
         $uri     = $environment->getOAuthUri();
         $storage = $environment->getConfiguration()->getStorage();
 
@@ -108,7 +109,8 @@ class AuthorizationService extends BaseService implements ResourceService
             Authorization::class
         );
 
-        $accessToken = new AccessToken($storage);
+        $tenant = $meli->getClientId();
+        $accessToken = new AccessToken($storage, $tenant);
         $accessToken->setToken($authorization->getAccessToken());
         $accessToken->setRefreshToken($authorization->getRefreshToken());
         $accessToken->setExpireIn($authorization->getExpiresIn());
@@ -121,10 +123,12 @@ class AuthorizationService extends BaseService implements ResourceService
      */
     public function isAuthorized()
     {
-        $meli    = $this->getMeli();
-        $storage = $meli->getEnvironment()->getConfiguration()->getStorage();
+        $meli = $this->getMeli();
+        $environment = $meli->getEnvironment();
+        $storage = $environment->getConfiguration()->getStorage();
 
-        $accessToken = new AccessToken($storage);
+        $tenant = $meli->getClientId();
+        $accessToken = new AccessToken($storage, $tenant);
 
         return $accessToken->isValid();
     }
