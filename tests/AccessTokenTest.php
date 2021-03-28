@@ -115,15 +115,42 @@ class AccessTokenTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function returnTrueWhenNotExistsValue()
+    public function returnAccessTokenCorrectWithOnlyClientID()
     {
         $meli = $this->createMock(MeliInterface::class);
         $meli->expects($this->any())
              ->method('getClientId')
              ->willReturn('123456789');
 
-        $accessToken = new AccessToken(null, $meli->getClientId());
+        $clientId = $meli->getClientId();
+        $userId = $meli->getUserId();
+        $key = $clientId.$userId;
+
+        $accessToken = new AccessToken(null, $key);
         $accessToken->setToken('bar-foo');
         $this->assertEquals('bar-foo', $accessToken->getToken());
+    }
+
+    /**
+     * @test
+     */
+    public function returnAccessTokenCorrectWhenUserIdIsInformed()
+    {
+        $meli = $this->createMock(MeliInterface::class);
+        $meli->expects($this->any())
+             ->method('getClientId')
+             ->willReturn('123456789');
+
+        $meli->expects($this->any())
+             ->method('getUserId')
+             ->willReturn('987');
+
+        $clientId = $meli->getClientId();
+        $userId = $meli->getUserId();
+        $key = $clientId.$userId;
+
+        $accessToken = new AccessToken(null, $key);
+        $accessToken->setToken('bar-foo-user');
+        $this->assertEquals('bar-foo-user', $accessToken->getToken());
     }
 }

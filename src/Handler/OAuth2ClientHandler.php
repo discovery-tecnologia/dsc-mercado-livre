@@ -62,8 +62,8 @@ class OAuth2ClientHandler extends Client implements HandlerInterface
         $meli = $this->getMeli();
         $environment = $meli->getEnvironment();
         $storage = $environment->getConfiguration()->getStorage();
-        $tenant = $meli->getClientId();
 
+        $tenant = $meli->getTenantId();
         $accessToken = new AccessToken($storage, $tenant);
         $token = $accessToken->getToken();
         if(! $token) {
