@@ -18,16 +18,16 @@ class AccessToken
     /**
      * @var string
      */
-    private $tenant;
+    private $key;
 
     /**
      * @param StorageInterface $storage
      * @param string $tenant
      */
-    public function __construct(StorageInterface $storage = null, $tenant = null)
+    public function __construct(StorageInterface $storage = null, $key = null)
     {
         $this->storage = $storage ? $storage : new SessionManager();
-        $this->tenant  = $tenant;
+        $this->key = $key ? sha1($key) : '';
     }
 
     /**
@@ -35,7 +35,7 @@ class AccessToken
      */
     public function getToken()
     {
-        return $this->storage->get(static::TOKEN.$this->tenant);
+        return $this->storage->get(static::TOKEN.$this->key);
     }
 
     /**
@@ -43,7 +43,7 @@ class AccessToken
      */
     public function setToken($token)
     {
-        $this->storage->set(static::TOKEN.$this->tenant, $token);
+        $this->storage->set(static::TOKEN.$this->key, $token);
     }
 
     /**
@@ -51,7 +51,7 @@ class AccessToken
      */
     public function getRefreshToken()
     {
-        return $this->storage->get(static::REFRESH_TOKEN.$this->tenant);
+        return $this->storage->get(static::REFRESH_TOKEN.$this->key);
     }
 
     /**
@@ -59,7 +59,7 @@ class AccessToken
      */
     public function setRefreshToken($refreshToken)
     {
-        $this->storage->set(static::REFRESH_TOKEN.$this->tenant, $refreshToken);
+        $this->storage->set(static::REFRESH_TOKEN.$this->key, $refreshToken);
     }
 
     /**
@@ -67,7 +67,7 @@ class AccessToken
      */
     public function getExpireIn()
     {
-        return $this->storage->get(static::EXPIRE_IN.$this->tenant);
+        return $this->storage->get(static::EXPIRE_IN.$this->key);
     }
 
     /**
@@ -75,7 +75,7 @@ class AccessToken
      */
     public function setExpireIn($expireIn)
     {
-        $this->storage->set(static::EXPIRE_IN.$this->tenant, time() + $expireIn);
+        $this->storage->set(static::EXPIRE_IN.$this->key, time() + $expireIn);
     }
 
     /**
@@ -83,8 +83,8 @@ class AccessToken
      */
     public function isExpired()
     {
-        if($this->storage->has(static::EXPIRE_IN.$this->tenant) &&
-            $this->storage->get(static::EXPIRE_IN.$this->tenant) >= time()) {
+        if($this->storage->has(static::EXPIRE_IN.$this->key) &&
+            $this->storage->get(static::EXPIRE_IN.$this->key) >= time()) {
             return false;
         }
         return true;

@@ -109,7 +109,7 @@ class AuthorizationService extends BaseService implements ResourceService
             Authorization::class
         );
 
-        $tenant = $meli->getClientId();
+        $tenant = $meli->getTenantId();
         $accessToken = new AccessToken($storage, $tenant);
         $accessToken->setToken($authorization->getAccessToken());
         $accessToken->setRefreshToken($authorization->getRefreshToken());
@@ -127,7 +127,7 @@ class AuthorizationService extends BaseService implements ResourceService
         $environment = $meli->getEnvironment();
         $storage = $environment->getConfiguration()->getStorage();
 
-        $tenant = $meli->getClientId();
+        $tenant = $meli->getTenantId();
         $accessToken = new AccessToken($storage, $tenant);
 
         return $accessToken->isValid();

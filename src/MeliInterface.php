@@ -27,6 +27,21 @@ interface MeliInterface
     public function setClientSecret($clientSecret);
 
     /**
+     * @return string
+     */
+    public function getUserId();
+
+    /**
+     * @param string $userId
+     */
+    public function setUserId($userId);
+
+    /**
+     * @return string
+     */
+    public function getTenantId();
+
+    /**
      * @return Environment
      */
     public function getEnvironment();
