@@ -20,6 +20,7 @@ class AuthorizationService extends BaseService implements ResourceService
 {
     /**
      * @param string $redirectUri
+     * @param null $state
      * @return string
      */
     public function getOAuthUrl($redirectUri, $state = null)
