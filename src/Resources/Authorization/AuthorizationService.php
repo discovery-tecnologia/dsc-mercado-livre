@@ -20,18 +20,23 @@ class AuthorizationService extends BaseService implements ResourceService
 {
     /**
      * @param string $redirectUri
+     * @param null $state
      * @return string
      */
-    public function getOAuthUrl($redirectUri)
+    public function getOAuthUrl($redirectUri, $state = null)
     {
         $meli = $this->getMeli();
         $environment = $meli->getEnvironment();
 
+        
         $params = [
             "client_id"     => $meli->getClientId(),
             "response_type" => "code",
             "redirect_uri"  => $redirectUri
         ];
+        if ($state) {
+            $params['state'] = $state;
+        }
         return $environment->getAuthUrl('/authorization') . "?" . http_build_query($params);
     }
 

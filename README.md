@@ -114,6 +114,11 @@ if(isset($_GET['code'])) {
 echo '<br><br><a href="' . $service->getOAuthUrl('https://your-domain/login.php') . '">Login using MercadoLibre oAuth 2.0</a>';
 ```
 
+Caso queira enviar o parâmetro state, é possível fazê-lo, como no exemplo:
+```php
+echo '<br><br><a href="' . $service->getOAuthUrl('https://your-domain/login.php', 'your-state-value') . '">Login using MercadoLibre oAuth 2.0</a>';
+```
+
 > ##### Exemplo de autenticação Server Side
 
 Outra forma de conseguir o AccessToken é realizando a consulta via client_credentials. Esta forma, é recomendada para scripts que rodam em rotinas automáticas (via cron, ou tarefas agendadas). **OBS:** para conseguir utilizar, você precisa ter configurado em sua APP, o **Scope offline access** marcado.
