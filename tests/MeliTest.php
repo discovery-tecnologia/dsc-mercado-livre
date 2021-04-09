@@ -11,6 +11,9 @@ class MeliTest extends \PHPUnit_Framework_TestCase
      */
     public function constructShouldConfigureTheAttributes()
     {
+        /**
+         * @var Environment
+         */
         $environment = $this->getMockForAbstractClass(Environment::class);
 
         $meli = new Meli('client-id', 'client-secret', $environment);
