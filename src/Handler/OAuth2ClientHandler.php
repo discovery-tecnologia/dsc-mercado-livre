@@ -59,7 +59,7 @@ class OAuth2ClientHandler extends Client implements HandlerInterface
      */
     private function authorize(RequestInterface $request)
     {
-        $meli = $this->getMeli();
+        $meli = $this->meli;
         $environment = $meli->getEnvironment();
         $storage = $environment->getConfiguration()->getStorage();
 
