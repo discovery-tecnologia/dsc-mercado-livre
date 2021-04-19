@@ -3,6 +3,7 @@
 
 namespace Dsc\MercadoLivre\Requests\Trends;
 
+use JMS\Serializer\Annotation as JMS;
 
 class Trend
 {
