@@ -60,6 +60,12 @@ class Variation
     private $pictureIds;
 
     /**
+     * @var string
+     * @JMS\Type("string")
+     */
+    private $sellerCustomField ;
+
+    /**
      * Variation constructor.
      */
     public function __construct()
@@ -217,4 +223,24 @@ class Variation
         $this->pictureIds = $pictureIds;
         return $this;
     }
+
+    /**
+     *
+     * @return string
+     */
+    public function getSellerCustomField()
+    {
+        return $this->sellerCustomField;
+    }
+
+    /**
+     * @param string $sellerCustomField
+     * @return Variation
+     */
+    public function setSellerCustomField($sellerCustomField)
+    {
+        $this->sellerCustomField = $sellerCustomField;
+        return $this;
+    }
+
 }
