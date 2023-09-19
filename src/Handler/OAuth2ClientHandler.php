@@ -86,8 +86,8 @@ class OAuth2ClientHandler extends Client implements HandlerInterface
             $token = $authorization->access_token;
         }
         
-        $queryparams = \GuzzleHttp\Psr7\parse_query($request->getUri()->getQuery());
-        $preparedParams = \GuzzleHttp\Psr7\build_query($queryparams);
+        $queryparams = \GuzzleHttp\Psr7\Query::parse($request->getUri()->getQuery());
+        $preparedParams = \GuzzleHttp\Psr7\Query::build($queryparams);
 
         return $request->withHeader('Authorization', "Bearer $token")
                        ->withUri(
